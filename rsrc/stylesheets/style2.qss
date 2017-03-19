@@ -1,0 +1,36 @@
+/* NOT LOADED FOR THE MOMENT */
+
+QToolTip
+{
+    border: 1px solid #3A3939;
+    background-color: rgb(90, 102, 117);;
+    color: white;
+    padding: 1px;
+    opacity: 200;
+}
+
+QMenuBar {
+    background-color: rgb(25, 25, 25); /* same for HomeWidget -> paint event */
+    color: white;
+}
+QMenuBar::item {
+    background: transparent;
+}
+QMenuBar::item:selected { /* when selected using mouse or keyboard */
+    background: #888888 /*#654321;*/
+}
+QMenuBar::item:pressed {
+    background: #888888;
+}
+
+QMenu {
+    background-color: rgb(25, 25, 25);
+    color: white;
+    border: 1px solid black;
+}
+QMenu::item {
+    background-color: transparent;
+}
+QMenu::item:selected { /* when user selects item using mouse or keyboard */
+    background-color: #888888;
+}

@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/">
+        <file>rsrc/icons/languages/de.png</file>
+        <file>rsrc/icons/languages/en.png</file>
+        <file>rsrc/icons/languages/es.png</file>
+        <file>rsrc/icons/languages/fr.png</file>
+        <file>rsrc/logo/heftyAD.png</file>
+        <file>rsrc/shadow/shadow.png</file>
+        <file>rsrc/shadow/shadow_error.png</file>
+        <file>rsrc/shadow/shadow_info.png</file>
+        <file>rsrc/shadow/shadow_warning.png</file>
+        <file>rsrc/icons/simulation/close.png</file>
+        <file>rsrc/icons/simulation/more.png</file>
+        <file>rsrc/icons/simulation/next.png</file>
+        <file>rsrc/icons/simulation/pause.png</file>
+        <file>rsrc/icons/simulation/play.png</file>
+        <file>rsrc/icons/simulation/previous.png</file>
+        <file>rsrc/icons/simulation/restart.png</file>
+        <file>rsrc/icons/simulation/stop.png</file>
+        <file>rsrc/stylesheets/style.qss</file>
+        <file>rsrc/icons/toolbar/curve.png</file>
+        <file>rsrc/icons/toolbar/curve_continuous.png</file>
+        <file>rsrc/icons/toolbar/curve_sourced.png</file>
+        <file>rsrc/icons/toolbar/node.png</file>
+        <file>rsrc/icons/toolbar/remove_item.png</file>
+        <file>rsrc/stylesheets/style2.qss</file>
+    </qresource>
+</RCC>

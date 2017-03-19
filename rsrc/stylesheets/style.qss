@@ -1,0 +1,84 @@
+/*GraphicsView, */ GridGroupBox {
+    border: 1.5px solid gray;
+    border-radius: 2.5px;
+}
+
+GraphicsView {
+    /*selection-background-color: rgba(255, 255, 255, 128);*/
+}
+
+GridGroupBox {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #E0E0E0, stop: 1 #FFFFFF);
+    margin-top: 3ex; /* leave space at the top for the title */
+
+    font: bold italic;
+}
+GridGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left; /* position at the top left */
+    padding: 0 3px;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #FFOECE, stop: 1 #FFFFFF);
+}
+
+PushButton:default, ToolButton:default {
+    border-color: navy; /* make the default button prominent */
+}
+PushButton:hover, ToolButton:hover {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+PushButton:pressed, ToolButton:pressed {
+    background-color: rgb(200,200,200);
+}
+
+ArrayView, GraphView {
+    border: none;
+}
+
+QTabWidget::pane { /* The tab widget frame */
+    border-top: 2px solid #C2C7CB;
+}
+/*QTabWidget::tab-bar*/
+Workspace::tab-bar, SimulationSideWidget>TabWidget::tab-bar {
+    alignment: center;
+}
+WorkspaceWorkContainer::tab-bar {
+    alignment: left;
+}
+
+* {
+    font-family: "Times New Roman"; font-size: 14px;
+}
+CodeEditor, SimulationSimpleConsole {
+    font-family: "Courier";
+}
+
+TextAnimationWidget>QTextEdit {
+    font-size: 21px;
+    background-color: rgb(25,25,25);
+    color: white;
+    border: none;
+}
+WelcomeTextAnimationWidget>PushButton {
+    font-size: 17px;
+}
+
+QProgressBar {
+    border: 2px solid grey;
+    border-radius: 5px;
+}
+QProgressBar::chunk {
+    background-color: #05B8CC;
+}
+
+QToolButton { /* all types of tool button */
+    border: 2px solid #8f8f91;
+    border-radius: 4px;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #f6f7fa, stop: 1 #dadbde);
+}
+QToolButton:checked {
+    background-color: pink;
+}
