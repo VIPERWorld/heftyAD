@@ -259,7 +259,6 @@ HEADERS += \
     src-niceqt/widget/TabWidget.h \
     src-niceqt/widget/TextAnimationWidget.h \
     src-niceqt/widget/TextEdit.h \
-    src-niceqt/widget/ToolButton.h \
     src-niceqt/widget/TreedWidget.h \
     src-niceqt/winframe/BasicMainWindow.h \
     src-niceqt/widget/SectionedWidgetElt.h \
@@ -390,7 +389,6 @@ SOURCES += \
     src-niceqt/widget/TabWidget.cpp \
     src-niceqt/widget/TextAnimationWidget.cpp \
     src-niceqt/widget/TextEdit.cpp \
-    src-niceqt/widget/ToolButton.cpp \
     src-niceqt/widget/TreedWidget.cpp \
     src-niceqt/winframe/BasicMainWindow.cpp \
     src-niceqt/widget/SectionedWidgetElt.cpp \

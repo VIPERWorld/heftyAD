@@ -1,7 +1,7 @@
 #include "ExtraToolBar.h"
-#include "ToolButton.h"
 
 #include <QAction>
+#include <QToolButton>
 
 ExtraToolBar::ExtraToolBar(Qt::Orientation orientation, QWidget *parent)
     : GridWidget(parent),
@@ -41,7 +41,7 @@ void ExtraToolBar::setToolBarActions(const QList<QAction*> &actions)
     for(auto *action : actions) {
         // Create a button
 
-        auto *button = new ToolButton;
+        auto *button = new QToolButton;
         button->setIconSize(QSize(m_iconSize, m_iconSize));
         button->setDefaultAction(action);
         if(action->isSeparator()) {
