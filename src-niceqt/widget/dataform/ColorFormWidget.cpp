@@ -8,6 +8,7 @@ ColorFormWidget::ColorFormWidget(QWidget *parent)
 {
     // Add widgets
 
+    addRow("",      &m_staticColors);
     addRow("rgb",   QWidgetList() << &m_r << &m_g << &m_b, Qt::Horizontal);
     addRow("hsv",   QWidgetList() << &m_h << &m_s << &m_v, Qt::Horizontal);
     addRow("alpha", &m_alpha);
@@ -16,9 +17,12 @@ ColorFormWidget::ColorFormWidget(QWidget *parent)
 
     // Customize widgets
 
-    QList<QLineEdit*> list;
-    list << &m_r << &m_g << &m_b << &m_h << &m_s << &m_v << &m_alpha << &m_visual;
-    for(QLineEdit *edit : list) {
+    m_staticColors.addItem("");
+    m_staticColors.addItems(QColor::colorNames());
+
+    QList<QLineEdit*> lineEdits;
+    lineEdits << &m_r << &m_g << &m_b << &m_h << &m_s << &m_v << &m_alpha << &m_visual;
+    for(QLineEdit *edit : lineEdits) {
         edit->setContextMenuPolicy(Qt::NoContextMenu);
         edit->setAlignment(Qt::AlignCenter);
     }
@@ -50,6 +54,8 @@ ColorFormWidget::ColorFormWidget(QWidget *parent)
 
     connect(this, &ColorFormWidget::colorChanged, this, &ColorFormWidget::onColorChanged);
     //
+    connect(&m_staticColors, &QComboBox::currentTextChanged, this, &ColorFormWidget::onStaticColorChoosed);
+    //
     connect(&m_r, &QLineEdit::textEdited, this, &ColorFormWidget::onRgbEdited);
     connect(&m_g, &QLineEdit::textEdited, this, &ColorFormWidget::onRgbEdited);
     connect(&m_b, &QLineEdit::textEdited, this, &ColorFormWidget::onRgbEdited);
@@ -65,6 +71,7 @@ ColorFormWidget::ColorFormWidget(QWidget *parent)
     setColor(Qt::gray); // set initial color
 }
 
+QColor ColorFormWidget::color() const {return m_color;}
 void ColorFormWidget::setColor(const QColor &color)
 {
     if(color.isValid() && m_color!=color) {
@@ -74,6 +81,24 @@ void ColorFormWidget::setColor(const QColor &color)
 }
 
 void ColorFormWidget::setAdvancedButtonIcon(const QIcon &icon) {m_advanced.setIcon(icon);}
+
+void ColorFormWidget::selectStaticColorsIfNeeded()
+{
+    int matchIndex = -1;
+
+    const int count = m_staticColors.count();
+    for(int i=0; i<count; i++) {
+        const QColor &col = QColor(m_staticColors.itemText(i));
+        if(col.rgb() == m_color.rgb()) { // only consider rgb value, neither hsv nor alpha component
+            matchIndex = i;
+            break;
+        }
+    }
+
+    m_staticColors.blockSignals(true); // block sgnals
+    m_staticColors.setCurrentIndex(matchIndex!=-1 ? matchIndex : 0);
+    m_staticColors.blockSignals(false);
+}
 
 void ColorFormWidget::updateRgbTexts()
 {
@@ -102,9 +127,11 @@ void ColorFormWidget::updateVisual()
                            .arg(m_color.alpha()));
 }
 
-void ColorFormWidget::relevantUpdate()
+void ColorFormWidget::commonUpdate()
 {
     updateVisual();
+    selectStaticColorsIfNeeded();
+
     emit colorEdited();
 }
 
@@ -113,7 +140,15 @@ void ColorFormWidget::onColorChanged()
     updateRgbTexts();
     updateHsvTexts();
     updateAlphaText();
-    relevantUpdate();
+    commonUpdate();
+}
+
+void ColorFormWidget::onStaticColorChoosed()
+{
+    const QString &currText = m_staticColors.currentText();
+    if(!currText.isEmpty()) {
+        setColor(QColor(currText));
+    }
 }
 
 void ColorFormWidget::onRgbEdited()
@@ -123,7 +158,7 @@ void ColorFormWidget::onRgbEdited()
     m_color.setBlue(QVariant(m_b.text()).toInt());
 
     updateHsvTexts();
-    relevantUpdate();
+    commonUpdate();
 }
 
 void ColorFormWidget::onHsvEdited()
@@ -134,13 +169,13 @@ void ColorFormWidget::onHsvEdited()
     m_color.setHsv(h, s, v, m_color.alpha());
 
     updateRgbTexts();
-    relevantUpdate();
+    commonUpdate();
 }
 
 void ColorFormWidget::onAlphaEdited()
 {
     m_color.setAlpha(QVariant(m_alpha.text()).toInt());
-    relevantUpdate();
+    commonUpdate();
 }
 
 void ColorFormWidget::onAdvancedButtonPressed()

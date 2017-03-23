@@ -18,9 +18,32 @@ FormWidget::~FormWidget()
 
 QFormLayout* FormWidget::formLayout() const {return const_cast<QFormLayout*>(&m_layout);}
 
+void FormWidget::addRow(QWidget *label, QWidget *field) {m_layout.addRow(label, field);}
+void FormWidget::addRow(QWidget *label, QLayout *field) {m_layout.addRow(label, field);}
 void FormWidget::addRow(const QString &labelText, QWidget *field) {m_layout.addRow(labelText, field);}
 void FormWidget::addRow(const QString &labelText, QLayout *field) {m_layout.addRow(labelText, field);}
-void FormWidget::addRow(const QString &labelText, const QWidgetList &fields, Qt::Orientation orient, int spacing)
+void FormWidget::addRow(QWidget *widget) {m_layout.addRow(widget);}
+void FormWidget::addRow(QLayout *layout) {m_layout.addRow(layout);}
+
+void FormWidget::addRow(QWidget *label, const QWidgetList &fields, Qt::Orientation orient, int spacing, int margin)
+{
+    QLayout *layout = newLayout(fields, orient, spacing, margin);
+    addRow(label, layout);
+}
+
+void FormWidget::addRow(const QString &labelText, const QWidgetList &fields, Qt::Orientation orient, int spacing, int margin)
+{
+    QLayout *layout = newLayout(fields, orient, spacing, margin);
+    addRow(labelText, layout);
+}
+
+void FormWidget::addRow(const QWidgetList &widgets, Qt::Orientation orient, int spacing, int margin)
+{
+    QLayout *layout = newLayout(widgets, orient, spacing, margin);
+    addRow(layout);
+}
+
+QLayout* FormWidget::newLayout(const QWidgetList &widgets, Qt::Orientation orient, int spacing, int margin)
 {
     int dir = -1; // just to avoid a "variable used uninitialized" warning
     switch(orient) {
@@ -29,19 +52,20 @@ void FormWidget::addRow(const QString &labelText, const QWidgetList &fields, Qt:
     }
 
     QLayout *layout = new QBoxLayout((QBoxLayout::Direction)dir);
+    m_newedLayouts << layout;
+    for(QWidget *w : widgets) {
+        layout->addWidget(w);
+    }
+
     if(spacing >= 0) {
         layout->setSpacing(spacing);
     }
-    m_newedLayouts << layout;
-    for(QWidget *widget : fields) {
-        layout->addWidget(widget);
+    if(margin >= 0) {
+        layout->setMargin(margin);
     }
 
-    addRow(labelText, layout);
+    return layout;
 }
-
-void FormWidget::addRow(QWidget *widget) {m_layout.addRow(widget);}
-void FormWidget::addRow(QLayout *layout) {m_layout.addRow(layout);}
 
 void FormWidget::clear()
 {

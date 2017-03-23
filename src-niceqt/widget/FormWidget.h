@@ -18,12 +18,18 @@ public:
 
     QFormLayout* formLayout() const;
 
+    void addRow(QWidget *label, QWidget *field);
+    void addRow(QWidget *label, QLayout *field);
     void addRow(const QString &labelText, QWidget *field);
     void addRow(const QString &labelText, QLayout *field);
-    void addRow(const QString &labelText, const QWidgetList &fields, Qt::Orientation orient, int spacing = -1);
-
     void addRow(QWidget *widget);
     void addRow(QLayout *layout);
+
+    void addRow(QWidget *label,           const QWidgetList &fields,  Qt::Orientation orient, int spacing = -1, int margin = -1);
+    void addRow(const QString &labelText, const QWidgetList &fields,  Qt::Orientation orient, int spacing = -1, int margin = -1);
+    void addRow(                          const QWidgetList &widgets, Qt::Orientation orient, int spacing = -1, int margin = -1);
+
+    QLayout* newLayout(                   const QWidgetList &widgets, Qt::Orientation orient, int spacing = -1, int margin = -1);
 
     /**
      * Clears the inner layout of this widget.

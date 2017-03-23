@@ -70,7 +70,7 @@ I have been working on heftyAD since march/april 2015. By the end of august the 
 
 ## Back to zero
 
-But despite all these features, I restarted the project from scratch at the end of the year (december 2015). Indeed even if the first version works, I wrote/designed it while I was learning Qt and C++. So the code was quite ugly and wasn't meant to be shared. Moreover, the software suffered from several imperfections:
+But despite all these features, I restarted the project from scratch at the end of the year (december 2015). Indeed even if the first version works, I wrote/designed it while I was learning Qt and C++. So the source code was quite ugly and wasn't meant to be shared. Moreover, the software suffered from several imperfections:
 - it doesn't provide the multi-open feature (many instances of the software should be launched)
 - only one algorithm is provided and the user can't create his/her own algorithms
 - no way to curve the edges within a graph

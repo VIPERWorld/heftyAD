@@ -43,7 +43,7 @@ protected:
             QAction *m_minimize_pauseDuration;
     PushButton m_fullScreen;
     QProgressBar m_progressBar;
-    QLCDNumber m_accelerationLCD; QSlider m_acceleration;
+    QSlider m_acceleration; QLCDNumber m_accelerationLCD;
 
     QStateMachine m_stateMachine; // state machines
         QState m_state_init;

@@ -267,7 +267,8 @@ HEADERS += \
     src-niceqt/widget/dataform/BrushFormWidget.h \
     src-niceqt/widget/dataform/ColorFormWidget.h \
     src-niceqt/widget/dataform/PixmapFormWidget.h \
-    src-niceqt/widget/dataform/GradientFormWidget.h
+    src-niceqt/widget/dataform/GradientFormWidget.h \
+    src-niceqt/widget/TabStackWidget.h
 
 SOURCES += \
     src-heftyad/algorithm/basis/Iterable.cpp \
@@ -397,7 +398,8 @@ SOURCES += \
     src-niceqt/widget/dataform/BrushFormWidget.cpp \
     src-niceqt/widget/dataform/ColorFormWidget.cpp \
     src-niceqt/widget/dataform/PixmapFormWidget.cpp \
-    src-niceqt/widget/dataform/GradientFormWidget.cpp
+    src-niceqt/widget/dataform/GradientFormWidget.cpp \
+    src-niceqt/widget/TabStackWidget.cpp
     src-niceqt/widget/SectionedWidget.cpp
 
 DISTFILES += \
