@@ -1,6 +1,7 @@
 #ifndef TABSTACKWIDGET_H
 #define TABSTACKWIDGET_H
 
+#include <QCheckBox>
 #include <QComboBox>
 #include <QStackedWidget>
 #include <QVBoxLayout>
@@ -40,6 +41,8 @@ private:
     Mode m_mode;
 
     QVBoxLayout m_layout;
+        QCheckBox m_modeSwitcher;
+        //
         QComboBox m_comboBox;
         QStackedWidget m_stack;
         //
@@ -50,6 +53,9 @@ public:
 
     TabStackWidget::Mode mode() const;
     void setMode(TabStackWidget::Mode mode);
+
+    void setModeSwitcherVisible(bool visible);
+    void setModeSwitcherEnabled(bool enabled);
 
     void setTabWidget(QTabWidget *tab);
 

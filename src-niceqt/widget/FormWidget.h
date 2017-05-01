@@ -37,8 +37,9 @@ public:
      *     removes all QLayoutItem* items from the inner layout
      *     and deletes them.
      * Widgets are not deleted so they can be added back using addRow.
+     * But layouts are deleted so any previously added layout no more exists.
      *
-     * When iterating through items, if a label happens to be a widget of an inner item,
+     * When iterating through items, if a label happens to be the widget of an inner item,
      * that is item->widget() is a QLabel, then the text of that label is set to "".
      * So if a label is added to this form, label->text() will return
      * an empty string after a call to this function.
@@ -46,9 +47,11 @@ public:
      * This function is useful when dealing with translation,
      * especially when you want "behind scene" labels to be translated.
      * Here is a snippet which could be taken as a guide:
+     *     // create form
+     *
      *     FormWidget form;
      *
-     *     // simulate translation
+     *     // now simulate translation
      *
      *     form.clear(); // removes items (if any)
      *     form.addRow(tr("Name"), nameTextEdit);

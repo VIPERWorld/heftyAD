@@ -29,6 +29,10 @@ public:
     void setPixmap(const QString &filePath);
 
     QString filePath() const;
+    /**
+     * Returns the pixmap one sees on the screen.
+     * The returned value may differ from the one returned by pixmap(), since the pixmap can be scaled.
+     */
     QPixmap visualPixmap() const;
 
     QToolButton* chooseButton() const;
@@ -40,15 +44,24 @@ public:
     void setClearButtonIcon(const QIcon &icon);
     void setLineEditPlaceholder(const QString &text);
 
+protected:
+    void changePixmap(const QPixmap &pixmap, bool emitPixmapEdited);
+    void changePixmap(const QString &filePath, bool emitPixmapEdited);
+
 private:
-    void changePixmap(const QPixmap &pixmap);
+    void usePixmap(const QPixmap &pixmap, bool emitPixmapEdited);
 
 signals:
+    /**
+     * This signal is emitted whenever the pixmap changes, even programmatically.
+     */
     void pixmapChanged();
+    /**
+     * This signal is emitted whenever the color is edited (i.e. whenever it changes excluded programmatically).
+     */
+    void pixmapEdited();
 
 private slots:
-    void onPixmapChanged();
-
     void onChooseButtonPressed();
     void onClearButtonPressed();
     void onSliderValueChanged();

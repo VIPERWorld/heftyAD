@@ -81,16 +81,17 @@ QString BasicLanguagePicker::languageLastlySaved() const
 QStringList BasicLanguagePicker::iconFilePaths() const
 {
     QStringList list;
+
+    const QString &ext("."+m_iconFileType); // extension
     QDirIterator it(m_iconDir);
     while(it.hasNext()) {
         QString s = it.next();
-        if(s.endsWith(".") || s.endsWith("..")) {
-            continue;
+        if(s!="." && s!=".." && s.endsWith(ext)) {
+            list << s;
         }
-        list << s;
     }
 
-    return list.filter("."+m_iconFileType);
+    return list;
 }
 
 void BasicLanguagePicker::saveCurrentLangage()
@@ -127,7 +128,6 @@ void BasicLanguagePicker::deleteMenuActions()
     for(QAction *action : m_menu.actions()) {
         m_menu.removeAction(action);
         delete action;
-        action = nullptr;
     }
 }
 
@@ -135,18 +135,18 @@ bool BasicLanguagePicker::installLangage(const QString &lang)
 {
     qApp->removeTranslator(&m_translator); // First remove the current translator
 
-    const QString &qmDir (m_qmFileDir);
-    const QString &qmFile(m_qmFileBaseName+"_"+lang+".qm");
+    const QString &qmDir     (m_qmFileDir);
+    const QString &qmFileBase(m_qmFileBaseName+"_"+lang);
 
-    const bool failToLoadQmFile = !m_translator.load(qmFile, qmDir);
+    const bool failToLoadQmFile = !m_translator.load(qmFileBase, qmDir);
     const bool languageToInstallIDiffersFromTheSourceLanguage = lang.compare(m_translationSource)!=0;
 
     if(failToLoadQmFile && languageToInstallIDiffersFromTheSourceLanguage) {
         // Make sure error message is displayed in the current langage
-        m_translator.load(m_qmFileBaseName+"_"+m_currLang+".qm", qmDir);
+        m_translator.load(m_qmFileBaseName+"_"+m_currLang, qmDir);
         qApp->installTranslator(&m_translator);
 
-        handleInstallationError(qmFile, qmDir);
+        handleInstallationError(qmFileBase+".qm", qmDir);
         return false;
     }
 

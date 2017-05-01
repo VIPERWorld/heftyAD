@@ -60,6 +60,13 @@ View* View::withModel(Model *model)
 
 QRectF View::modelCoverage() const {return m_model ? m_model->coverage() : sceneRect();}
 
+void View::setModelBackgroundBrush(const QBrush &brush)
+{
+    if(m_model) {
+        m_model->setBackgroundBrush(brush);
+    }
+}
+
 QList<QAction*> View::toolBarActions() const
 {
     QList<QAction*> retVal = modelRelatedActions();

@@ -16,8 +16,9 @@ private:
 
     // model widgets
 
-    FormWidget m_arrayForm;
-        QLineEdit m_arraySpacing;
+    SectionedWidgetElt *m_arraySection;
+        FormWidget m_arrayForm;
+            QLineEdit m_arraySpacing;
 
     // item widgets
 

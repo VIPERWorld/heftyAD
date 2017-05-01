@@ -15,7 +15,7 @@ SectionedWidgetEltBar::SectionedWidgetEltBar(QWidget *parent)
      * But of course you're not limited to those.
      */
     //setStyleSheet("background-color: rgb(105,124,92); font-weight: bold;");
-    //setStyleSheet("background-color: rgb(83,103,93); font-weight: bold;");
+    //setStyleSheet("background-color: rgb( 83,103,93); font-weight: bold;");
 }
 
 void SectionedWidgetEltBar::setIndicatorBrush(const QBrush &brush) {m_indicatorBrush = brush;}

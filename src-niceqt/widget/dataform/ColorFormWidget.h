@@ -28,27 +28,27 @@ public:
     void setColor(const QColor &color);
 
     void setAdvancedButtonIcon(const QIcon &icon);
+    void setAdvancedButtonVisible(bool visible);
+
+protected:
+    void changeColor(const QColor &color, bool emitColorEdited);
 
 private:
-    void selectStaticColorsIfNeeded();
-
     void updateRgbTexts();
     void updateHsvTexts();
     void updateAlphaText();
     void updateVisual();
-    void commonUpdate();
+
+    void commonUpdate(bool emitColorEdited);
+    void selectStaticColorIfNeeded();
 
 signals:
     /**
-     * This signal is emitted whenever setColor successfully changes the color.
-     * Unlike colorEdited(), this signal is not emitted when the user initiates an edition,
-     * unless that edition involves the color picker dialog or the static colors combobox.
+     * This signal is emitted whenever the color changes, even programmatically.
      */
     void colorChanged();
     /**
-     * This signal is emitted whenever the content of a field changes:
-     *     either because setColor successfully changes the color
-     *     or because the user initiates an edition.
+     * This signal is emitted whenever the color is edited (i.e. whenever it changes excluded programmatically).
      */
     void colorEdited();
 
@@ -57,8 +57,6 @@ signals:
     void alphaEdited();
 
 private slots:
-    void onColorChanged();
-
     void onStaticColorChoosed();
     void onRgbEdited();
     void onHsvEdited();

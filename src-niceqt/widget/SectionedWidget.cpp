@@ -2,24 +2,29 @@
 #include "SectionedWidgetElt.h"
 
 SectionedWidget::SectionedWidget(QWidget *parent)
-    : QWidget(parent),
-      m_row(-1),
-      m_col(-1)
+    : QWidget(parent)
 {
+    resetRow();
+
     setLayout(&m_layout);
     m_layout.setMargin(0);
     m_layout.setSpacing(0);
+    /*
+     * widgets are stacked on top;
+     * useful especially when all sections are closed.
+     */
+    m_layout.setAlignment(Qt::AlignTop);
 }
 
 SectionedWidgetElt* SectionedWidget::addSection()
 {
     auto *section = new SectionedWidgetElt;
     m_sections.append(section);
-    m_layout.addWidget(section, ++m_row, ++m_col);
+    m_layout.addWidget(section, m_row++, 0);
 
     /*
-     * widgets are stacked on the top;
-     * useful especially when sections are unrolled (opened)
+     * Ensures that when a section is opened,
+     * the sections beneath it aren't moved too far below.
      */
     m_layout.setAlignment(section, Qt::AlignTop);
 
@@ -36,5 +41,10 @@ void SectionedWidget::removeSections()
         delete section;
     }
 
-    m_row = m_col = -1; // reset values
+    resetRow(); // reset values
+}
+
+void SectionedWidget::resetRow()
+{
+    m_row = 0;
 }

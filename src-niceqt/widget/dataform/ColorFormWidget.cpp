@@ -52,8 +52,6 @@ ColorFormWidget::ColorFormWidget(QWidget *parent)
 
     // Register signals/slots connections
 
-    connect(this, &ColorFormWidget::colorChanged, this, &ColorFormWidget::onColorChanged);
-    //
     connect(&m_staticColors, &QComboBox::currentTextChanged, this, &ColorFormWidget::onStaticColorChoosed);
     //
     connect(&m_r, &QLineEdit::textEdited, this, &ColorFormWidget::onRgbEdited);
@@ -72,32 +70,21 @@ ColorFormWidget::ColorFormWidget(QWidget *parent)
 }
 
 QColor ColorFormWidget::color() const {return m_color;}
-void ColorFormWidget::setColor(const QColor &color)
+void ColorFormWidget::setColor(const QColor &color) {changeColor(color, false);}
+
+void ColorFormWidget::setAdvancedButtonIcon(const QIcon &icon) {m_advanced.setIcon(icon);}
+void ColorFormWidget::setAdvancedButtonVisible(bool visible) {m_advanced.setVisible(visible);}
+
+void ColorFormWidget::changeColor(const QColor &color, bool emitColorEdited)
 {
     if(color.isValid() && m_color!=color) {
         m_color = color;
-        emit colorChanged();
+
+        updateRgbTexts();
+        updateHsvTexts();
+        updateAlphaText();
+        commonUpdate(emitColorEdited);
     }
-}
-
-void ColorFormWidget::setAdvancedButtonIcon(const QIcon &icon) {m_advanced.setIcon(icon);}
-
-void ColorFormWidget::selectStaticColorsIfNeeded()
-{
-    int matchIndex = -1;
-
-    const int count = m_staticColors.count();
-    for(int i=0; i<count; i++) {
-        const QColor &col = QColor(m_staticColors.itemText(i));
-        if(col.rgb() == m_color.rgb()) { // only consider rgb value, neither hsv nor alpha component
-            matchIndex = i;
-            break;
-        }
-    }
-
-    m_staticColors.blockSignals(true); // block sgnals
-    m_staticColors.setCurrentIndex(matchIndex!=-1 ? matchIndex : 0);
-    m_staticColors.blockSignals(false);
 }
 
 void ColorFormWidget::updateRgbTexts()
@@ -127,27 +114,42 @@ void ColorFormWidget::updateVisual()
                            .arg(m_color.alpha()));
 }
 
-void ColorFormWidget::commonUpdate()
+void ColorFormWidget::commonUpdate(bool emitColorEdited)
 {
     updateVisual();
-    selectStaticColorsIfNeeded();
+    selectStaticColorIfNeeded();
 
-    emit colorEdited();
+    if(emitColorEdited) { // not mandatory but we emit the color edited signal first
+        emit colorEdited();
+    }
+    emit colorChanged();
 }
 
-void ColorFormWidget::onColorChanged()
+void ColorFormWidget::selectStaticColorIfNeeded()
 {
-    updateRgbTexts();
-    updateHsvTexts();
-    updateAlphaText();
-    commonUpdate();
+    int matchIndex = -1;
+
+    const int count = m_staticColors.count();
+    for(int i=1; i<count; i++) {
+        const QColor &col = QColor(m_staticColors.itemText(i));
+        if(col.rgb() == m_color.rgb()) { // only consider rgb value (neither hsv value nor alpha component)
+            matchIndex = i;
+            break;
+        }
+    }
+
+    const bool b = m_staticColors.blockSignals(true);
+    m_staticColors.setCurrentIndex(matchIndex!=-1 ? matchIndex : 0);
+    m_staticColors.blockSignals(b);
 }
 
 void ColorFormWidget::onStaticColorChoosed()
 {
     const QString &currText = m_staticColors.currentText();
     if(!currText.isEmpty()) {
-        setColor(QColor(currText));
+        QColor col = QColor(currText);
+        col.setAlpha(m_color.alpha()); // we use the current alpha value
+        changeColor(col, true);
     }
 }
 
@@ -158,7 +160,7 @@ void ColorFormWidget::onRgbEdited()
     m_color.setBlue(QVariant(m_b.text()).toInt());
 
     updateHsvTexts();
-    commonUpdate();
+    commonUpdate(true);
 }
 
 void ColorFormWidget::onHsvEdited()
@@ -169,17 +171,23 @@ void ColorFormWidget::onHsvEdited()
     m_color.setHsv(h, s, v, m_color.alpha());
 
     updateRgbTexts();
-    commonUpdate();
+    commonUpdate(true);
 }
 
 void ColorFormWidget::onAlphaEdited()
 {
     m_color.setAlpha(QVariant(m_alpha.text()).toInt());
-    commonUpdate();
+    commonUpdate(true);
 }
 
 void ColorFormWidget::onAdvancedButtonPressed()
 {
-    const QColor color = QColorDialog::getColor(m_color, this, "", QColorDialog::ShowAlphaChannel);
-    setColor(color);
+    /*
+     * We didn't pass QColorDialog::ShowAlphaChannel as argument because,
+     * even if the right color (using the right alpha channel) is returned when a color is accepted (choosen),
+     * the color shown by the dialog is always the one with alpha channel 255.
+     */
+    QColor color = QColorDialog::getColor(m_color, this, "");
+    color.setAlpha(m_color.alpha()); // just to use old alpha value (since alpha channel isn't shown by the dialog)
+    changeColor(color, true);
 }

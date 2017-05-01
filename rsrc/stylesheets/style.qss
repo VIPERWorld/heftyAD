@@ -1,42 +1,3 @@
-/*GraphicsView, */ GridGroupBox {
-    border: 1.5px solid gray;
-    border-radius: 2.5px;
-}
-
-GraphicsView {
-    /*selection-background-color: rgba(255, 255, 255, 128);*/
-}
-
-GridGroupBox {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #E0E0E0, stop: 1 #FFFFFF);
-    margin-top: 3ex; /* leave space at the top for the title */
-
-    font: bold italic;
-}
-GridGroupBox::title {
-    subcontrol-origin: margin;
-    subcontrol-position: top left; /* position at the top left */
-    padding: 0 3px;
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #FFOECE, stop: 1 #FFFFFF);
-}
-
-ArrayView, GraphView {
-    border: none;
-}
-
-QTabWidget::pane { /* The tab widget frame */
-    border-top: 2px solid #C2C7CB;
-}
-/*QTabWidget::tab-bar*/
-Workspace::tab-bar, SimulationSideWidget>TabWidget::tab-bar {
-    alignment: center;
-}
-WorkspaceWorkContainer::tab-bar {
-    alignment: left;
-}
-
 * {
     font-family: "Times New Roman"; font-size: 14px;
 }
@@ -80,9 +41,47 @@ QToolButton:checked {
     background-color: pink;
 }
 
+SectionedWidgetEltBar, SectionedWidgetEltBar:hover {
+    background-color: rgb(87,124,92);
+}
+
 /*
- * Progress bar
- * ============
+ * Graphics views
+ * ==============
+ */
+
+GraphicsView {
+    /*selection-background-color: rgba(255, 255, 255, 128);*/
+}
+
+ArrayView, GraphView {
+    border: none;
+}
+
+/*
+ * Group boxes
+ * ===========
+ */
+
+GridGroupBox {
+    border: 1.5px solid gray;
+    border-radius: 2.5px;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #E0E0E0, stop: 1 #FFFFFF);
+    margin-top: 3ex; /* leave space at the top for the title */
+    font: bold italic;
+}
+GridGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left; /* position at the top left */
+    padding: 0 3px;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #FFOECE, stop: 1 #FFFFFF);
+}
+
+/*
+ * Progress bars
+ * =============
  */
 
 QProgressBar {
@@ -91,4 +90,20 @@ QProgressBar {
 }
 QProgressBar::chunk {
     background-color: #05B8CC;
+}
+
+/*
+ * Tab widgets
+ * ===========
+ */
+
+QTabWidget::pane { /* The tab widget frame */
+    border-top: 2px solid #C2C7CB;
+}
+/*QTabWidget::tab-bar*/
+Workspace::tab-bar, SimulationSideWidget>TabWidget::tab-bar {
+    alignment: center;
+}
+WorkspaceWorkContainer::tab-bar {
+    alignment: left;
 }

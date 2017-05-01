@@ -24,8 +24,6 @@ PixmapFormWidget::PixmapFormWidget(QWidget *parent)
     //
     m_visual.setAlignment(Qt::AlignCenter);
 
-    connect(this, &PixmapFormWidget::pixmapChanged, this, &PixmapFormWidget::onPixmapChanged);
-    //
     connect(&m_choose, &QToolButton::pressed,  this, &PixmapFormWidget::onChooseButtonPressed);
     connect(&m_clear,  &QToolButton::pressed,  this, &PixmapFormWidget::onClearButtonPressed);
     connect(&m_slider, &QSlider::valueChanged, this, &PixmapFormWidget::onSliderValueChanged);
@@ -34,20 +32,8 @@ PixmapFormWidget::PixmapFormWidget(QWidget *parent)
 }
 
 QPixmap PixmapFormWidget::pixmap() const {return m_pixmap;}
-
-void PixmapFormWidget::setPixmap(const QPixmap &pixmap)
-{
-    m_filePath = "";
-    changePixmap(pixmap);
-}
-
-void PixmapFormWidget::setPixmap(const QString &filePath)
-{
-    if(m_filePath != filePath) {
-        m_filePath = filePath;
-        changePixmap(QPixmap(filePath));
-    }
-}
+void PixmapFormWidget::setPixmap(const QPixmap &pixmap) {changePixmap(pixmap, false);}
+void PixmapFormWidget::setPixmap(const QString &filePath) {changePixmap(filePath, false);}
 
 QString PixmapFormWidget::filePath() const {return m_filePath;}
 QPixmap PixmapFormWidget::visualPixmap() const {return m_visual.pixmap() ? *m_visual.pixmap() : QPixmap();}
@@ -60,36 +46,50 @@ void PixmapFormWidget::setChooseButtonIcon(const QIcon &icon) {m_choose.setIcon(
 void PixmapFormWidget::setClearButtonIcon(const QIcon &icon) {m_clear.setIcon(icon);}
 void PixmapFormWidget::setLineEditPlaceholder(const QString &text) {m_lineEdit.setPlaceholderText(text);}
 
-void PixmapFormWidget::changePixmap(const QPixmap &pixmap)
+void PixmapFormWidget::changePixmap(const QPixmap &pixmap, bool emitPixmapEdited)
 {
-    m_pixmap = pixmap;
-    emit pixmapChanged();
+    m_filePath = "";
+    usePixmap(pixmap, emitPixmapEdited);
 }
 
-void PixmapFormWidget::onPixmapChanged()
+void PixmapFormWidget::changePixmap(const QString &filePath, bool emitPixmapEdited)
 {
+    /*
+     * We don't check wether m_filePath != filePath since a filepath describing an image img1 at a given time
+     * may later refer to another image img2 (after renaming, deletion, etc).
+     */
+    m_filePath = filePath;
+    usePixmap(QPixmap(m_filePath), emitPixmapEdited);
+}
+
+void PixmapFormWidget::usePixmap(const QPixmap &pixmap, bool emitPixmapEdited)
+{
+    m_pixmap = pixmap;
+
     m_lineEdit.setText(m_filePath);
     m_lineEdit.setToolTip(m_filePath);
     onSliderValueChanged();
+
+    if(emitPixmapEdited) { // not mandatory but we emit the pixmap edited signal first
+        emit pixmapEdited();
+    }
+    emit pixmapChanged();
 }
 
 void PixmapFormWidget::onChooseButtonPressed()
 {
     QStringList filters;
-    for(QByteArray b : QImageReader::supportedImageFormats()) {
+    for(const QByteArray &b : QImageReader::supportedImageFormats()) {
         filters << "*."+QString(b);
     }
 
     const QString &filePath = QFileDialog::getOpenFileName(this, "", "", filters.join(" "));
-    if(!filePath.isEmpty()) {
-        setPixmap(filePath);
+    if(!filePath.isEmpty()) { // make sure a path was choosen
+        changePixmap(filePath, true);
     }
 }
 
-void PixmapFormWidget::onClearButtonPressed()
-{
-    setPixmap(QPixmap()); // We use that form since setPixmap("") will not work if the pixmapFilePath() is already empty
-}
+void PixmapFormWidget::onClearButtonPressed() {changePixmap("", true);}
 
 void PixmapFormWidget::onSliderValueChanged()
 {

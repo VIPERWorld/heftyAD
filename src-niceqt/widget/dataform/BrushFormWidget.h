@@ -19,9 +19,14 @@ private:
 public:
     explicit BrushFormWidget(QWidget *parent = 0);
 
+    QBrush brush() const;
+    void setBrush(const QBrush &brush);
+
     void setFormTitles(const QString &color, const QString &gradient, const QString &pixmap);
 
 signals:
+    void brushChanged();
+    void brushEdited();
 
 public slots:
 };

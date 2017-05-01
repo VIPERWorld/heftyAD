@@ -8,7 +8,12 @@ TabStackWidget::TabStackWidget(QWidget *parent)
       m_tab(nullptr)
 {
     setLayout(&m_layout);
+    addWidget(&m_modeSwitcher);
+    m_modeSwitcher.setText("Stacked");
 
+    connect(&m_modeSwitcher, &QCheckBox::toggled, [this](bool checked) {
+        setMode(checked ? Stacked : Tabbed);
+    });
     connect(&m_comboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), [=](int index) {
         m_stack.setCurrentIndex(index);
     });
@@ -25,6 +30,9 @@ void TabStackWidget::setMode(TabStackWidget::Mode mode)
         emit modeChanged();
     }
 }
+
+void TabStackWidget::setModeSwitcherVisible(bool visible) {m_modeSwitcher.setVisible(visible);}
+void TabStackWidget::setModeSwitcherEnabled(bool enabled) {m_modeSwitcher.setEnabled(enabled);}
 
 void TabStackWidget::setTabWidget(QTabWidget *tab)
 {
@@ -109,7 +117,7 @@ void TabStackWidget::addWidget(QWidget *widget)
 
 void TabStackWidget::onModeChanged()
 {
-    // remove all widgets
+    // remove all widgets but mode switcher
 
     removeWidget(m_tab);
     removeWidget(&m_comboBox);
@@ -129,4 +137,10 @@ void TabStackWidget::onModeChanged()
         moveContentToTab();
         break;
     }
+
+    // finally check mode switcher if needed
+
+    const bool b = m_modeSwitcher.blockSignals(true);
+    m_modeSwitcher.setChecked(m_mode == Stacked);
+    m_modeSwitcher.blockSignals(b);
 }

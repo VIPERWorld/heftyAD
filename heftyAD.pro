@@ -33,6 +33,14 @@ win32 {
 RESOURCES += \
     heftyAD.qrc
 
+TRANSLATIONS += \
+    heftyAD_de.ts \
+    heftyAD_en.ts \
+    heftyAD_es.ts
+
+DISTFILES += \
+    tools/copySharedLibs.bat \
+
 INCLUDEPATH += \
     src-libs \
     src-libs/nicecpp \
@@ -268,7 +276,16 @@ HEADERS += \
     src-niceqt/widget/dataform/ColorFormWidget.h \
     src-niceqt/widget/dataform/PixmapFormWidget.h \
     src-niceqt/widget/dataform/GradientFormWidget.h \
-    src-niceqt/widget/TabStackWidget.h
+    src-niceqt/widget/TabStackWidget.h \
+    src-heftyad/model/viewform/item/BasicItemForm.h \
+    src-heftyad/model/viewform/item/ShapedItemForm.h \
+    src-heftyad/model/viewform/item/CurvedItemForm.h \
+    src-niceqt/widget/dataform/PenFormWidget.h \
+    src-niceqt/widget/dataform/FontFormWidget.h \
+    src-heftyad/model/viewform/item/ItemForm.h \
+    src-heftyad/model/viewform/item/BrushedItemForm.h \
+    src-heftyad/model/viewform/item/PenedItemForm.h \
+    src-heftyad/model/viewform/item/FontedItemForm.h
 
 SOURCES += \
     src-heftyad/algorithm/basis/Iterable.cpp \
@@ -399,8 +416,14 @@ SOURCES += \
     src-niceqt/widget/dataform/ColorFormWidget.cpp \
     src-niceqt/widget/dataform/PixmapFormWidget.cpp \
     src-niceqt/widget/dataform/GradientFormWidget.cpp \
-    src-niceqt/widget/TabStackWidget.cpp
+    src-niceqt/widget/TabStackWidget.cpp \
+    src-heftyad/model/viewform/item/BasicItemForm.cpp \
+    src-heftyad/model/viewform/item/ShapedItemForm.cpp \
+    src-heftyad/model/viewform/item/CurvedItemForm.cpp \
+    src-niceqt/widget/dataform/PenFormWidget.cpp \
+    src-niceqt/widget/dataform/FontFormWidget.cpp \
+    src-heftyad/model/viewform/item/ItemForm.cpp \
+    src-heftyad/model/viewform/item/BrushedItemForm.cpp \
+    src-heftyad/model/viewform/item/PenedItemForm.cpp \
+    src-heftyad/model/viewform/item/FontedItemForm.cpp
     src-niceqt/widget/SectionedWidget.cpp
-
-DISTFILES += \
-    tools/copySharedLibs.bat \

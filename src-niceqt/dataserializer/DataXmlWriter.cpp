@@ -133,6 +133,7 @@ void DataXmlWriter::writeQConicalGradient(QXmlStreamWriter &stream, const QConic
 void DataXmlWriter::writeQLinearGradient(QXmlStreamWriter &stream, const QLinearGradient &gradient)
 {
     writeQGradientBase(stream, gradient);
+
     stream.writeStartElement("specific");
     {
         writeQPointFAttr(stream, "start", gradient.start());

@@ -40,6 +40,8 @@ public:
 
     QRectF modelCoverage() const;
 
+    void setModelBackgroundBrush(const QBrush &brush);
+
     QList<QAction*> toolBarActions() const;
     virtual void retranslate();
 

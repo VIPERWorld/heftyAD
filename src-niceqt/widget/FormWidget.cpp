@@ -45,7 +45,7 @@ void FormWidget::addRow(const QWidgetList &widgets, Qt::Orientation orient, int 
 
 QLayout* FormWidget::newLayout(const QWidgetList &widgets, Qt::Orientation orient, int spacing, int margin)
 {
-    int dir = -1; // just to avoid a "variable used uninitialized" warning
+    int dir = -1; // just to avoid the "variable used uninitialized" warning
     switch(orient) {
     case Qt::Horizontal: dir = QBoxLayout::LeftToRight; break;
     case Qt::Vertical:   dir = QBoxLayout::TopToBottom; break;
@@ -74,6 +74,11 @@ void FormWidget::clear()
         if(auto *label = qobject_cast<QLabel*>(item->widget())) {
             label->setText(""); // should be done otherwise texts are superimposed
         }
+        /*
+         * since when the item is destroyed its layout is too,
+         * we make sure the layout won't be deleted twice.
+         */
+        m_newedLayouts.removeOne(item->layout());
         delete item;
     }
 }

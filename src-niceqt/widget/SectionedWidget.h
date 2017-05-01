@@ -13,13 +13,16 @@ class SectionedWidget : public QWidget
 private:
     QGridLayout m_layout;
     QList<SectionedWidgetElt*> m_sections;
-    int m_row, m_col; // row and col of the last section added
+    int m_row; // row of the last section added
 
 public:
     explicit SectionedWidget(QWidget *parent = 0);
 
     SectionedWidgetElt* addSection();
     void removeSections();
+
+private:
+    void resetRow();
 
 signals:
 
