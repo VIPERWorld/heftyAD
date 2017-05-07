@@ -1,12 +1,13 @@
-#include "BrushedItemForm.h"
+#include "ItemBrushForm.h"
 
-BrushedItemForm::BrushedItemForm(QWidget *parent)
+ItemBrushForm::ItemBrushForm(QWidget *parent)
     : ItemForm(parent)
 {
     addRow(&m_brush);
+    formLayout()->setMargin(0);
 }
 
-void BrushedItemForm::retranslate()
+void ItemBrushForm::retranslate()
 {
     m_brush.setFormTitles(trUtf8("Couleur"), trUtf8("Gradient"), trUtf8("Pixmap"));
 }

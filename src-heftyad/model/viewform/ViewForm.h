@@ -1,14 +1,14 @@
 #ifndef VIEWFORM_H
 #define VIEWFORM_H
 
-#include "BasicItemForm.h"
-#include "BrushedItemForm.h"
-#include "CurvedItemForm.h"
-#include "FontedItemForm.h"
-#include "PenedItemForm.h"
-#include "ShapedItemForm.h"
+#include "ItemBasicForm.h"
+#include "ItemBrushForm.h"
+#include "ItemCurveForm.h"
+#include "ItemFontForm.h"
+#include "ItemPenForm.h"
+#include "ItemShapeForm.h"
 
-#include "widget/SectionedWidget.h"
+#include "widget/SectionWidgetGroup.h"
 #include "widget/TabWidget.h"
 
 #include "widget/dataform/BrushFormWidget.h"
@@ -20,22 +20,22 @@ class ViewForm : public TabWidget
     Q_OBJECT
 
 protected:
-    SectionedWidget m_modelSections;
-        SectionedWidgetElt *m_bgBrushSection; // background brush
+    SectionWidgetGroup m_modelSections;
+        SectionWidget *m_bgBrushSection; // background brush
             BrushFormWidget m_bgBrushWidget;
-    SectionedWidget m_itemSections;
-        SectionedWidgetElt *m_basicAttrs;
-            BasicItemForm m_basicForm;
-        SectionedWidgetElt *m_brushAttrs;
-            BrushedItemForm m_brushForm;
-        SectionedWidgetElt *m_penAttrs;
-            PenedItemForm m_penForm;
-        SectionedWidgetElt *m_fontAttrs;
-            FontedItemForm m_fontForm;
-        SectionedWidgetElt *m_shapeAttrs;
-            ShapedItemForm m_shapeForm;
-        SectionedWidgetElt *m_curveAttrs;
-            CurvedItemForm m_curveForm;
+    SectionWidgetGroup m_itemSections;
+        SectionWidget *m_basicAttrs;
+            ItemBasicForm m_basicForm;
+        SectionWidget *m_brushAttrs;
+            ItemBrushForm m_brushForm;
+        SectionWidget *m_penAttrs;
+            ItemPenForm m_penForm;
+        SectionWidget *m_fontAttrs;
+            ItemFontForm m_fontForm;
+        SectionWidget *m_shapeAttrs;
+            ItemShapeForm m_shapeForm;
+        SectionWidget *m_curveAttrs;
+            ItemCurveForm m_curveForm;
 
 public:
     explicit ViewForm(View *view, QWidget *parent = 0);
@@ -46,8 +46,8 @@ protected:
     virtual void onSceneSelectionChanged();
 
 private:
-    void addSection(SectionedWidget &sectionWidget, SectionedWidgetElt **section, QWidget *widget);
-    void retranslateWidgets(SectionedWidgetElt *section, const QString &sectionTitle, ItemForm &form);
+    void addSection(SectionWidgetGroup &sectionWidget, SectionWidget **section, QWidget *widget);
+    void retranslateWidgets(SectionWidget *section, const QString &sectionTitle, ItemForm &form);
 
 signals:
 };

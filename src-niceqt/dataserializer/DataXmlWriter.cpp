@@ -57,7 +57,9 @@ void DataXmlWriter::writeQFont(QXmlStreamWriter &stream, const QString &eltName,
         stream.writeAttribute("weight",    QVariant(font.weight()).toString());
         stream.writeAttribute("bold",      QVariant(font.bold()).toString());
         stream.writeAttribute("italic",    QVariant(font.italic()).toString());
+        stream.writeAttribute("strikeout", QVariant(font.strikeOut()).toString());
         stream.writeAttribute("underline", QVariant(font.underline()).toString());
+        stream.writeAttribute("overline",  QVariant(font.overline()).toString());
     }
     stream.writeEndElement();
 }

@@ -1,23 +1,18 @@
 #include "PenFormWidget.h"
 
 PenFormWidget::PenFormWidget(QWidget *parent)
-    : FormWidget(parent)
+    : DataFormWidget(parent)
 {
     // add widgets
 
-    setFieldTexts("Style", "Width", "Color");
-    /*
-     * Setting parent to null isn't normally needed but due to the use of clear() in setFieldTexts (previous instruction),
-     * any further call to that function puts the combo box in a strange state: enabled, visible, but not clickable.
-     * NB: if we remove the previous instruction,
-     *     further calls to the culprit function work fine and setting parent to null is no longer required.
-     */
-    m_style.setParent(nullptr);
-
+    addRow(&m_styleLabel, &m_style);
+    addRow(&m_widthLabel, &m_width);
+    addRow(&m_colorGroup);
     m_colorGroup.gridWidget()->addWidget(&m_color, 0, 0);
 
     // customize widgets
 
+    setFieldTexts("Style", "Width", "Color");
     m_width.setContextMenuPolicy(Qt::NoContextMenu);
 
     m_style.addItem("No Pen");
@@ -45,14 +40,11 @@ void PenFormWidget::setPen(const QPen &pen)
     emit penChanged();
 }
 
-void PenFormWidget::setFieldTexts(const QString &style, const QString &width, const QString &color)
+void PenFormWidget::setFieldTexts(const QString &styleText, const QString &widthText, const QString &colorTitle)
 {
-    clear();
-    addRow(style, &m_style);
-    addRow(width, &m_width);
-    addRow(&m_colorGroup);
-
-    m_colorGroup.setTitle(color);
+    m_styleLabel.setText(styleText);
+    m_widthLabel.setText(widthText);
+    m_colorGroup.setTitle(colorTitle);
 }
 
 void PenFormWidget::updateFields()

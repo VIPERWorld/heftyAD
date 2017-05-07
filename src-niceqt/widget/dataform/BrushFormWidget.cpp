@@ -1,15 +1,23 @@
 #include "BrushFormWidget.h"
 
 BrushFormWidget::BrushFormWidget(QWidget *parent)
-    : TabWidget(parent)
+    : DataFormWidget(parent)
 {
-    addTab(&m_color,    "");
-    addTab(&m_gradient, "");
-    addTab(&m_pixmap,   "");
+    // add widgets
+
+    addRow(&m_tab);
+
+    m_tab.addTab(&m_color,    "");
+    m_tab.addTab(&m_gradient, "");
+    m_tab.addTab(&m_pixmap,   "");
+
+    // connect signals to slots
 
     connect(&m_color,    &ColorFormWidget::colorEdited,       this, &BrushFormWidget::brushEdited);
     //connect(&m_gradient, &GradientFormWidget::gradientEdited, this, &BrushFormWidget::brushEdited);
     connect(&m_pixmap,   &PixmapFormWidget::pixmapEdited,     this, &BrushFormWidget::brushEdited);
+
+    // set initial brush
 
     setBrush(Qt::NoBrush);
 }
@@ -36,9 +44,9 @@ void BrushFormWidget::setBrush(const QBrush &brush)
     emit brushChanged();
 }
 
-void BrushFormWidget::setFormTitles(const QString &color, const QString &gradient, const QString &pixmap)
+void BrushFormWidget::setFormTitles(const QString &colorTitle, const QString &gradientTitle, const QString &pixmapTitle)
 {
-    setTabText(0, color);
-    setTabText(1, gradient);
-    setTabText(2, pixmap);
+    m_tab.setTabText(0, colorTitle);
+    m_tab.setTabText(1, gradientTitle);
+    m_tab.setTabText(2, pixmapTitle);
 }

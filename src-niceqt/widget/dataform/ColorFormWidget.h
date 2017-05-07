@@ -1,13 +1,13 @@
 #ifndef COLORFORMWIDGET_H
 #define COLORFORMWIDGET_H
 
-#include "widget/FormWidget.h"
+#include "DataFormWidget.h"
 
 #include <QComboBox>
 #include <QLineEdit>
 #include <QToolButton>
 
-class ColorFormWidget : public FormWidget
+class ColorFormWidget : public DataFormWidget
 {
     Q_OBJECT
 

@@ -41,7 +41,7 @@ QToolButton:checked {
     background-color: pink;
 }
 
-SectionedWidgetEltBar, SectionedWidgetEltBar:hover {
+SectionWidgetBar, SectionWidgetBar:hover {
     background-color: rgb(87,124,92);
 }
 

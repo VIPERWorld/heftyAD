@@ -1,7 +1,7 @@
 #ifndef PIXMAPFORMWIDGET_H
 #define PIXMAPFORMWIDGET_H
 
-#include "widget/FormWidget.h"
+#include "DataFormWidget.h"
 
 #include <QLabel>
 #include <QLCDNumber>
@@ -9,7 +9,7 @@
 #include <QSlider>
 #include <QToolButton>
 
-class PixmapFormWidget : public FormWidget
+class PixmapFormWidget : public DataFormWidget
 {
     Q_OBJECT
 

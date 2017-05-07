@@ -3,7 +3,8 @@
 
 #include "ViewForm.h"
 
-#include <QLineEdit>
+#include <QLabel>
+#include <QSpinBox>
 
 class ArrayView;
 
@@ -16,9 +17,9 @@ private:
 
     // model widgets
 
-    SectionedWidgetElt *m_arraySection;
+    SectionWidget *m_arraySection;
         FormWidget m_arrayForm;
-            QLineEdit m_arraySpacing;
+            QLabel m_arraySpacingLabel; QSpinBox m_arraySpacing;
 
     // item widgets
 

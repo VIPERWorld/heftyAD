@@ -1,14 +1,14 @@
-#ifndef SECTIONEDWIDGETELTBAR_H
-#define SECTIONEDWIDGETELTBAR_H
+#ifndef SECTIONWIDGETBAR_H
+#define SECTIONWIDGETBAR_H
 
 #include <QPen>
 #include <QPushButton>
 
-class SectionedWidgetEltBar : public QPushButton
+class SectionWidgetBar : public QPushButton
 {
     Q_OBJECT
 
-    friend class SectionedWidgetElt;
+    friend class SectionWidget; // to access m_widgetIsUnrolled
 
 private:
     typedef enum {
@@ -19,13 +19,13 @@ private:
     } TriangleDirection;
 
 private:
-    bool m_widgetIsUnrolled; // set by SectionedWidgetElt
+    bool m_widgetIsUnrolled; // set by SectionWidget
 
     QBrush m_indicatorBrush;
     QPen m_indicatorPen;
 
 public:
-    explicit SectionedWidgetEltBar(QWidget *parent = 0);
+    explicit SectionWidgetBar(QWidget *parent = 0);
 
     void setIndicatorBrush(const QBrush &brush);
     void setIndicatorPen(const QPen &pen);
@@ -46,4 +46,4 @@ signals:
 public slots:
 };
 
-#endif // SECTIONEDWIDGETELTBAR_H
+#endif // SECTIONWIDGETBAR_H

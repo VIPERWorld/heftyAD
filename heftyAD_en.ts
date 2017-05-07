@@ -46,47 +46,11 @@
     </message>
 </context>
 <context>
-    <name>BasicItemForm</name>
-    <message>
-        <location filename="src-heftyad/model/viewform/item/BasicItemForm.cpp" line="12"/>
-        <source>Valeur</source>
-        <translation>Value</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/model/viewform/item/BasicItemForm.cpp" line="13"/>
-        <source>Opacité</source>
-        <translation>Opacity</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/model/viewform/item/BasicItemForm.cpp" line="14"/>
-        <source>Position</source>
-        <translation>Position</translation>
-    </message>
-</context>
-<context>
     <name>BasicLanguagePicker</name>
     <message>
         <location filename="src-niceqt/others/BasicLanguagePicker.cpp" line="182"/>
         <source>Langues</source>
         <translation>Languages</translation>
-    </message>
-</context>
-<context>
-    <name>BrushedItemForm</name>
-    <message>
-        <location filename="src-heftyad/model/viewform/item/BrushedItemForm.cpp" line="11"/>
-        <source>Couleur</source>
-        <translation>Color</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/model/viewform/item/BrushedItemForm.cpp" line="11"/>
-        <source>Gradient</source>
-        <translation>Gradient</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/model/viewform/item/BrushedItemForm.cpp" line="11"/>
-        <source>Pixmap</source>
-        <translation>Pixmap</translation>
     </message>
 </context>
 <context>
@@ -146,36 +110,128 @@
     </message>
 </context>
 <context>
-    <name>FontedItemForm</name>
+    <name>ItemBasicForm</name>
     <message>
-        <location filename="src-heftyad/model/viewform/item/FontedItemForm.cpp" line="11"/>
+        <location filename="src-heftyad/model/viewform/item/ItemBasicForm.cpp" line="14"/>
+        <source>Valeur</source>
+        <translation>Value</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemBasicForm.cpp" line="15"/>
+        <source>Opacité</source>
+        <translation>Opacity</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemBasicForm.cpp" line="16"/>
+        <source>Position</source>
+        <translation>Position</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemBasicForm.cpp" line="17"/>
+        <source>Editeur</source>
+        <translation>Editor</translation>
+    </message>
+</context>
+<context>
+    <name>ItemBrushForm</name>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemBrushForm.cpp" line="12"/>
+        <source>Couleur</source>
+        <translation>Color</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemBrushForm.cpp" line="12"/>
+        <source>Gradient</source>
+        <translation>Gradient</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemBrushForm.cpp" line="12"/>
+        <source>Pixmap</source>
+        <translation>Pixmap</translation>
+    </message>
+</context>
+<context>
+    <name>ItemFontForm</name>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemFontForm.cpp" line="12"/>
         <source>Famille</source>
         <translation>Family</translation>
     </message>
     <message>
-        <location filename="src-heftyad/model/viewform/item/FontedItemForm.cpp" line="11"/>
+        <location filename="src-heftyad/model/viewform/item/ItemFontForm.cpp" line="12"/>
         <source>Taille</source>
         <translation>Size</translation>
     </message>
     <message>
-        <location filename="src-heftyad/model/viewform/item/FontedItemForm.cpp" line="12"/>
+        <location filename="src-heftyad/model/viewform/item/ItemFontForm.cpp" line="13"/>
         <source>Gras</source>
         <translation>Bold</translation>
     </message>
     <message>
-        <location filename="src-heftyad/model/viewform/item/FontedItemForm.cpp" line="12"/>
+        <location filename="src-heftyad/model/viewform/item/ItemFontForm.cpp" line="13"/>
         <source>Italique</source>
         <translation>Italic</translation>
     </message>
     <message>
-        <location filename="src-heftyad/model/viewform/item/FontedItemForm.cpp" line="12"/>
+        <location filename="src-heftyad/model/viewform/item/ItemFontForm.cpp" line="14"/>
         <source>Rayé</source>
         <translation>Strikeout</translation>
     </message>
     <message>
-        <location filename="src-heftyad/model/viewform/item/FontedItemForm.cpp" line="12"/>
+        <location filename="src-heftyad/model/viewform/item/ItemFontForm.cpp" line="14"/>
         <source>Souligné</source>
         <translation>Underline</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemFontForm.cpp" line="14"/>
+        <source>Surligné</source>
+        <translation>Overline</translation>
+    </message>
+</context>
+<context>
+    <name>ItemPenForm</name>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemPenForm.cpp" line="12"/>
+        <source>Style</source>
+        <translation>Style</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemPenForm.cpp" line="12"/>
+        <source>Largeur</source>
+        <translation>Width</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemPenForm.cpp" line="12"/>
+        <source>Couleur</source>
+        <translation>Color</translation>
+    </message>
+</context>
+<context>
+    <name>ItemShapeForm</name>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemShapeForm.cpp" line="18"/>
+        <source>Forme</source>
+        <translation>Shape</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemShapeForm.cpp" line="19"/>
+        <source>Arrondir la forme ?</source>
+        <translation>Rounded shape?</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemShapeForm.cpp" line="27"/>
+        <source>Diamètre</source>
+        <translation>Diameter</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemShapeForm.cpp" line="34"/>
+        <source>Largeur</source>
+        <translation>Width</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/viewform/item/ItemShapeForm.cpp" line="37"/>
+        <source>Hauteur</source>
+        <translation>Height</translation>
     </message>
 </context>
 <context>
@@ -195,24 +251,6 @@
         <location filename="src-heftyad/LanguagePicker.cpp" line="26"/>
         <source>Merci de restaurer celui-ci ou de consulter notre site web.</source>
         <translation>Please restore it or visit our website.</translation>
-    </message>
-</context>
-<context>
-    <name>PenedItemForm</name>
-    <message>
-        <location filename="src-heftyad/model/viewform/item/PenedItemForm.cpp" line="11"/>
-        <source>Style</source>
-        <translation>Style</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/model/viewform/item/PenedItemForm.cpp" line="11"/>
-        <source>Largeur</source>
-        <translation>Width</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/model/viewform/item/PenedItemForm.cpp" line="11"/>
-        <source>Couleur</source>
-        <translation>Color</translation>
     </message>
 </context>
 <context>
@@ -424,12 +462,12 @@ Merci de choisir un modèle adéquat puis de recommencer.</source>
     <message>
         <location filename="src-heftyad/model/view/View.cpp" line="83"/>
         <source>Edition Complète</source>
-        <translation type="unfinished"></translation>
+        <translation>Full Edition</translation>
     </message>
     <message>
         <location filename="src-heftyad/model/view/View.cpp" line="99"/>
         <source>Modèle</source>
-        <translation type="unfinished">Model</translation>
+        <translation>Model</translation>
     </message>
     <message>
         <location filename="src-heftyad/model/view/View.cpp" line="102"/>
@@ -735,13 +773,13 @@ Bonne découverte !</source>
         <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="28"/>
         <source>Enregistrer Tout</source>
         <oldsource>Enregistrer tous les travaux</oldsource>
-        <translation type="unfinished">Save all works</translation>
+        <translation>Save All</translation>
     </message>
     <message>
         <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="29"/>
         <source>Fermer Tout</source>
         <oldsource>Fermer tous les travaux</oldsource>
-        <translation type="unfinished">Close All works</translation>
+        <translation>Close All</translation>
     </message>
     <message>
         <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="31"/>
@@ -817,7 +855,7 @@ Bonne découverte !</source>
     <message>
         <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="35"/>
         <source>Fenêtres</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows</translation>
     </message>
     <message>
         <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="36"/>
@@ -875,7 +913,7 @@ Bonne découverte !</source>
     <message>
         <location filename="src-heftyad/workspace/WorkspaceWorkEditor.cpp" line="31"/>
         <source>Editeur</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor</translation>
     </message>
 </context>
 </TS>

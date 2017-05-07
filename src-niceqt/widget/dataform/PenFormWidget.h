@@ -2,22 +2,23 @@
 #define PENFORMWIDGET_H
 
 #include "ColorFormWidget.h"
+#include "DataFormWidget.h"
 
-#include "widget/FormWidget.h"
 #include "widget/GridGroupBox.h"
 
 #include <QComboBox>
 #include <QDoubleSpinBox>
+#include <QLabel>
 
-class PenFormWidget : public FormWidget
+class PenFormWidget : public DataFormWidget
 {
     Q_OBJECT
 
 private:
     QPen m_pen;
 
-    QComboBox m_style;
-    QDoubleSpinBox m_width;
+    QLabel m_styleLabel; QComboBox m_style;
+    QLabel m_widthLabel; QDoubleSpinBox m_width;
     GridGroupBox m_colorGroup;
         ColorFormWidget m_color;
 
@@ -26,7 +27,7 @@ public:
 
     QPen pen() const;
     void setPen(const QPen &pen);
-    void setFieldTexts(const QString &style, const QString &width, const QString &color);
+    void setFieldTexts(const QString &styleText, const QString &widthText, const QString &colorTitle);
 
 private:
     void updateFields();

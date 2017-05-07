@@ -1,8 +1,8 @@
-#include "SectionedWidgetEltBar.h"
+#include "SectionWidgetBar.h"
 
 #include <QPainter>
 
-SectionedWidgetEltBar::SectionedWidgetEltBar(QWidget *parent)
+SectionWidgetBar::SectionWidgetBar(QWidget *parent)
     : QPushButton(parent),
       m_widgetIsUnrolled(false),
       m_indicatorBrush(Qt::gray),
@@ -18,21 +18,21 @@ SectionedWidgetEltBar::SectionedWidgetEltBar(QWidget *parent)
     //setStyleSheet("background-color: rgb( 83,103,93); font-weight: bold;");
 }
 
-void SectionedWidgetEltBar::setIndicatorBrush(const QBrush &brush) {m_indicatorBrush = brush;}
-void SectionedWidgetEltBar::setIndicatorPen(const QPen &pen) {m_indicatorPen = pen;}
+void SectionWidgetBar::setIndicatorBrush(const QBrush &brush) {m_indicatorBrush = brush;}
+void SectionWidgetBar::setIndicatorPen(const QPen &pen) {m_indicatorPen = pen;}
 
-void SectionedWidgetEltBar::drawTriangle(QPainter *painter, const QPointF &A, const QPointF &B, const QPointF &C)
+void SectionWidgetBar::drawTriangle(QPainter *painter, const QPointF &A, const QPointF &B, const QPointF &C)
 {
     const QPointF points[3] = {A, B, C};
     painter->drawConvexPolygon(points, 3);
 }
 
-void SectionedWidgetEltBar::drawTriangle(QPainter *painter, const QList<QPointF> &ABC)
+void SectionWidgetBar::drawTriangle(QPainter *painter, const QList<QPointF> &ABC)
 {
     drawTriangle(painter, ABC[0], ABC[1], ABC[2]);
 }
 
-QList<QPointF> SectionedWidgetEltBar::getTriangle(const QRectF &rect, TriangleDirection dir)
+QList<QPointF> SectionWidgetBar::getTriangle(const QRectF &rect, TriangleDirection dir)
 {
     const QPointF &tl = rect.topLeft();
     const QPointF &tr = rect.topRight();
@@ -50,7 +50,7 @@ QList<QPointF> SectionedWidgetEltBar::getTriangle(const QRectF &rect, TriangleDi
     return QList<QPointF>() << tl << tl << tl; // reached only when a wrong direction is given
 }
 
-void SectionedWidgetEltBar::paintEvent(QPaintEvent *event)
+void SectionWidgetBar::paintEvent(QPaintEvent *event)
 {
     QPushButton::paintEvent(event);
 

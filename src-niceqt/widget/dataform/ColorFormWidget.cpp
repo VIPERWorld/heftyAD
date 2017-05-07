@@ -4,7 +4,7 @@
 #include <QIntValidator>
 
 ColorFormWidget::ColorFormWidget(QWidget *parent)
-    : FormWidget(parent)
+    : DataFormWidget(parent)
 {
     // Add widgets
 

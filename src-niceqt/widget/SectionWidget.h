@@ -1,23 +1,26 @@
-#ifndef SECTIONEDWIDGETELT_H
-#define SECTIONEDWIDGETELT_H
+#ifndef SECTIONWIDGET_H
+#define SECTIONWIDGET_H
 
 #include "GridWidget.h"
-#include "SectionedWidgetEltBar.h"
+#include "SectionWidgetBar.h"
 
-class SectionedWidgetElt : public GridWidget
+class SectionWidget : public GridWidget
 {
     Q_OBJECT
 
 private:
-    SectionedWidgetEltBar m_bar;
+    SectionWidgetBar m_bar;
 
     bool m_unrolled;
 
 public:
-    explicit SectionedWidgetElt(QWidget *parent = 0);
+    explicit SectionWidget(QWidget *parent = 0);
 
     bool isUnrolled() const;
-    SectionedWidgetEltBar* bar() const;
+    bool isOpened() const;
+    bool isClosedz() const;
+
+    SectionWidgetBar* bar() const;
 
     /*
      * Shortcut functions to access/change the state of the bar widget.
@@ -28,6 +31,8 @@ public:
     void setBarStyleSheet(const QString &styleSheet);
 
     void unroll();
+    void open();
+    void closez();
 
 private:
     void adjustBar();
@@ -37,4 +42,4 @@ signals:
     void unrolled();
 };
 
-#endif // SECTIONEDWIDGETELT_H
+#endif // SECTIONWIDGET_H

@@ -38,6 +38,8 @@ public:
      *     and deletes them.
      * Widgets are not deleted so they can be added back using addRow.
      * But layouts are deleted so any previously added layout no more exists.
+     * Moreover unless this form is visible when cleared, its widgets may be no more clickable.
+     * For instance that strange behaviour may be observed when a form is cleared while being in a closed SectionWidget.
      *
      * When iterating through items, if a label happens to be the widget of an inner item,
      * that is item->widget() is a QLabel, then the text of that label is set to "".
@@ -57,6 +59,10 @@ public:
      *     form.addRow(tr("Name"), nameTextEdit);
      *     form.addRow(tr("Help"), helpLabel);
      *     helpLabel->setText(tr("This is a hint to guide you.")); // to make sure label text is not empty
+     *
+     * Note that if a form were filled like in "form.addRow(label, widget);"
+     * there would be no need to clear it to perform translation,
+     * since the label text could be changed directly.
      *
      * Another way to provide a translation feature (without clearing this form) would be to:
      *     first get a pointer to an item within the inner layout

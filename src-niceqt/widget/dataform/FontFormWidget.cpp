@@ -3,29 +3,28 @@
 #include <QFontDialog>
 
 FontFormWidget::FontFormWidget(QWidget *parent)
-    : FormWidget(parent)
+    : DataFormWidget(parent)
 {
     // add widgets
 
-    setFieldTexts1("Family", "Size");
-    /*
-     * Setting parent to null isn't normally needed but due to the use of clear() in setFieldTexts1 (previous instruction),
-     * any further call to that function puts the combo box in a strange state: enabled, visible, but not clickable.
-     * NB: if we remove the previous instruction,
-     *     further calls to the culprit function work fine and setting parent to null is no longer required.
-     */
-    m_family.setParent(nullptr);
-    m_pointSize.setParent(nullptr); // required for the same reason as above
+    addRow(&m_familyLabel,    &m_family);
+    addRow(&m_pointSizeLabel, &m_pointSize);
+    addRow(QWidgetList() << &m_bold      << &m_italic    << &m_space,    Qt::Horizontal);
+    addRow(QWidgetList() << &m_strikeOut << &m_underline << &m_overline, Qt::Horizontal);
+
+    addRow(&m_advanced);
+    formLayout()->setAlignment(&m_advanced, Qt::AlignRight);
 
     // customize widgets
 
-    QWidgetList widgets = QWidgetList() << &m_family << &m_pointSize;
-    for(auto *widget : widgets) {
-        widget->setContextMenuPolicy(Qt::NoContextMenu);
-    }
+    setFieldTexts1("Family", "Size");
+    setFieldTexts2("Bold", "Italic");
+    setFieldTexts3("Strikeout", "Underline", "Overline");
 
-    setFieldTexts2("Bold", "Italic", "Strikeout", "Underline");
+    m_family.setContextMenuPolicy(Qt::NoContextMenu);
+    m_pointSize.setContextMenuPolicy(Qt::NoContextMenu);
     m_pointSize.setMinimum(1.);
+
     m_advanced.setCursor(Qt::PointingHandCursor);
     m_advanced.setText("---");
 
@@ -36,8 +35,10 @@ FontFormWidget::FontFormWidget(QWidget *parent)
 
     connect(&m_bold,      &QCheckBox::released, this, &FontFormWidget::onFieldsEdited);
     connect(&m_italic,    &QCheckBox::released, this, &FontFormWidget::onFieldsEdited);
+
     connect(&m_strikeOut, &QCheckBox::released, this, &FontFormWidget::onFieldsEdited);
     connect(&m_underline, &QCheckBox::released, this, &FontFormWidget::onFieldsEdited);
+    connect(&m_overline,  &QCheckBox::released, this, &FontFormWidget::onFieldsEdited);
 
     connect(&m_advanced, &QToolButton::pressed, this, &FontFormWidget::onAdvancedButtonPressed);
 }
@@ -54,23 +55,23 @@ void FontFormWidget::setFontz(const QFont &fontz)
 void FontFormWidget::setAdvancedButtonIcon(const QIcon &icon) {m_advanced.setIcon(icon);}
 void FontFormWidget::setAdvancedButtonVisible(bool visible) {m_advanced.setVisible(visible);}
 
-void FontFormWidget::setFieldTexts1(const QString &family, const QString pointSize)
+void FontFormWidget::setFieldTexts1(const QString &familyText, const QString &pointSizeText)
 {
-    clear();
-    addRow(family,    &m_family);
-    addRow(pointSize, &m_pointSize);
-    addRow(QWidgetList() << &m_bold << &m_italic << &m_underline << &m_strikeOut, Qt::Horizontal);
-
-    addRow(&m_advanced);
-    formLayout()->setAlignment(&m_advanced, Qt::AlignRight);
+    m_familyLabel.setText(familyText);
+    m_pointSizeLabel.setText(pointSizeText);
 }
 
-void FontFormWidget::setFieldTexts2(const QString &bold, const QString &italic, const QString &strikeOut, const QString &underline)
+void FontFormWidget::setFieldTexts2(const QString &boldText, const QString &italicText)
 {
-    m_bold.setText(bold);
-    m_italic.setText(italic);
-    m_strikeOut.setText(strikeOut);
-    m_underline.setText(underline);
+    m_bold.setText(boldText);
+    m_italic.setText(italicText);
+}
+
+void FontFormWidget::setFieldTexts3(const QString &strikeOutText, const QString &underlineText, const QString &overlineText)
+{
+    m_strikeOut.setText(strikeOutText);
+    m_underline.setText(underlineText);
+    m_overline.setText(overlineText);
 }
 
 void FontFormWidget::updateFields()
@@ -83,8 +84,10 @@ void FontFormWidget::updateFields()
 
     m_bold.setChecked(m_fontz.bold());
     m_italic.setChecked(m_fontz.italic());
+
     m_strikeOut.setChecked(m_fontz.strikeOut());
     m_underline.setChecked(m_fontz.underline());
+    m_overline.setChecked(m_fontz.overline());
 
     m_family.blockSignals(f);
     m_pointSize.blockSignals(p);
@@ -97,8 +100,10 @@ void FontFormWidget::onFieldsEdited()
 
     m_fontz.setBold(m_bold.isChecked());
     m_fontz.setItalic(m_italic.isChecked());
+
     m_fontz.setStrikeOut(m_strikeOut.isChecked());
     m_fontz.setUnderline(m_underline.isChecked());
+    m_fontz.setOverline(m_overline.isChecked());
 
     emit fontEdited();
     emit fontChanged();
@@ -107,9 +112,10 @@ void FontFormWidget::onFieldsEdited()
 void FontFormWidget::onAdvancedButtonPressed()
 {
     bool ok;
-    QFont font = QFontDialog::getFont(&ok, fontz(), this);
+    QFont font = QFontDialog::getFont(&ok, m_fontz, this);
     if(ok) {
-        setFontz(font);
+        font.setOverline(m_fontz.overline()); // just not to loose previous overline value
+        setFontz(font); // will emit fontChanged();
         emit fontEdited();
     }
 }

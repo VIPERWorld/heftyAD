@@ -1,12 +1,13 @@
-#include "PenedItemForm.h"
+#include "ItemPenForm.h"
 
-PenedItemForm::PenedItemForm(QWidget *parent)
+ItemPenForm::ItemPenForm(QWidget *parent)
     : ItemForm(parent)
 {
     addRow(&m_pen);
+    formLayout()->setMargin(0);
 }
 
-void PenedItemForm::retranslate()
+void ItemPenForm::retranslate()
 {
     m_pen.setFieldTexts(trUtf8("Style"), trUtf8("Largeur"), trUtf8("Couleur"));
 }

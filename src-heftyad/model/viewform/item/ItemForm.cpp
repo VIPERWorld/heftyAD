@@ -5,7 +5,4 @@ ItemForm::ItemForm(QWidget *parent)
 {
 }
 
-void ItemForm::retranslate()
-{
-    clear();
-}
+void ItemForm::retranslate() {}

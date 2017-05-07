@@ -1,9 +1,9 @@
 #ifndef GRADIENTFORMWIDGET_H
 #define GRADIENTFORMWIDGET_H
 
-#include "widget/FormWidget.h"
+#include "DataFormWidget.h"
 
-class GradientFormWidget : public FormWidget
+class GradientFormWidget : public DataFormWidget
 {
     Q_OBJECT
 

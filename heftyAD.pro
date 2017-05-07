@@ -269,23 +269,24 @@ HEADERS += \
     src-niceqt/widget/TextEdit.h \
     src-niceqt/widget/TreedWidget.h \
     src-niceqt/winframe/BasicMainWindow.h \
-    src-niceqt/widget/SectionedWidgetElt.h \
-    src-niceqt/widget/SectionedWidgetEltBar.h \
-    src-niceqt/widget/SectionedWidget.h \
     src-niceqt/widget/dataform/BrushFormWidget.h \
     src-niceqt/widget/dataform/ColorFormWidget.h \
     src-niceqt/widget/dataform/PixmapFormWidget.h \
     src-niceqt/widget/dataform/GradientFormWidget.h \
     src-niceqt/widget/TabStackWidget.h \
-    src-heftyad/model/viewform/item/BasicItemForm.h \
-    src-heftyad/model/viewform/item/ShapedItemForm.h \
-    src-heftyad/model/viewform/item/CurvedItemForm.h \
     src-niceqt/widget/dataform/PenFormWidget.h \
     src-niceqt/widget/dataform/FontFormWidget.h \
     src-heftyad/model/viewform/item/ItemForm.h \
-    src-heftyad/model/viewform/item/BrushedItemForm.h \
-    src-heftyad/model/viewform/item/PenedItemForm.h \
-    src-heftyad/model/viewform/item/FontedItemForm.h
+    src-heftyad/model/viewform/item/ItemBasicForm.h \
+    src-heftyad/model/viewform/item/ItemBrushForm.h \
+    src-heftyad/model/viewform/item/ItemCurveForm.h \
+    src-heftyad/model/viewform/item/ItemFontForm.h \
+    src-heftyad/model/viewform/item/ItemPenForm.h \
+    src-heftyad/model/viewform/item/ItemShapeForm.h \
+    src-niceqt/widget/SectionWidgetGroup.h \
+    src-niceqt/widget/SectionWidget.h \
+    src-niceqt/widget/SectionWidgetBar.h \
+    src-niceqt/widget/dataform/DataFormWidget.h
 
 SOURCES += \
     src-heftyad/algorithm/basis/Iterable.cpp \
@@ -409,21 +410,21 @@ SOURCES += \
     src-niceqt/widget/TextEdit.cpp \
     src-niceqt/widget/TreedWidget.cpp \
     src-niceqt/winframe/BasicMainWindow.cpp \
-    src-niceqt/widget/SectionedWidgetElt.cpp \
-    src-niceqt/widget/SectionedWidgetEltBar.cpp \
-    src-niceqt/widget/SectionedWidget.cpp \
     src-niceqt/widget/dataform/BrushFormWidget.cpp \
     src-niceqt/widget/dataform/ColorFormWidget.cpp \
     src-niceqt/widget/dataform/PixmapFormWidget.cpp \
     src-niceqt/widget/dataform/GradientFormWidget.cpp \
     src-niceqt/widget/TabStackWidget.cpp \
-    src-heftyad/model/viewform/item/BasicItemForm.cpp \
-    src-heftyad/model/viewform/item/ShapedItemForm.cpp \
-    src-heftyad/model/viewform/item/CurvedItemForm.cpp \
     src-niceqt/widget/dataform/PenFormWidget.cpp \
     src-niceqt/widget/dataform/FontFormWidget.cpp \
     src-heftyad/model/viewform/item/ItemForm.cpp \
-    src-heftyad/model/viewform/item/BrushedItemForm.cpp \
-    src-heftyad/model/viewform/item/PenedItemForm.cpp \
-    src-heftyad/model/viewform/item/FontedItemForm.cpp
-    src-niceqt/widget/SectionedWidget.cpp
+    src-heftyad/model/viewform/item/ItemBasicForm.cpp \
+    src-heftyad/model/viewform/item/ItemBrushForm.cpp \
+    src-heftyad/model/viewform/item/ItemCurveForm.cpp \
+    src-heftyad/model/viewform/item/ItemFontForm.cpp \
+    src-heftyad/model/viewform/item/ItemPenForm.cpp \
+    src-heftyad/model/viewform/item/ItemShapeForm.cpp \
+    src-niceqt/widget/SectionWidgetGroup.cpp \
+    src-niceqt/widget/SectionWidget.cpp \
+    src-niceqt/widget/SectionWidgetBar.cpp \
+    src-niceqt/widget/dataform/DataFormWidget.cpp

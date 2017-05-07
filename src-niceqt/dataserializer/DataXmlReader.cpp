@@ -114,7 +114,9 @@ QFont DataXmlReader::readQFont(QXmlStreamReader &stream)
         font.setWeight(attrs.value("weight").toInt());
         font.setBold(attrs.value("bold").toString() == "true");
         font.setItalic(attrs.value("italic").toString() == "true");
+        font.setStrikeOut(attrs.value("strikeout").toString() == "true");
         font.setUnderline(attrs.value("underline").toString() == "true");
+        font.setOverline(attrs.value("overline").toString() == "true");
     }
     stream.skipCurrentElement();
 

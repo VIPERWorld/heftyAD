@@ -1,7 +1,7 @@
 #include "View.h"
 #include "ViewForm.h"
 
-#include "widget/SectionedWidgetElt.h"
+#include "widget/SectionWidget.h"
 
 ViewForm::ViewForm(View *view, QWidget *parent)
     : TabWidget(parent)
@@ -46,14 +46,14 @@ void ViewForm::retranslate()
 
 void ViewForm::onSceneSelectionChanged() {}
 
-void ViewForm::addSection(SectionedWidget &sectionWidget, SectionedWidgetElt **section, QWidget *widget)
+void ViewForm::addSection(SectionWidgetGroup &sectionWidget, SectionWidget **section, QWidget *widget)
 {
     *section = sectionWidget.addSection();
-    SectionedWidgetElt *s = *section;
+    SectionWidget *s = *section;
     s->addWidget(widget, 1, 0);
 }
 
-void ViewForm::retranslateWidgets(SectionedWidgetElt *section, const QString &sectionTitle, ItemForm &form)
+void ViewForm::retranslateWidgets(SectionWidget *section, const QString &sectionTitle, ItemForm &form)
 {
     section->setBarTitle(sectionTitle);
     form.retranslate();

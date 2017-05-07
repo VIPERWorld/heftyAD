@@ -4,7 +4,7 @@
 #include <QImageReader>
 
 PixmapFormWidget::PixmapFormWidget(QWidget *parent)
-    : FormWidget(parent)
+    : DataFormWidget(parent)
 {
     addRow(QWidgetList() << &m_choose << &m_lineEdit << &m_clear, Qt::Horizontal);
     addRow(QWidgetList() << &m_slider << &m_lcd,                  Qt::Horizontal);
