@@ -1,5 +1,6 @@
 #include "ArrayForm.h"
 #include "ArrayView.h"
+#include "ViewItem.h"
 
 #include "widget/SectionWidget.h"
 
@@ -19,8 +20,9 @@ ArrayForm::ArrayForm(ArrayView *view, QWidget *parent)
     const int M = 1e3;
     m_arraySpacing.setRange(-M, M);
 
-    // hide base class widgets
+    // customize base class widgets
 
+    m_basicForm.setValueEditorPosEnabled(false);
     m_curveAttrs->setVisible(false);
 }
 
@@ -36,5 +38,12 @@ void ArrayForm::retranslate()
 #include <QDebug>
 void ArrayForm::onSceneSelectionChanged()
 {
+    QList<ViewItem*> items;
+    for(QGraphicsItem *item : m_view->sceneSelectedItems()) {
+        items.append(static_cast<ViewItem*>(item));
+    }
+
+    m_basicForm.setItems(items);
+
     qDebug() << m_view->sceneSelectedItems();
 }

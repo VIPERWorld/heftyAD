@@ -138,9 +138,8 @@ void ColorFormWidget::selectStaticColorIfNeeded()
         }
     }
 
-    const bool b = m_staticColors.blockSignals(true);
+    const QSignalBlocker blocker(&m_staticColors); Q_UNUSED(blocker)
     m_staticColors.setCurrentIndex(matchIndex!=-1 ? matchIndex : 0);
-    m_staticColors.blockSignals(b);
 }
 
 void ColorFormWidget::onStaticColorChoosed()

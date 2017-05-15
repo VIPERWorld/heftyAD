@@ -49,17 +49,13 @@ void PenFormWidget::setFieldTexts(const QString &styleText, const QString &width
 
 void PenFormWidget::updateFields()
 {
-    const bool s = m_style.blockSignals(true);
-    const bool w = m_width.blockSignals(true);
-    const bool c = m_color.blockSignals(true);
+    const QSignalBlocker blocker1(&m_style); Q_UNUSED(blocker1)
+    const QSignalBlocker blocker2(&m_width); Q_UNUSED(blocker2)
+    const QSignalBlocker blocker3(&m_color); Q_UNUSED(blocker3)
 
     m_style.setCurrentIndex(m_pen.style());
     m_width.setValue(m_pen.widthF());
     m_color.setColor(m_pen.color());
-
-    m_style.blockSignals(s);
-    m_width.blockSignals(w);
-    m_color.blockSignals(c);
 }
 
 void PenFormWidget::onFieldsEdited()

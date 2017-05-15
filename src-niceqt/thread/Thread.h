@@ -5,6 +5,7 @@
 
 /**
  * To be completed!
+ * This class is unused, eventually.
  */
 
 class Thread : public QThread

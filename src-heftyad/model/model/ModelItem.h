@@ -105,6 +105,7 @@ public:
 
     QPointF valueEditorPos() const;
     void setValueEditorPos(const QPointF &pos, bool notify = true);
+    void setValueEditorPos(qreal x, qreal y, bool notify = true);
 
     /**
      * Notifies any listener (a view for instance) about attribute changes.

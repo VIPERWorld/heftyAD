@@ -2,7 +2,7 @@
 #include "Resource.h"
 #include "View.h"
 
-#include "others/Utility.h"
+#include "utility/Utility.h"
 
 #include <QContextMenuEvent>
 #include <QMenu>

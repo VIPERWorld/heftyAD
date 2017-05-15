@@ -5,4 +5,14 @@ ItemForm::ItemForm(QWidget *parent)
 {
 }
 
+void ItemForm::setItems(const QList<ViewItem*> &items)
+{
+    unregisterItems();
+    m_items = items;
+    registerItems();
+}
+
 void ItemForm::retranslate() {}
+
+void ItemForm::registerItems() {}
+void ItemForm::unregisterItems() {}

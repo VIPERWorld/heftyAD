@@ -17,9 +17,10 @@
 
 void ModelWriterXmlHelper::writeModelItemTo(QXmlStreamWriter &stream, const ModelItem &item)
 {
-    stream.writeAttribute("value", item.value());
-    stream.writeAttribute("posX",  QVariant(item.x()).toString());
-    stream.writeAttribute("posY",  QVariant(item.y()).toString());
+    stream.writeAttribute("value",    item.value());
+    stream.writeAttribute("opacity",  QVariant(item.opacity()).toString());
+    stream.writeAttribute("posX",     QVariant(item.x()).toString());
+    stream.writeAttribute("posY",     QVariant(item.y()).toString());
     DataXmlWriter::writeQPointFAttr(stream, "editorPos", item.valueEditorPos());
     DataXmlWriter::writeQBrush(stream, "brush", item.brush());
     DataXmlWriter::writeQPen  (stream, "pen",   item.pen());

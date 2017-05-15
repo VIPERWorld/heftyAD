@@ -76,8 +76,8 @@ void FontFormWidget::setFieldTexts3(const QString &strikeOutText, const QString 
 
 void FontFormWidget::updateFields()
 {
-    const bool f = m_family.blockSignals(true);
-    const bool p = m_pointSize.blockSignals(true);
+    const QSignalBlocker blocker1(&m_family);    Q_UNUSED(blocker1)
+    const QSignalBlocker blocker2(&m_pointSize); Q_UNUSED(blocker2)
 
     m_family.setCurrentText(m_fontz.family());
     m_pointSize.setValue(m_fontz.pointSizeF());
@@ -88,9 +88,6 @@ void FontFormWidget::updateFields()
     m_strikeOut.setChecked(m_fontz.strikeOut());
     m_underline.setChecked(m_fontz.underline());
     m_overline.setChecked(m_fontz.overline());
-
-    m_family.blockSignals(f);
-    m_pointSize.blockSignals(p);
 }
 
 void FontFormWidget::onFieldsEdited()

@@ -249,8 +249,6 @@ HEADERS += \
     src-niceqt/others/ActionGroup.h \
     src-niceqt/others/BasicLanguagePicker.h \
     src-niceqt/others/PluginLoader.h \
-    src-niceqt/others/Thread.h \
-    src-niceqt/others/Utility.h \
     src-niceqt/scripting/ScriptEngine.h \
     src-niceqt/widget/codeeditor/BasicXmlSyntaxHighlighter.h \
     src-niceqt/widget/codeeditor/SyntaxHighlighter.h \
@@ -286,7 +284,11 @@ HEADERS += \
     src-niceqt/widget/SectionWidgetGroup.h \
     src-niceqt/widget/SectionWidget.h \
     src-niceqt/widget/SectionWidgetBar.h \
-    src-niceqt/widget/dataform/DataFormWidget.h
+    src-niceqt/widget/dataform/DataFormWidget.h \
+    src-niceqt/utility/Utility.h \
+    src-niceqt/thread/Thread.h \
+    src-niceqt/thread/ThreadWorker.h \
+    src-niceqt/others/SignalBreaker.hpp
 
 SOURCES += \
     src-heftyad/algorithm/basis/Iterable.cpp \
@@ -390,8 +392,6 @@ SOURCES += \
     src-niceqt/others/ActionGroup.cpp \
     src-niceqt/others/BasicLanguagePicker.cpp \
     src-niceqt/others/PluginLoader.cpp \
-    src-niceqt/others/Thread.cpp \
-    src-niceqt/others/Utility.cpp \
     src-niceqt/scripting/ScriptEngine.cpp \
     src-niceqt/widget/codeeditor/BasicXmlSyntaxHighlighter.cpp \
     src-niceqt/widget/codeeditor/SyntaxHighlighter.cpp \
@@ -427,4 +427,7 @@ SOURCES += \
     src-niceqt/widget/SectionWidgetGroup.cpp \
     src-niceqt/widget/SectionWidget.cpp \
     src-niceqt/widget/SectionWidgetBar.cpp \
-    src-niceqt/widget/dataform/DataFormWidget.cpp
+    src-niceqt/widget/dataform/DataFormWidget.cpp \
+    src-niceqt/utility/Utility.cpp \
+    src-niceqt/thread/Thread.cpp \
+    src-niceqt/thread/ThreadWorker.cpp

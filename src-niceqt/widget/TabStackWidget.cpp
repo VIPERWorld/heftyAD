@@ -1,5 +1,6 @@
 #include "TabStackWidget.h"
 
+#include <QSignalBlocker>
 #include <QTabWidget>
 
 TabStackWidget::TabStackWidget(QWidget *parent)
@@ -53,8 +54,8 @@ void TabStackWidget::moveContentToTab()
      */
 
     if(m_tab) {
-        const bool tw = m_tab->blockSignals(true);
-        const bool cb = m_comboBox.blockSignals(true);
+        const QSignalBlocker blocker1(m_tab);       Q_UNUSED(blocker1)
+        const QSignalBlocker blocker2(&m_comboBox); Q_UNUSED(blocker2)
         m_tab->setUpdatesEnabled(false);
 
         const int curr = m_comboBox.currentIndex();
@@ -67,8 +68,6 @@ void TabStackWidget::moveContentToTab()
 
         m_tab->setCurrentIndex(curr);
 
-        m_tab->blockSignals(tw);
-        m_comboBox.blockSignals(cb);
         m_tab->setUpdatesEnabled(true);
     }
 }
@@ -81,8 +80,8 @@ void TabStackWidget::moveContentToStack()
      */
 
     if(m_tab) {
-        const bool tw = m_tab->blockSignals(true);
-        const bool cb = m_comboBox.blockSignals(true);
+        const QSignalBlocker blocker1(m_tab);       Q_UNUSED(blocker1)
+        const QSignalBlocker blocker2(&m_comboBox); Q_UNUSED(blocker2)
 
         const int curr = m_tab->currentIndex();
 
@@ -93,9 +92,6 @@ void TabStackWidget::moveContentToStack()
 
         m_comboBox.setCurrentIndex(curr);
         m_stack.setCurrentIndex(curr);
-
-        m_tab->blockSignals(tw);
-        m_comboBox.blockSignals(cb);
     }
 }
 
@@ -140,7 +136,6 @@ void TabStackWidget::onModeChanged()
 
     // finally check mode switcher if needed
 
-    const bool b = m_modeSwitcher.blockSignals(true);
+    const QSignalBlocker blocker(m_modeSwitcher); Q_UNUSED(blocker)
     m_modeSwitcher.setChecked(m_mode == Stacked);
-    m_modeSwitcher.blockSignals(b);
 }

@@ -1,6 +1,8 @@
 #include "ModelItem.h"
 #include "ViewItem.h"
 
+#include "others/SignalBreaker.hpp"
+
 #include <QEvent>
 #include <QPainter>
 
@@ -13,8 +15,6 @@ ViewItem::ViewItem(QGraphicsItem *parent)
 
     setFlag(ItemSendsGeometryChanges);
 
-    connect(this, &ViewItem::xChanged,    this, &ViewItem::onXChanged);
-    connect(this, &ViewItem::yChanged,    this, &ViewItem::onYChanged);
     connect(this, &ViewItem::textChanged, this, &ViewItem::onTextChanged);
 
     connect(this, &ViewItem::modelItemChanged, this, &ViewItem::onModelItemChanged);
@@ -95,18 +95,15 @@ bool ViewItem::eventFilter(QObject *watched, QEvent *event)
 
 QVariant ViewItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
 {
-    if(m_modelItem) {
-        switch(change) {
-            case ItemEnabledChange:  m_modelItem->setEnabled (value.toBool(), false); break;
-            case ItemSelectedChange: m_modelItem->setSelected(value.toBool(), false); break;
-            case ItemOpacityChange:  m_modelItem->setOpacity (value.toReal(), false); break;
-            case ItemVisibleChange:  m_modelItem->setVisible (value.toBool(), false); break;
+    switch(change) {
+    case ItemEnabledHasChanged:  setModelItemEnabled();    break;
+    case ItemSelectedHasChanged: setModelItemSelected();   break;
+    case ItemOpacityHasChanged:  setModelItemOpacity();    break;
+    case ItemVisibleHasChanged:  setModelItemVisibility(); break;
 
-            case ItemPositionChange: // Already handled through the xChanged() and yChanged() signals.
-                break;
+    case ItemPositionHasChanged: setModelItemPos();        break;
 
-            default: break;
-        }
+    default: break;
     }
 
     return GraphicsEditableItem::itemChange(change, value);
@@ -136,6 +133,63 @@ void ViewItem::onModelItemChanged()
     }
 }
 
+void ViewItem::setModelItemValue()
+{
+    if(m_modelItem) {
+        const SignalBreaker b(m_modelItem, &ModelItem::valueChanged, this, &ViewItem::onModelItemValueChanged); Q_UNUSED(b)
+        m_modelItem->setValue(text());
+    }
+}
+
+void ViewItem::setModelItemEnabled()
+{
+    if(m_modelItem) {
+        const SignalBreaker b(m_modelItem, &ModelItem::enabledChanged, this, &ViewItem::onModelItemEnabledChanged); Q_UNUSED(b)
+        m_modelItem->setEnabled(isEnabled());
+    }
+}
+
+void ViewItem::setModelItemSelected()
+{
+    if(m_modelItem) {
+        const SignalBreaker b(m_modelItem, &ModelItem::selectedChanged, this, &ViewItem::onModelItemSelectedChanged); Q_UNUSED(b)
+        m_modelItem->setSelected(isSelected());
+    }
+}
+
+void ViewItem::setModelItemOpacity()
+{
+    if(m_modelItem) {
+        const SignalBreaker b(m_modelItem, &ModelItem::opacityChanged, this, &ViewItem::onModelItemOpacityChanged); Q_UNUSED(b)
+        m_modelItem->setOpacity(opacity());
+    }
+}
+
+void ViewItem::setModelItemVisibility()
+{
+    if(m_modelItem) {
+        const SignalBreaker b(m_modelItem, &ModelItem::visibilityChanged, this, &ViewItem::onModelItemVisibilityChanged); Q_UNUSED(b)
+        m_modelItem->setVisible(isVisible());
+    }
+}
+
+void ViewItem::setModelItemPos()
+{
+    if(m_modelItem) {
+        const SignalBreaker b(m_modelItem, &ModelItem::posChanged, this, &ViewItem::onModelItemPosChanged); Q_UNUSED(b)
+        const QPointF &p(!parentItem() ? pos() : parentItem()->mapToScene(pos()));
+        m_modelItem->setPos(p);
+    }
+}
+
+void ViewItem::setModelItemValueEditorPos()
+{
+    if(m_modelItem) {
+        const SignalBreaker b(m_modelItem, &ModelItem::valueEditorPosChanged, this, &ViewItem::onModelItemValueEditorPosChanged); Q_UNUSED(b)
+        m_modelItem->setValueEditorPos(m_textEditor.pos());
+    }
+}
+
 void ViewItem::onModelItemDestroyed()
 {
     // Note: There is no reason to delete this view since it may be used with another model.
@@ -147,10 +201,6 @@ void ViewItem::onModelItemValueChanged()
 {
     if(m_modelItem) {
         setText(m_modelItem->value());
-        // Handle the case where text edition is enabled (this item is being edited).
-        if(m_textEditor.isVisible()) {
-            m_textEditor.setPlainText(text());
-        }
     }
 }
 
@@ -166,7 +216,7 @@ void ViewItem::onModelItemFontChanged()  { update(); }
 void ViewItem::onModelItemPosChanged()
 {
     if(m_modelItem) {
-        const auto &p(m_modelItem->pos());
+        const QPointF &p(m_modelItem->pos());
         setPos(!parentItem() ? p : parentItem()->mapFromScene(p));
     }
 }
@@ -178,32 +228,5 @@ void ViewItem::onModelItemValueEditorPosChanged()
     }
 }
 
-void ViewItem::onXChanged()
-{
-    if(m_modelItem) {
-        const auto &p(!parentItem() ? pos() : parentItem()->mapToScene(pos()));
-        m_modelItem->setX(p.x(), false);
-    }
-}
-
-void ViewItem::onYChanged()
-{
-    if(m_modelItem) {
-        const auto &p(!parentItem() ? pos() : parentItem()->mapToScene(pos()));
-        m_modelItem->setY(p.y(), false);
-    }
-}
-
-void ViewItem::onTextChanged(QString text)
-{
-    if(m_modelItem) {
-        m_modelItem->setValue(text, false);
-    }
-}
-
-void ViewItem::onTextEditorPosChanged()
-{
-    if(m_modelItem) {
-        m_modelItem->setValueEditorPos(m_textEditor.pos(), false);
-    }
-}
+void ViewItem::onTextChanged() {setModelItemValue();}
+void ViewItem::onTextEditorPosChanged() {setModelItemValueEditorPos();}

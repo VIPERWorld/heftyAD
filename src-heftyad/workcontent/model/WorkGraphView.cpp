@@ -1,8 +1,6 @@
 #include "Resource.h"
 #include "WorkGraphView.h"
 
-#include "others/Utility.h"
-
 WorkGraphView::WorkGraphView(QWidget *parent)
     : GraphView(parent)
 {

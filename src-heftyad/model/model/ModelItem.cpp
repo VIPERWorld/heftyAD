@@ -222,6 +222,7 @@ void ModelItem::setValueEditorPos(const QPointF &pos, bool notify)
         }
     }
 }
+void ModelItem::setValueEditorPos(qreal x, qreal y, bool notify) {setValueEditorPos(QPointF(x, y), notify);}
 
 void ModelItem::sendAttributeChanges()
 {

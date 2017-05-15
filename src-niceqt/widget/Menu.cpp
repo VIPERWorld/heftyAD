@@ -1,6 +1,6 @@
 #include "Menu.h"
 
-#include "others/Utility.h"
+#include "utility/Utility.h"
 
 Menu::Menu(QWidget *parent)
     : QMenu(parent)

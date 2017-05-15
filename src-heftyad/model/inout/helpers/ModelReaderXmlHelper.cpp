@@ -20,6 +20,7 @@ void ModelReaderXmlHelper::readModelItemFrom(QXmlStreamReader &stream, ModelItem
     const QXmlStreamAttributes &attrs(stream.attributes());
 
     item.setValue(attrs.value("value").toString());
+    item.setOpacity(attrs.value("opacity").toDouble());
     item.setX(attrs.value("posX").toDouble());
     item.setY(attrs.value("posY").toDouble());
     item.setValueEditorPos(DataXmlReader::readQPointFAttr(attrs, "editorPos"));

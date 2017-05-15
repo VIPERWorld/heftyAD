@@ -37,13 +37,26 @@ protected:
 
 signals:
     void modelItemChanged();
-
     void editorHovered(bool state);
 
 protected slots:
     virtual void onModelItemChanged();
 
+private:
+    void setModelItemValue();
+    //
+    void setModelItemEnabled();
+    void setModelItemSelected();
+    void setModelItemOpacity();
+    void setModelItemVisibility();
+    //
+    void setModelItemPos();
+    //
+    void setModelItemValueEditorPos();
+
 private slots:
+    // when model attributes change
+
     void onModelItemDestroyed();
 
     void onModelItemValueChanged();
@@ -61,10 +74,9 @@ private slots:
 
     void onModelItemValueEditorPosChanged();
 
-    void onXChanged();
-    void onYChanged();
-    void onTextChanged(QString text);
+    // when this class attributes change
 
+    void onTextChanged();
     void onTextEditorPosChanged();
 };
 
