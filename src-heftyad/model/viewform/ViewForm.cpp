@@ -18,6 +18,10 @@ ViewForm::ViewForm(View *view, QWidget *parent)
     addSection(m_itemSections, &m_shapeAttrs, &m_shapeForm);
     addSection(m_itemSections, &m_curveAttrs, &m_curveForm);
 
+    for(auto *f : forms()) {
+        f->clearFields();
+    }
+
     if(view) {
         m_bgBrushWidget.setBrush(view->backgroundBrush());
         connect(&m_bgBrushWidget, &BrushFormWidget::brushEdited, [this, view]() {
@@ -42,6 +46,16 @@ void ViewForm::retranslate()
     retranslateWidgets(m_fontAttrs,  trUtf8("Police de caractère"), m_fontForm);
     retranslateWidgets(m_shapeAttrs, trUtf8("Forme"),               m_shapeForm);
     retranslateWidgets(m_curveAttrs, trUtf8("Arc"),                 m_curveForm);
+}
+
+QList<ItemForm*> ViewForm::forms() const
+{
+    return QList<ItemForm*>() << const_cast<ItemBasicForm*>(&m_basicForm)
+                              << const_cast<ItemBrushForm*>(&m_brushForm)
+                              << const_cast<ItemPenForm*>(&m_penForm)
+                              << const_cast<ItemFontForm*>(&m_fontForm)
+                              << const_cast<ItemShapeForm*>(&m_shapeForm)
+                              << const_cast<ItemCurveForm*>(&m_curveForm);
 }
 
 void ViewForm::onSceneSelectionChanged() {}

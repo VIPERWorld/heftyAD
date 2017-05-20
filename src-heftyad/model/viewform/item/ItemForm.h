@@ -17,6 +17,7 @@ public:
 
     void setItems(const QList<ViewItem*> &items);
     virtual void retranslate();
+    virtual void clearFields();
 
 protected:
     virtual void registerItems();

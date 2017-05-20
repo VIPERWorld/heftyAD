@@ -41,8 +41,6 @@ ItemBasicForm::ItemBasicForm(QWidget *parent)
     m_posY.setPrefix(Y);
     m_editorX.setPrefix(X);
     m_editorY.setPrefix(Y);
-
-    clearFields();
 }
 
 void ItemBasicForm::setValueEditorPosEnabled(bool enabled)
@@ -62,6 +60,8 @@ void ItemBasicForm::retranslate()
 
 void ItemBasicForm::clearFields()
 {
+    ItemForm::clearFields();
+
     m_value.clear();
     m_opacity.clear();
     m_posX.clear(); m_posY.clear();
@@ -70,7 +70,7 @@ void ItemBasicForm::clearFields()
 
 void ItemBasicForm::registerItems()
 {
-    clearFields();
+    ItemForm::registerItems();
 
     if(m_items.size() == 1) {
         ModelItem *item = m_items.first()->modelItem();
@@ -86,10 +86,6 @@ void ItemBasicForm::registerItems()
         connect(item, &ModelItem::valueEditorPosChanged, this, &ItemBasicForm::onItemValueEditorPosChanged);
     }
 
-    for(ViewItem *viewItem : m_items) {
-        Q_UNUSED(viewItem)
-    }
-
     connect(&m_value,   &QPlainTextEdit::textChanged,                                                this, &ItemBasicForm::onThisValueChanged);
     connect(&m_opacity, static_cast<void(QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, &ItemBasicForm::onThisOpacityChanged);
     connect(&m_posX,    static_cast<void(QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, &ItemBasicForm::onThisPosChanged);
@@ -100,6 +96,8 @@ void ItemBasicForm::registerItems()
 
 void ItemBasicForm::unregisterItems()
 {
+    ItemForm::unregisterItems();
+
     if(m_items.size() == 1) {
         ModelItem *item = m_items.first()->modelItem();
 
@@ -107,10 +105,6 @@ void ItemBasicForm::unregisterItems()
         disconnect(item, &ModelItem::opacityChanged,        this, &ItemBasicForm::onItemOpacityChanged);
         disconnect(item, &ModelItem::posChanged,            this, &ItemBasicForm::onItemPosChanged);
         disconnect(item, &ModelItem::valueEditorPosChanged, this, &ItemBasicForm::onItemValueEditorPosChanged);
-    }
-
-    for(ViewItem *viewItem : m_items) {
-        Q_UNUSED(viewItem)
     }
 
     disconnect(&m_value,   &QPlainTextEdit::textChanged,                                                this, &ItemBasicForm::onThisValueChanged);

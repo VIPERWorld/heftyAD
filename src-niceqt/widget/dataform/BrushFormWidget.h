@@ -27,7 +27,13 @@ public:
     void setFormTitles(const QString &colorTitle, const QString &gradientTitle, const QString &pixmapTitle);
 
 signals:
+    /**
+     * This signal is emitted whenever the brush changes, even programmatically or through edition.
+     */
     void brushChanged();
+    /**
+     * This signal is emitted whenever the inner color, gradient or pixmap is edited.
+     */
     void brushEdited();
 
 public slots:

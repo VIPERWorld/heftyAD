@@ -12,7 +12,7 @@ ModelItem::ModelItem(QObject *parent)
 
     m_brush = QBrush(Qt::white);
     m_pen   = QPen(Qt::black, 1.1);
-    m_font  = QFont("Time News Roman", 15);
+    m_font  = QFont("Times New Roman", 15);
 }
 
 QString ModelItem::value() const {return m_value;}

@@ -37,32 +37,32 @@ void WorkGraphView::createModelRelatedActions()
 
     m_actionGroup1.setAcceptNoSelection(true);
 
-    m_addNode = new QAction(&m_actionGroup1);
-    m_addEdge = new QAction(&m_actionGroup1);
-    m_addEdgeSuccessively = new QAction(&m_actionGroup1);
+    m_addNodes = new QAction(&m_actionGroup1);
+    m_addEdges = new QAction(&m_actionGroup1);
+    m_addEdgesSuccessively = new QAction(&m_actionGroup1);
     m_addEdgeFromSourceOnMousePressed = new QAction(&m_actionGroup1);
     m_textEdition = new QAction(&m_actionGroup1);
-    m_removeItem = new QAction(&m_actionGroup1);
+    m_removeItems = new QAction(&m_actionGroup1);
 
-    m_addNode->setCheckable(true);
-    m_addEdge->setCheckable(true);
-    m_addEdgeSuccessively->setCheckable(true);
+    m_addNodes->setCheckable(true);
+    m_addEdges->setCheckable(true);
+    m_addEdgesSuccessively->setCheckable(true);
     m_addEdgeFromSourceOnMousePressed->setCheckable(true);
     m_textEdition->setCheckable(true);
 
-    m_addNode->setIcon(Resource::instance().toolBarIcon("node.png"));
-    m_addEdge->setIcon(Resource::instance().toolBarIcon("curve.png"));
-    m_addEdgeSuccessively->setIcon(Resource::instance().toolBarIcon("curve_continuous.png"));
+    m_addNodes->setIcon(Resource::instance().toolBarIcon("node.png"));
+    m_addEdges->setIcon(Resource::instance().toolBarIcon("curve.png"));
+    m_addEdgesSuccessively->setIcon(Resource::instance().toolBarIcon("curve_continuous.png"));
     m_addEdgeFromSourceOnMousePressed->setIcon(Resource::instance().toolBarIcon("curve_sourced.png"));
     m_textEdition->setIcon(Resource::instance().toolBarIcon(".png"));
-    m_removeItem->setIcon(Resource::instance().toolBarIcon("remove_item.png"));
+    m_removeItems->setIcon(Resource::instance().toolBarIcon("remove_item.png"));
 
-    connect(m_addNode,                         &QAction::toggled,   this, &WorkGraphView::setOnMousePressedAddNode);
-    connect(m_addEdge,                         &QAction::toggled,   this, &WorkGraphView::setOnMousePressedAddEdgeTwoByTwo);
-    connect(m_addEdgeSuccessively,             &QAction::toggled,   this, &WorkGraphView::setOnMousePressedAddEdgeSuccessively);
+    connect(m_addNodes,                         &QAction::toggled,   this, &WorkGraphView::setOnMousePressedAddNode);
+    connect(m_addEdges,                         &QAction::toggled,   this, &WorkGraphView::setOnMousePressedAddEdgeTwoByTwo);
+    connect(m_addEdgesSuccessively,             &QAction::toggled,   this, &WorkGraphView::setOnMousePressedAddEdgeSuccessively);
     connect(m_addEdgeFromSourceOnMousePressed, &QAction::toggled,   this, &WorkGraphView::setOnMousePressedAddEdgeFromSource);
     connect(m_textEdition,                     &QAction::toggled,   this, &WorkGraphView::setEnabledItemEdition);
-    connect(m_removeItem,                      &QAction::triggered, this, &WorkGraphView::removeSelectedItems);
+    connect(m_removeItems,                      &QAction::triggered, this, &WorkGraphView::removeSelectedItems);
 
     // Separator
 
@@ -83,12 +83,12 @@ void WorkGraphView::createModelRelatedActions()
 
 void WorkGraphView::retranslateModelRelatedActions()
 {
-    m_addNode->setText(trUtf8("Ajouter des sommets"));
-    m_addEdge->setText(trUtf8("Ajouter des arcs"));
-    m_addEdgeSuccessively->setText(trUtf8("Ajouter des arcs continuellement"));
+    m_addNodes->setText(trUtf8("Ajouter des sommets"));
+    m_addEdges->setText(trUtf8("Ajouter des arcs"));
+    m_addEdgesSuccessively->setText(trUtf8("Ajouter des arcs continuellement"));
     m_addEdgeFromSourceOnMousePressed->setText(trUtf8("Ajouter des arcs à partir d'une source"));
-    m_textEdition->setText(trUtf8("Modifier le contenu d'un item"));
-    m_removeItem->setText(trUtf8("Supprimer les items sélectionnés"));
+    m_textEdition->setText(trUtf8("Modifier la valeur des items"));
+    m_removeItems->setText(trUtf8("Supprimer les items sélectionnés"));
 
     m_showEdgePoints->setText(trUtf8("Afficher/Cacher les noeuds sur les arcs"));
 }

@@ -145,7 +145,7 @@ void ArrayView::removeSelectedItems()
     setDirty(true);
 }
 
-void ArrayView::showItemsAsInArray()
+void ArrayView::normalizeItemPositions()
 {
     const auto &centerItemsVertically = QApplication::keyboardModifiers() & Qt::ControlModifier;
 

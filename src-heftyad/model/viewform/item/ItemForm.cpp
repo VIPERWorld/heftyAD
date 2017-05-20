@@ -14,5 +14,13 @@ void ItemForm::setItems(const QList<ViewItem*> &items)
 
 void ItemForm::retranslate() {}
 
-void ItemForm::registerItems() {}
+void ItemForm::clearFields()
+{
+    setEnabled(!m_items.isEmpty());
+}
+
+void ItemForm::registerItems()
+{
+    clearFields();
+}
 void ItemForm::unregisterItems() {}

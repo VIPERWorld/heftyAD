@@ -19,8 +19,10 @@ void GraphicsEditableItem::setText(const QString &text) {
     if(m_text != text) {
         m_text = text;
         if(m_textEditor.isVisible()) {
-            const QSignalBlocker blocker(m_textEditor.document()); Q_UNUSED(blocker)
-            m_textEditor.setPlainText(m_text); // signal won't be emitted since it's blocked
+            if(m_textEditor.toPlainText() != m_text) { // does nothing when calling setText results from the document content being changed
+                const QSignalBlocker blocker(m_textEditor.document()); Q_UNUSED(blocker)
+                m_textEditor.setPlainText(m_text); // signal won't be emitted since it's blocked
+            }
         }
 
         emit textChanged(m_text);

@@ -31,6 +31,7 @@ FontFormWidget::FontFormWidget(QWidget *parent)
     // connect signals/slots
 
     connect(&m_family,    static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),       this, &FontFormWidget::onFieldsEdited);
+    connect(&m_family,    &QComboBox::editTextChanged,                                                 this, &FontFormWidget::onFieldsEdited);
     connect(&m_pointSize, static_cast<void(QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, &FontFormWidget::onFieldsEdited);
 
     connect(&m_bold,      &QCheckBox::released, this, &FontFormWidget::onFieldsEdited);

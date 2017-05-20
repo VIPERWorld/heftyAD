@@ -464,7 +464,6 @@ void ArrayModel::layout(const QPointF &start, bool centerItemsVertically,
         return;
     }
 
-    const int &spacing(m_layoutSpacing);
     qreal maxHeight = -1; // maximal height (among items)
     const qreal &s(size());
 
@@ -480,10 +479,16 @@ void ArrayModel::layout(const QPointF &start, bool centerItemsVertically,
         }
 
         if(!ignoredIndexes.contains(i)) {
-            item->setPos(p, false); // We do not notify viewers about this move since the item moves again below.
+            item->setPos(p, false); // the item center will be at the given position
             item->moveBy(itemWidth/2, itemHeight/2);
         }
-        p.setX(p.x() + itemWidth + spacing);
+
+        if(m_layoutSpacing >= 0) { // align elements to the right
+            p.setX(p.x() + itemWidth + m_layoutSpacing);
+        }
+        else if(i != s-1) { // align elements to the left
+            p.setX(p.x() - m_array[i+1]->rect().width() + m_layoutSpacing);
+        }
     }
 
     if(centerItemsVertically) {

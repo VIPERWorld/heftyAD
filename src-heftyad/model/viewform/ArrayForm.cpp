@@ -1,4 +1,5 @@
 #include "ArrayForm.h"
+#include "ArrayModel.h"
 #include "ArrayView.h"
 #include "ViewItem.h"
 
@@ -24,6 +25,17 @@ ArrayForm::ArrayForm(ArrayView *view, QWidget *parent)
 
     m_basicForm.setValueEditorPosEnabled(false);
     m_curveAttrs->setVisible(false);
+
+    // connect signals to slots
+
+    connect(m_view, &ArrayView::modelChanged, [this]() {
+        auto *array = static_cast<ArrayModel*>(m_view->model());
+        if(array) {
+            const QSignalBlocker blocker(m_arraySpacing); Q_UNUSED(blocker)
+            m_arraySpacing.setValue(array->layoutSpacing());
+        }
+    });
+    connect(&m_arraySpacing, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &ArrayForm::onArraySpacingChanged);
 }
 
 void ArrayForm::retranslate()
@@ -32,7 +44,8 @@ void ArrayForm::retranslate()
 
     m_arraySection->setBarTitle(trUtf8("Tableau"));
     m_arraySpacingLabel.setText(trUtf8("Espacement"));
-    m_arraySpacing.setToolTip(trUtf8("Espacement entre les items lorsque positionnés automatiquement"));
+    m_arraySpacing.setToolTip(trUtf8("Espacement entre les items")+"\n"+
+                              trUtf8("(pris en compte pendant la normalization de leur position par exemple)"));
 }
 
 #include <QDebug>
@@ -43,7 +56,15 @@ void ArrayForm::onSceneSelectionChanged()
         items.append(static_cast<ViewItem*>(item));
     }
 
-    m_basicForm.setItems(items);
+    for(auto *f : forms()) {
+        f->setItems(items);
+    }
 
     qDebug() << m_view->sceneSelectedItems();
+}
+
+void ArrayForm::onArraySpacingChanged()
+{
+    auto *array = static_cast<ArrayModel*>(m_view->model());
+    array->setLayoutSpacing(m_arraySpacing.value());
 }

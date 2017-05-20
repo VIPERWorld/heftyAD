@@ -43,6 +43,7 @@ public:
     virtual void retranslate();
 
 protected:
+    QList<ItemForm*> forms() const;
     virtual void onSceneSelectionChanged();
 
 private:

@@ -28,7 +28,7 @@ protected:
 public slots:
     void removeSelectedItems() override;
 
-    void showItemsAsInArray();
+    void normalizeItemPositions();
     void shuffleItems();
     void sortItemsBySceneRectX();
     void sortItemsByValue();

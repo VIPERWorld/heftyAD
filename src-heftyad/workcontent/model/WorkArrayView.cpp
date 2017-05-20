@@ -32,20 +32,20 @@ void WorkArrayView::createModelRelatedActions()
 
     m_actionGroup1.setAcceptNoSelection(true);
 
-    m_addItem = new QAction(&m_actionGroup1);
+    m_addItems = new QAction(&m_actionGroup1);
     m_textEdition = new QAction(&m_actionGroup1);
-    m_removeItem = new QAction(&m_actionGroup1);
+    m_removeItems = new QAction(&m_actionGroup1);
 
-    m_addItem->setCheckable(true);
+    m_addItems->setCheckable(true);
     m_textEdition->setCheckable(true);
 
-    m_addItem->setIcon(Resource::instance().toolBarIcon(".png"));
+    m_addItems->setIcon(Resource::instance().toolBarIcon(".png"));
     m_textEdition->setIcon(Resource::instance().toolBarIcon(".png"));
-    m_removeItem->setIcon(Resource::instance().toolBarIcon("remove_item.png"));
+    m_removeItems->setIcon(Resource::instance().toolBarIcon("remove_item.png"));
 
-    connect(m_addItem,     &QAction::toggled,   this, &WorkArrayView::setOnMousePressedAddItem);
+    connect(m_addItems,    &QAction::toggled,   this, &WorkArrayView::setOnMousePressedAddItem);
     connect(m_textEdition, &QAction::toggled,   this, &WorkArrayView::setEnabledItemEdition);
-    connect(m_removeItem,  &QAction::triggered, this, &WorkArrayView::removeSelectedItems);
+    connect(m_removeItems, &QAction::triggered, this, &WorkArrayView::removeSelectedItems);
 
     // Separator
 
@@ -57,15 +57,15 @@ void WorkArrayView::createModelRelatedActions()
     m_actionGroup2.setAcceptNoSelection(true);
 
     m_showItemIndexes = new QAction(&m_actionGroup2);
-    m_showItemsAsInArray = new QAction(&m_actionGroup2);
+    m_normalizeItemPositions = new QAction(&m_actionGroup2);
 
     m_showItemIndexes->setCheckable(true);
 
     m_showItemIndexes->setIcon(Resource::instance().toolBarIcon(".png"));
-    m_showItemsAsInArray->setIcon(Resource::instance().toolBarIcon(".png"));
+    m_normalizeItemPositions->setIcon(Resource::instance().toolBarIcon(".png"));
 
-    connect(m_showItemIndexes,    &QAction::toggled,   this, &WorkArrayView::setVisibleItemIndexesInArray);
-    connect(m_showItemsAsInArray, &QAction::triggered, this, &WorkArrayView::showItemsAsInArray);
+    connect(m_showItemIndexes,        &QAction::toggled,   this, &WorkArrayView::setVisibleItemIndexesInArray);
+    connect(m_normalizeItemPositions, &QAction::triggered, this, &WorkArrayView::normalizeItemPositions);
 
     // Separator
 
@@ -91,14 +91,14 @@ void WorkArrayView::createModelRelatedActions()
 
 void WorkArrayView::retranslateModelRelatedActions()
 {
-    m_addItem->setText(trUtf8("Ajouter un item"));
-    m_textEdition->setText(trUtf8("Modifier le contenu des items"));
-    m_removeItem->setText(trUtf8("Supprimer les items sélectionnés"));
+    m_addItems->setText(trUtf8("Ajouter des items"));
+    m_textEdition->setText(trUtf8("Modifier la valeur des items"));
+    m_removeItems->setText(trUtf8("Supprimer les items sélectionnés"));
 
     m_showItemIndexes->setText(trUtf8("Afficher les indexes des items"));
-    m_showItemsAsInArray->setText(trUtf8("Afficher les items comme dans un tableau"));
+    m_normalizeItemPositions->setText(trUtf8("Normaliser la disposition des items"));
 
-    m_shuffleItems->setText(trUtf8("Mélanger les items aléatoirement"));
+    m_shuffleItems->setText(trUtf8("Mélanger les items"));
     m_sortItemsByPos->setText(trUtf8("Ordonner les items à partir de leur position"));
     m_sortItemsByValue->setText(trUtf8("Ordonner les items à partir de leur valeur associée"));
 }

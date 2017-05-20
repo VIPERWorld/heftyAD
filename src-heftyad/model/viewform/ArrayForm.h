@@ -33,7 +33,8 @@ protected:
 
 signals:
 
-public slots:
+private slots:
+    void onArraySpacingChanged();
 };
 
 #endif // ARRAYFORM_H

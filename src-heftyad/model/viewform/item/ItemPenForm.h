@@ -16,10 +16,18 @@ public:
     explicit ItemPenForm(QWidget *parent = 0);
 
     void retranslate() override;
+    void clearFields() override;
+
+protected:
+    void registerItems() override;
+    void unregisterItems() override;
 
 signals:
 
-public slots:
+private slots:
+    void onItemPenChanged();
+
+    void onThisPenChanged();
 };
 
 #endif // ITEMPENFORM_H

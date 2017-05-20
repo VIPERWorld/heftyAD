@@ -13,15 +13,15 @@ protected:
     // model related actions
 
     ActionGroup m_actionGroup1;
-        QAction *m_addItem;
+        QAction *m_addItems;
         QAction *m_textEdition;
-        QAction *m_removeItem;
+        QAction *m_removeItems;
 
     QAction *m_separator1;
 
     ActionGroup m_actionGroup2;
         QAction *m_showItemIndexes;
-        QAction *m_showItemsAsInArray;
+        QAction *m_normalizeItemPositions;
 
     QAction *m_separator2;
 

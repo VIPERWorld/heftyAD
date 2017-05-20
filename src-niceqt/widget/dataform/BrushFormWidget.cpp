@@ -17,6 +17,8 @@ BrushFormWidget::BrushFormWidget(QWidget *parent)
     //connect(&m_gradient, &GradientFormWidget::gradientEdited, this, &BrushFormWidget::brushEdited);
     connect(&m_pixmap,   &PixmapFormWidget::pixmapEdited,     this, &BrushFormWidget::brushEdited);
 
+    connect(this, &BrushFormWidget::brushEdited, this, &BrushFormWidget::brushChanged);
+
     // set initial brush
 
     setBrush(Qt::NoBrush);

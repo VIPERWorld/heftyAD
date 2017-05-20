@@ -8,6 +8,8 @@
 #include <QDoubleSpinBox>
 #include <QLabel>
 
+class ModelMultiShapeItem;
+
 class ItemShapeForm : public ItemForm
 {
     Q_OBJECT
@@ -20,14 +22,27 @@ public:
     explicit ItemShapeForm(QWidget *parent = 0);
 
     void retranslate() override;
+    void clearFields() override;
+
+protected:
+    void registerItems() override;
+    void unregisterItems() override;
 
 private:
-    void updateDimensionWidgets();
+    void setDimensionFrom(ModelMultiShapeItem *item);
 
 signals:
 
 private slots:
-    void onCurrentShapeChanged();
+    void updateDimensionWidgets();
+
+    void onItemShapeKindChanged();
+    void onItemRoundedChanged();
+    void onItemDimensionChanged();
+
+    void onThisShapeKindChanged();
+    void onThisRoundedChanged();
+    void onThisDimensionChanged();
 };
 
 #endif // ITEMSHAPEFORM_H

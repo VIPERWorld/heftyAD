@@ -13,12 +13,12 @@ protected:
     // model related actions
 
     ActionGroup m_actionGroup1;
-        QAction *m_addNode;
-        QAction *m_addEdge;
-        QAction *m_addEdgeSuccessively;
+        QAction *m_addNodes;
+        QAction *m_addEdges;
+        QAction *m_addEdgesSuccessively;
         QAction *m_addEdgeFromSourceOnMousePressed;
         QAction *m_textEdition;
-        QAction *m_removeItem;
+        QAction *m_removeItems;
 
     QAction *m_separator;
 

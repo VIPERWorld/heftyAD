@@ -16,10 +16,18 @@ public:
     explicit ItemFontForm(QWidget *parent = 0);
 
     void retranslate() override;
+    void clearFields() override;
+
+protected:
+    void registerItems() override;
+    void unregisterItems() override;
 
 signals:
 
-public slots:
+private slots:
+    void onItemFontChanged();
+
+    void onThisFontChanged();
 };
 
 #endif // ITEMFONTFORM_H

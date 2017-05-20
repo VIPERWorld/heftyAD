@@ -22,10 +22,9 @@ public:
 
     void setValueEditorPosEnabled(bool enabled);
     void retranslate() override;
+    void clearFields() override;
 
 protected:
-    void clearFields();
-
     void registerItems() override;
     void unregisterItems() override;
 
