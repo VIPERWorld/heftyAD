@@ -66,6 +66,13 @@ void EditMenu::retranslate()
     m_selectAll->setText(trUtf8("Tout Sélectionner"));
 }
 
+#include <QDebug>
+#include "command/UndoCommand.h"
+void debug(const QString &text, ncpp::UndoCommand *cmd)
+{
+    qDebug() << text.toStdString().c_str() << QString(cmd->description().c_str());
+}
+
 void EditMenu::onUndoActionTriggered()
 {
     ncpp::UndoStack *undoStack = MainData::currentUndoStack();
@@ -74,6 +81,7 @@ void EditMenu::onUndoActionTriggered()
     }
 
     if(undoStack->canUndo()) {
+        debug("Undo", undoStack->nextCommandToUndo());
         undoStack->undo();
     }
     setUndoRedoEnabled(undoStack->canUndo(), undoStack->canRedo());
@@ -87,6 +95,7 @@ void EditMenu::onRedoActionTriggered()
     }
 
     if(undoStack->canRedo()) {
+        debug("Redo", undoStack->nextCommandToRedo());
         undoStack->redo();
     }
     setUndoRedoEnabled(undoStack->canUndo(), undoStack->canRedo());

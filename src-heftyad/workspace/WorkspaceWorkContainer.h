@@ -39,7 +39,7 @@ public:
      */
     bool containsWork(const QString &filePath) const;
 
-    bool hasUnsavedWork() const;
+    bool hasDirtyWork() const;
 
     bool eventFilter(QObject *watched, QEvent *event) override;
 
@@ -60,7 +60,10 @@ public slots:
 
     void saveWork(Work *work);
     void saveWorkAs(Work *work);
+    void saveWorkCopy(Work *work);
     void saveAllWorks();
+
+    void reloadWork(Work *work);
 
     void closeWork(Work *work);
     void closeAllWorks();

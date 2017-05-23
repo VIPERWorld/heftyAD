@@ -44,6 +44,7 @@ void Model::discardStates() {}
 QString Model::toString() const {return QString();}
 QRectF Model::coverage() const {return QRectF();}
 
+void Model::empty() {}
 void Model::shuffle() {}
 void Model::layout() {}
 

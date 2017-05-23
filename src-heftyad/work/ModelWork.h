@@ -37,6 +37,9 @@ public:
     QList<QAction*> toolBarActions() const override;
     void retranslate() override;
 
+protected:
+    void execExportDialog() override;
+
 signals:
 
 public slots:

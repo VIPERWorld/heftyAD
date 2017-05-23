@@ -39,6 +39,8 @@ protected:
 signals:
 
 public slots:
+    bool saveImageTo(const QString &filePath, const char *format = nullptr);
+
     virtual void setEnabledItemEdition(bool enabled);
     virtual void setEnabledItemMove(bool enabled);
 

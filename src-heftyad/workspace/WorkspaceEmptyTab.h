@@ -32,7 +32,7 @@ public:
     virtual QList<QAction*> contextMenuActions() const;
     virtual void retranslate();
 
-    virtual bool hasUnsavedWork() const;
+    virtual bool hasDirtyWork() const;
     virtual bool hasOpenedWork() const;
 
     virtual void saveAllWorks();

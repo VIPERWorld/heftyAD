@@ -225,6 +225,8 @@ void GraphModel::clear(bool deleteViews)
     emit cleared();
 }
 
+void GraphModel::empty() {clear();}
+
 void GraphModel::registerItemToBeFreed(ModelItem *item)
 {
     if(item != nullptr) {

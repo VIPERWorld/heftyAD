@@ -41,7 +41,7 @@ public:
     void openNewWork(const QString &workType);
     void openExistingWorks(const QString &workFamily);
 
-    bool hasUnsavedWork() const override;
+    bool hasDirtyWork() const override;
     bool hasOpenedWork() const override;
 
     void saveAllWorks() override;

@@ -26,9 +26,14 @@ void MainGuiData::setCurrentWork(Work *work)
 
     m_currentWork = work;
     if(m_currentWork) {
-        m_currentWorkConn = QObject::connect(m_currentWork, &Work::dirtyChanged, []() {
+        auto lambda = []() {
             ncpp::UndoStack *stack = m_currentWork->undoStack();
-            m_editMenu->setUndoRedoEnabled(stack->canUndo(), stack->canRedo());
-        });
+            if(stack) {
+                m_editMenu->setUndoRedoEnabled(stack->canUndo(), stack->canRedo());
+            }
+        };
+
+        m_currentWorkConn = QObject::connect(m_currentWork, &Work::dirtyChanged, lambda);
+        lambda();
     }
 }

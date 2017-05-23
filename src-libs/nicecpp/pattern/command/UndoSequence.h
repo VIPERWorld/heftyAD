@@ -11,32 +11,36 @@
 namespace ncpp
 {
 /**
- * The UndoSequence class, based on the Composite pattern,
- * represents a sequence of undoable commands.
+ * The UndoSequence class implements the Composite pattern
+ * and defines a sequence of undoable commands.
  *
  * It represents commands which are composed of sub-commands.
- * Sub-commands can be registered either through the list passed to the constructor,
- * or via the push() function.
+ * Sub-commands can be registered either via the convenient push() functions.
  *
- * In addition, depending on the argument given to this class' constructor,
- * it may take ownership of its sub-commands: this is the default behaviour
- * (so sub-commands will be deleted during this command destruction).
+ * This command may also take ownership of some of its sub-commands,
+ * in which case it will delete them upon destruction.
  */
 class NICECPPLIBSHARED_EXPORT UndoSequence : public UndoCommand
 {
 private:
     std::list<UndoCommand*> m_subCommands;
-
     std::list<std::unique_ptr<UndoCommand>> m_ownerships;
-    bool m_takeOwnershipOfSubCommands;
 
 public:
-    UndoSequence(bool takeOwnershipOfSubCommands = true);
-    UndoSequence(const std::list<UndoCommand*> &subCommands, bool takeOwnerhipOfSubCommands = true);
+    UndoSequence() = default;
     ~UndoSequence();
 
-    std::string description() const noexcept override;
+    /**
+     * Registers the given command as a sub-command, only if it's not null.
+     *
+     * We highly recommend not to add the same command several times.
+     * Indeed in the case this command takes ownership of its children,
+     * children deletion will lead to a crash since the same child command will be deleted more than once.
+     */
+    void push(UndoCommand *cmd, bool takeOwnerhipOfCommand = true);
+    void push(const std::list<UndoCommand*> &subCommands, bool takeOwnerhipOfSubCommands = true);
 
+    std::string description() const override;
     /**
      * Undoes all sub-commands.
      */
@@ -45,19 +49,6 @@ public:
      * Redoes all sub-commands.
      */
     void redo() override;
-
-    /**
-     * Registers the given command as a sub-command, only if it's not null.
-     *
-     * We highly recommend not to add the same command several times.
-     * Indeed, if this command takes ownership of its children,
-     * children deletion will lead to a crash.
-     */
-    void push(UndoCommand *cmd);
-
-protected:
-    void undoActions() override;
-    void redoActions() override;
 };
 }
 

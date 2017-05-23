@@ -49,6 +49,7 @@ public:
      */
     virtual QRectF coverage() const;
 
+    virtual void empty();
     virtual void shuffle();
     virtual void layout();
 

@@ -116,7 +116,7 @@ void WorkspaceBasicTab::openExistingWorks(const QString &workFamily)
     .exec();
 }
 
-bool WorkspaceBasicTab::hasUnsavedWork() const {return m_workContainer.hasUnsavedWork();}
+bool WorkspaceBasicTab::hasDirtyWork() const {return m_workContainer.hasDirtyWork();}
 bool WorkspaceBasicTab::hasOpenedWork() const {return m_workContainer.currentWork() != nullptr;}
 
 void WorkspaceBasicTab::saveAllWorks() {m_workContainer.saveAllWorks();}

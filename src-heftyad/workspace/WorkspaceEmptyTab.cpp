@@ -19,7 +19,7 @@ bool WorkspaceEmptyTab::allowSaveAll() const {return allowAction(SaveAll);}
 QList<QAction*> WorkspaceEmptyTab::contextMenuActions() const {return QList<QAction*>();}
 void WorkspaceEmptyTab::retranslate(){}
 
-bool WorkspaceEmptyTab::hasUnsavedWork() const {return false;}
+bool WorkspaceEmptyTab::hasDirtyWork() const {return false;}
 bool WorkspaceEmptyTab::hasOpenedWork() const {return false;}
 
 void WorkspaceEmptyTab::saveAllWorks() {}

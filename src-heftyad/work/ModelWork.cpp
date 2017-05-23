@@ -2,10 +2,14 @@
 #include "ModelWork.h"
 #include "View.h"
 
+#include <QFileDialog>
+
 ModelWork::ModelWork(View *view, QWidget *parent)
     : Work(parent),
       m_view(view)
 {
+    m_exportFeatureEnabled = true;
+
     if(m_view != nullptr) {
         addWidget(m_view, 0, 0);
 
@@ -26,24 +30,30 @@ ncpp::UndoStack *ModelWork::undoStack() const {return m_view ? m_view->undoStack
 
 bool ModelWork::saveTo(const QString &filePath)
 {
+    bool saved = false;
     if(m_view) {
         Model *model = m_view->model();
         if(model) {
-            return model->saveTo(filePath);
+            saved = model->saveTo(filePath);
         }
     }
-    return false;
+
+    return saved;
 }
 
 bool ModelWork::loadFrom(const QString &filePath)
 {
+    bool loaded = false;
     if(m_view) {
         Model *model = m_view->model();
         if(model) {
-            return model->loadFrom(filePath);
+            model->empty();
+            loaded = model->loadFrom(filePath);
+            m_view->undoStack()->clear();
         }
     }
-    return false;
+
+    return loaded;
 }
 
 QWidget* ModelWork::editionForm() const {return m_view ? (QWidget*)m_view->editionForm() : nullptr;}
@@ -61,3 +71,16 @@ void ModelWork::retranslate()
     }
 }
 
+void ModelWork::execExportDialog()
+{
+    if(m_view) {
+        QString filePath = QFileDialog::getSaveFileName(this, trUtf8("Exporter comme png"), "", "*.png");
+        if(!filePath.isEmpty()) {
+            if(!filePath.endsWith(".png")) {
+                filePath += ".png";
+            }
+
+            m_view->saveImageTo(filePath, "PNG");
+        }
+    }
+}

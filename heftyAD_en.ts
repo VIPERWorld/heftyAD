@@ -261,6 +261,14 @@
     </message>
 </context>
 <context>
+    <name>ModelWork</name>
+    <message>
+        <location filename="src-heftyad/work/ModelWork.cpp" line="77"/>
+        <source>Exporter comme png</source>
+        <translation>Export as png</translation>
+    </message>
+</context>
+<context>
     <name>PluginForm</name>
     <message>
         <location filename="src-heftyad/plugin/form/PluginForm.cpp" line="39"/>
@@ -884,40 +892,62 @@ Bonne découverte !</source>
     <name>WorkspaceWorkContainer</name>
     <message>
         <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="190"/>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="241"/>
         <source>Enregistrer</source>
         <translation>Save</translation>
     </message>
     <message>
         <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="191"/>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="259"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="267"/>
         <source>Enregistrer sous</source>
         <translation>Save As</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="193"/>
-        <source>Cloner</source>
-        <translation>Clone</translation>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="192"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="288"/>
+        <source>Enregistrer une copie</source>
+        <translation>Save A Copy</translation>
     </message>
     <message>
         <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="194"/>
+        <source>Recharger</source>
+        <translation>Reload</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="195"/>
         <source>Exporter sous</source>
         <translation>Export As</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="196"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="197"/>
         <source>Fermer</source>
         <translation>Close</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="283"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="314"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="333"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="351"/>
         <source>Attention</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="285"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="316"/>
+        <source>Des modifications &lt;B&gt;non enregistrées&lt;/B&gt; sont en cours.&lt;br/&gt;Elles seront &lt;B&gt;perdues&lt;/B&gt; si vous continuez.&lt;br/&gt;Souhaitez-vous recharger %1 ?</source>
+        <translation>Unsaved changes will be &lt;B&gt;lost&lt;/B&gt; if you continue.&lt;br/&gt;Reload %1?</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="335"/>
+        <source>%1 n&apos;a pu être rechargée.</source>
+        <translation>Unable to reload %1.</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="336"/>
+        <source>&lt;I&gt;Le fichier de travail n&apos;existe probablement plus&lt;/I&gt;.</source>
+        <translation>&lt;I&gt;The working file probably no more exists&lt;/I&gt;.</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="353"/>
         <source>Des modifications &lt;B&gt;non enregistrées&lt;/B&gt; sont en cours.&lt;br/&gt;Souhaitez-vous enregistrer %1 ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Unsaved changes will be &lt;B&gt;lost&lt;/B&gt; if you continue.&lt;br/&gt;Save %1?</translation>
     </message>
 </context>
 <context>

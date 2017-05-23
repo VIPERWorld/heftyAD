@@ -12,8 +12,8 @@ class UndoStack;
 /**
  * Represents a group of UndoStack elements.
  *
- * This class is useful (and provided) for applications which allows
- * multiple undo stacks, one for each opened document.
+ * This class is useful (and provided) for applications which allows multiple undo stacks,
+ * one for each opened document.
  */
 
 class NICECPPLIBSHARED_EXPORT UndoStackGroup

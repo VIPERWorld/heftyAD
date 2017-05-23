@@ -52,6 +52,19 @@ void GraphicsView::wheelEvent(QWheelEvent *event)
     //}
 }
 
+bool GraphicsView::saveImageTo(const QString &filePath, const char *format)
+{
+    QImage pixmap(width(), height(), QImage::Format_ARGB32_Premultiplied);
+
+    QPainter p;
+    p.begin(&pixmap);
+    p.setRenderHint(QPainter::Antialiasing, true);
+    render(&p);
+    p.end();
+
+    return pixmap.save(filePath, format);
+}
+
 void GraphicsView::setEnabledItemEdition(bool enabled)
 {
     foreach(QGraphicsItem *item, items()) {

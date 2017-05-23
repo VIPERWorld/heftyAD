@@ -416,6 +416,8 @@ QRectF ArrayModel::coverage() const
     return QRectF(topLeft, bottomRight);
 }
 
+void ArrayModel::empty() {clear();}
+
 #include <QGlobal.h>
 #include <QTime>
 

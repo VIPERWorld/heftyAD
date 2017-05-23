@@ -74,6 +74,8 @@ public:
 
     void clear(bool deleteViews = true);
 
+    void empty() override;
+
 protected:
     void registerItemToBeFreed(ModelItem *item);
 

@@ -45,7 +45,7 @@ QString WorkspaceWorkContainer::tabTitleFor(Work *work)
         if(title.isEmpty()) {
             int index = 1;
 
-            QMap<Work*, int> &map(m_works_titleIndexes);
+            QMap<Work*, int> &map(m_works_titleIndexes); // just to use a short name
             if(map.contains(work)) {
                 index = map.value(work);
             }
@@ -53,7 +53,7 @@ QString WorkspaceWorkContainer::tabTitleFor(Work *work)
                 QList<int> values = map.values();
                 std::sort(values.begin(), values.end()); // sort in ascending order
                 for(int val : values) {
-                    if(val != index) {
+                    if(val != index) { // then that index'll be used since no work currently uses it
                         break;
                     }
                     index ++;
@@ -136,17 +136,15 @@ Work* WorkspaceWorkContainer::getWork(const QString &filePath) const
 
 bool WorkspaceWorkContainer::containsWork(const QString &filePath) const {return getWork(filePath) != nullptr;}
 
-bool WorkspaceWorkContainer::hasUnsavedWork() const
+bool WorkspaceWorkContainer::hasDirtyWork() const
 {
-    bool retVal = false;
     for(Work *work : m_works) {
-        retVal = !work->isSaved();
-        if(retVal) {
-            break;
+        if(work->isDirty()) {
+            return true;
         }
     }
 
-    return retVal;
+    return false;
 }
 
 bool WorkspaceWorkContainer::eventFilter(QObject *watched, QEvent *event)
@@ -186,22 +184,37 @@ void WorkspaceWorkContainer::retranslate()
 
 void WorkspaceWorkContainer::onTabBarContextMenuRequested(const QPoint &pos)
 {
+    // Build menu
+
     QMenu menu;
         QAction *save = menu.addAction(QIcon(""), trUtf8("Enregistrer"));
         QAction *saveAs = menu.addAction(QIcon(""), trUtf8("Enregistrer sous")+"...");
+        QAction *saveACopy = menu.addAction(QIcon(""), trUtf8("Enregistrer une copie")+"...");
         menu.addSeparator();
-        QAction *clone = menu.addAction(QIcon(""), trUtf8("Cloner"));
+        QAction *reload = menu.addAction(QIcon(""), trUtf8("Recharger"));
         QAction *exportAs = menu.addAction(QIcon(""), trUtf8("Exporter sous")+"...");
         menu.addSeparator();
         QAction *close = menu.addAction(QIcon(""), trUtf8("Fermer"));
 
-    QAction *selectedAction = Utility::execMenuAt(&menu, pos, tabBar());
+    // Customize menu
 
-    if(selectedAction == save)     {saveWork(currentWork());             return;}
-    if(selectedAction == saveAs)   {saveWorkAs(currentWork());           return;}
-    if(selectedAction == clone)    {/*currentWork()->clone();*/          return;}
-    if(selectedAction == exportAs) {                                     return;}
-    if(selectedAction == close)    {onTabCloseRequested(currentIndex()); return;}
+    Work *currWork = currentWork();
+    save->setEnabled(currWork->isDirty());
+    //
+    reload->setEnabled(!currWork->filePath().isEmpty());
+    exportAs->setVisible(currWork->isExportFeatureEnabled());
+
+    // Execute menu
+
+    QAction *selectedAction = Utility::execMenuAt(&menu, pos, tabBar());
+    if(selectedAction == save)      {saveWork(currWork);                  return;}
+    if(selectedAction == saveAs)    {saveWorkAs(currWork);                return;}
+    if(selectedAction == saveACopy) {saveWorkCopy(currWork);              return;}
+    //
+    if(selectedAction == reload)    {reloadWork(currWork);                return;}
+    if(selectedAction == exportAs)  {currWork->startExportFeature();      return;}
+    //
+    if(selectedAction == close)     {onTabCloseRequested(currentIndex()); return;}
 }
 
 void WorkspaceWorkContainer::onCurrentTabChanged(int index)
@@ -238,16 +251,11 @@ void WorkspaceWorkContainer::saveWork(Work *work)
     }
 
     if(work->filePath().isEmpty()) {
-        QString fileName = QFileDialog::getSaveFileName(this, trUtf8("Enregistrer"), "", "*.xml");
-        if(!fileName.isEmpty()) {
-            if(!fileName.endsWith(".xml")) {
-                fileName += ".xml";
-            }
-            work->setFilePath(fileName);
-        }
+        saveWorkAs(work);
+        return;
     }
+
     work->save();
-    m_works_titleIndexes.remove(work);
 }
 
 void WorkspaceWorkContainer::saveWorkAs(Work *work)
@@ -256,12 +264,33 @@ void WorkspaceWorkContainer::saveWorkAs(Work *work)
         return;
     }
 
-    QString fileName = QFileDialog::getSaveFileName(this, trUtf8("Enregistrer sous"), "", "*.xml");
-    if(!fileName.isEmpty()) {
-        if(!fileName.endsWith(".xml")) {
-            fileName += ".xml";
+    QString filePath = QFileDialog::getSaveFileName(this, trUtf8("Enregistrer sous"), "", "*.xml");
+    if(!filePath.isEmpty()) {
+        if(!filePath.endsWith(".xml")) {
+            filePath += ".xml";
         }
-        work->saveTo(fileName);
+
+        if(!work->isDirty()) {
+            work->setDirty(true); // to make sure the dirtyChanged signal'll be emitted on saved
+        }
+        work->setFilePath(filePath);
+        work->save();
+        m_works_titleIndexes.remove(work);
+    }
+}
+
+void WorkspaceWorkContainer::saveWorkCopy(Work *work)
+{
+    if(!work) {
+        return;
+    }
+
+    QString filePath = QFileDialog::getSaveFileName(this, trUtf8("Enregistrer une copie"), "", "*.xml");
+    if(!filePath.isEmpty()) {
+        if(!filePath.endsWith(".xml")) {
+            filePath += ".xml";
+        }
+        work->saveTo(filePath);
     }
 }
 
@@ -270,6 +299,45 @@ void WorkspaceWorkContainer::saveAllWorks()
     // May change this later to show file dialog only once
     for(Work *work : m_works) {
         saveWork(work);
+    }
+}
+
+void WorkspaceWorkContainer::reloadWork(Work *work)
+{
+    if(!work) {
+        return;
+    }
+
+    if(work->isDirty()) {
+        int res = ShadowMessageBox(this)
+        .withIcon(QMessageBox::Warning)
+        .withWindowTitle(trUtf8("Attention"))
+        .withTextFormat(Qt::RichText)
+        .withText(trUtf8("Des modifications <B>non enregistrées</B> sont en cours.<br/>"
+                         "Elles seront <B>perdues</B> si vous continuez.<br/>"
+                         "Souhaitez-vous recharger %1 ?").arg(tabTitleFor(work))
+                  )
+        .withStandardButtons(QMessageBox::Yes|QMessageBox::No)
+        .withDefaultButton(QMessageBox::Yes)
+        .exec();
+
+        switch(res) {
+        case QMessageBox::Yes:    break;
+        default:                  return;
+        }
+    }
+
+    if(!work->load()) {
+        ShadowMessageBox(this)
+        .withIcon(QMessageBox::Critical)
+        .withWindowTitle(trUtf8("Attention"))
+        .withTextFormat(Qt::RichText)
+        .withText(trUtf8("%1 n'a pu être rechargée.").arg(tabTitleFor(work)))
+        .withInformativeText(trUtf8("<I>Le fichier de travail n'existe probablement plus</I>."))
+        .withDetailedText(work->filePath())
+        .withStandardButtons(QMessageBox::Ok)
+        .withDefaultButton(QMessageBox::Ok)
+        .exec();
     }
 }
 
@@ -282,8 +350,9 @@ void WorkspaceWorkContainer::closeWork(Work *work)
         .withIcon(QMessageBox::Warning)
         .withWindowTitle(trUtf8("Attention"))
         .withTextFormat(Qt::RichText)
-        .withText(trUtf8("Des modifications <B>non enregistrées</B> sont en cours.<br/>Souhaitez-vous enregistrer %1 ?")
-                  .arg(tabTitleFor(work)))
+        .withText(trUtf8("Des modifications <B>non enregistrées</B> sont en cours.<br/>"
+                         "Souhaitez-vous enregistrer %1 ?").arg(tabTitleFor(work))
+                  )
         .withStandardButtons(QMessageBox::Yes|QMessageBox::No|QMessageBox::Cancel)
         //.withButtonTexts(QStringList() << trUtf8("Oui") << trUtf8("Non") << trUtf8("Annuler"))
         .withDefaultButton(QMessageBox::Yes)

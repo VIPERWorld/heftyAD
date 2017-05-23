@@ -80,7 +80,7 @@ void Workspace::onTabBarContextMenuRequested(const QPoint &pos)
     WorkspaceEmptyTab *tab = currentTab();
     //
     saveAll->setVisible(tab->allowSaveAll());
-    saveAll->setEnabled(tab->hasUnsavedWork());
+    saveAll->setEnabled(tab->hasDirtyWork());
     //
     closeAll->setVisible(tab->allowCloseAll());
     closeAll->setEnabled(tab->hasOpenedWork());

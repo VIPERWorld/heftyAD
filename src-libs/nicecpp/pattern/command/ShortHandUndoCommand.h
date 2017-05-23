@@ -17,15 +17,15 @@ namespace ncpp
 class NICECPPLIBSHARED_EXPORT ShortHandUndoCommand : public UndoCommand
 {
 protected:
-    std::function<void ()> m_destructor;
-    std::function<void ()> m_undoActions;
-    std::function<void ()> m_redoActions;
+    std::function<void ()> m_destructorBody;
+    std::function<void ()> m_undoBody;
+    std::function<void ()> m_redoBody;
     std::string m_description;
 
 public:
-    ShortHandUndoCommand(std::function<void ()> destructor,
-                         std::function<void ()> undoActions,
-                         std::function<void ()> redoActions,
+    ShortHandUndoCommand(std::function<void ()> destructorBody,
+                         std::function<void ()> undoBody,
+                         std::function<void ()> redoBody,
                          const std::string &description = "ShortHandUndoCommand");
 
     ~ShortHandUndoCommand();
@@ -33,11 +33,9 @@ public:
     /**
      * Returns the description given to this class constructor.
      */
-    std::string description() const noexcept override;
-
-protected:
-    void undoActions() override;
-    void redoActions() override;
+    std::string description() const override;
+    void undo() override;
+    void redo() override;
 };
 }
 

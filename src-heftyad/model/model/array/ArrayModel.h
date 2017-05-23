@@ -97,8 +97,8 @@ public:
 
     QRectF coverage() const override;
 
+    void empty() override;
     void shuffle() override;
-
     void layout() override;
     void layout(bool centerItemsVertically);
     /**

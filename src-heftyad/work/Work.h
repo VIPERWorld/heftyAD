@@ -11,25 +11,44 @@ class Work : public GridWidget
 {
     Q_OBJECT
 
+protected:
+    bool m_exportFeatureEnabled;
+
 private:
     QString m_filePath;
 
 public:
     explicit Work(QWidget *parent = 0);
 
-    QString filePath(void) const;
+    bool isExportFeatureEnabled() const;
+    void setExportFeatureEnabled(bool enabled);
+    void startExportFeature();
+
+    QString filePath() const;
+    /**
+     * Sets the file path.
+     * This function does not load this work. It doesn't save it either.
+     * So it's up to the programmer to ensure the constant consistency of this work' state.
+     */
     void setFilePath(const QString &filePath);
 
+    /**
+     * Returns the file name from the file path.
+     * Examples: ""                   --> ""
+     *           "fileName"           --> "fileName"
+     *           "dir/fileName"       --> "fileName"
+     *           "dir1/dir2/fileName" --> "fileName"
+     */
     QString fileName() const;
     /**
-     * Returns the file name, without its extension (if any).
-     * Examples: "file.xml"     --> "file"
-     *           "dir/file.xml" --> "file"
-     *           ""             --> ""
+     * Returns the fileName() without its extension (if any).
+     * Examples: ""                   --> ""
+     *           "file"               --> "file"
+     *           "file.xml"           --> "file"
+     *           "file.extension.xml" --> "file.extension" not "file"
      */
     QString shortName() const;
 
-    bool isSaved() const;
     virtual bool isDirty() const = 0;
     virtual void setDirty(bool dirty) = 0;
     virtual ncpp::UndoStack* undoStack() const;
@@ -42,6 +61,9 @@ public:
 
     virtual QList<QAction*> toolBarActions() const;
     virtual void retranslate();
+
+protected:
+    virtual void execExportDialog();
 
 signals:
     void dirtyChanged();
