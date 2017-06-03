@@ -37,9 +37,9 @@ AlgorithmPluginInterface* SimulationAlgorithmPluginPicker::selectedPlugin() cons
 {
     AlgorithmPluginInterface *interface = nullptr;
 
+    const QString &path(selectedPluginPath());
     switch(currentLanguage()) {
-    case Cpp: {
-        const QString &path(selectedPluginPath());
+    case Cpp:
         if(!path.isEmpty()) {
             QPluginLoader loader(path);
             QObject *plugin = loader.instance();
@@ -59,7 +59,7 @@ AlgorithmPluginInterface* SimulationAlgorithmPluginPicker::selectedPlugin() cons
             }
         }
         break;
-    }
+
     case JavaScript: // later: test qobject_cast<JavaScriptPluginInterface*>(...)
         break;
     }
@@ -102,22 +102,11 @@ void SimulationAlgorithmPluginPicker::connectSignalsToSlots()
 void SimulationAlgorithmPluginPicker::setEntryFilters(const QStringList &filters)
 {
     m_algorithmViewer.setEntryFilters(filters);
-
-    QString str;
-    const int &s(filters.size());
-    for(int i=0; i<s; i++) {
-        str += filters[i];
-        if(i != s-1) {
-            str += ", ";
-        }
-    }
-    m_filter.setText(str);
+    m_filter.setText(filters.join(", "));
 }
 
 void SimulationAlgorithmPluginPicker::addLanguages()
 {
-    m_languages.clear();
-
     int lang = 0;
     QString text = textFor(lang);
     while(!text.isEmpty()) {
@@ -129,10 +118,10 @@ void SimulationAlgorithmPluginPicker::addLanguages()
 
 void SimulationAlgorithmPluginPicker::onCurrentLanguageChanged()
 {
-    const int &lang(m_languages.currentIndex());
+    const int lang = m_languages.currentIndex();
     switch(lang) {
-    case Cpp:           setEntryFilters(QStringList() << "*.dll" << "*.dylib" << "*.lib" << "*.so");    break;
-    case JavaScript:    setEntryFilters(QStringList() << "*.xml");                                      break;
+    case Cpp:           setEntryFilters(QStringList() << "*.dll" << "*.dylib" << "*.lib" << "*.so"); break;
+    case JavaScript:    setEntryFilters(QStringList() << "*.xml");                                   break;
     }
 
     m_choose.setEnabled(false);
@@ -142,6 +131,6 @@ void SimulationAlgorithmPluginPicker::onSelectedAlgorithmChanged(QString filePat
 {
     Q_UNUSED(filePath)
 
-    m_choose.setEnabled(false); // not really mandatory but the button'll remain disabled until selectedAlgorithm() returns
+    m_choose.setEnabled(false); // not really mandatory but we want the bouton disabled until selectedPlugin() returns
     m_choose.setEnabled(selectedPlugin() != nullptr);
 }

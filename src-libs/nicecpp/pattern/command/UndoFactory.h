@@ -31,13 +31,10 @@ public:
     UndoFactory();
     virtual ~UndoFactory();
 
-    /**
-     * Creates and returns a new ShortHandUndoCommand.
-     */
-    static UndoCommand* createCommand(std::function<void ()> destructorBody,
-                                      std::function<void ()> undoBody,
-                                      std::function<void ()> redoBody,
-                                      const std::string &description);
+    static UndoCommand* createShortHandUndoCommand(std::function<void ()> destructorBody,
+                                                   std::function<void ()> undoBody,
+                                                   std::function<void ()> redoBody,
+                                                   const std::string &description);
 };
 }
 

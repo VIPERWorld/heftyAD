@@ -11,8 +11,6 @@
 WorkspaceBasicTab::WorkspaceBasicTab(QWidget *parent)
     : WorkspaceEmptyTab(parent)
 {
-    m_allowedActions = (WorkspaceTabAction) (SaveAll | CloseAll);
-
     m_workToolBar = new ExtraToolBar(Qt::Vertical);
     m_workEditor  = new WorkspaceWorkEditor;
 
@@ -115,12 +113,6 @@ void WorkspaceBasicTab::openExistingWorks(const QString &workFamily)
     .withDefaultButton(QMessageBox::Ok)
     .exec();
 }
-
-bool WorkspaceBasicTab::hasDirtyWork() const {return m_workContainer.hasDirtyWork();}
-bool WorkspaceBasicTab::hasOpenedWork() const {return m_workContainer.currentWork() != nullptr;}
-
-void WorkspaceBasicTab::saveAllWorks() {m_workContainer.saveAllWorks();}
-void WorkspaceBasicTab::closeAllWorks() {m_workContainer.closeAllWorks();}
 
 void WorkspaceBasicTab::onToolBarActionsChanged(const QList<QAction*> &actions)
 {

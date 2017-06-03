@@ -24,11 +24,11 @@ SimulationConfigWidget::SimulationConfigWidget(QWidget *parent)
     m_clarifier = nullptr;
     m_highlighter = nullptr;
 
-    addWidget(&m_algorithmLineEdit,   0, 0);
-    addWidget(&m_chooseAlgorithm, 0, 1);
-    addWidget(&m_modelLineEdit,       1, 0);
-    addWidget(&m_chooseModel,     1, 1);
-    addWidget(&m_form,  2, 0, 1, 2);
+    addWidget(&m_algorithmLineEdit, 0, 0);
+    addWidget(&m_chooseAlgorithm,   0, 1);
+    addWidget(&m_modelLineEdit,     1, 0);
+    addWidget(&m_chooseModel,       1, 1);
+    addWidget(&m_form,              2, 0, 1, 2);
 
     m_algorithmLineEdit.setReadOnly(true);
     m_algorithmLineEdit.setContextMenuPolicy(Qt::NoContextMenu);
@@ -65,10 +65,10 @@ void SimulationConfigWidget::retranslate()
 {
     m_diag->retranslate();
 
-    m_algorithmLineEdit.setPlaceholderText("Fichier décrivant l'algorithme");
+    m_algorithmLineEdit.setPlaceholderText(trUtf8("Fichier décrivant l'algorithme"));
     m_algorithmLineEdit.setToolTip(m_algorithmLineEdit.placeholderText());
 
-    m_modelLineEdit.setPlaceholderText("Modèle associé à l'algorithme");
+    m_modelLineEdit.setPlaceholderText(trUtf8("Modèle associé à l'algorithme"));
     m_modelLineEdit.setToolTip(m_modelLineEdit.placeholderText());
 
     m_chooseAlgorithm.setText(trUtf8("Choisir"));
@@ -83,12 +83,11 @@ void SimulationConfigWidget::onChooseAlgorithmButtonPressed()
     }
 
     AlgorithmPluginInterface *plugin = m_diag->selectedPlugin();
-    m_form.fillIn(plugin);
-
     Algorithm *pluginAlgorithm = plugin->algorithmInstance();
-    //Algorithm *pluginAlgorithm = new FakeAlgorithm;
-
+//    Algorithm *pluginAlgorithm = new FakeAlgorithm;
     const QString &pluginPath(m_diag->selectedPluginPath());
+
+    m_form.fillIn(plugin);
 
     m_algorithmPath = pluginPath;
     m_algorithmLineEdit.setText(m_algorithmPath.split("/").last());
@@ -123,13 +122,13 @@ void SimulationConfigWidget::onChooseModelButtonPressed()
         lastDir = tmp.join("/");
     }
 
-    QString dir = m_modelPath.isEmpty() ? modelDir : lastDir;
-    QString fileName = QFileDialog::getOpenFileName(this, trUtf8("Choisir un modèle"), dir, "*.xml");
-    if(fileName.isEmpty()) {
+    const QString &dir = m_modelPath.isEmpty() ? modelDir : lastDir;
+    const QString &filePath = QFileDialog::getOpenFileName(this, trUtf8("Choisir un modèle"), dir, "*.xml");
+    if(filePath.isEmpty()) {
         return;
     }
 
-    m_modelPath = fileName;
+    m_modelPath = filePath;
     m_modelLineEdit.setText(m_modelPath.split("/").last());
 
     delete m_model;

@@ -15,6 +15,8 @@
 WorkspaceWorkContainer::WorkspaceWorkContainer(QWidget *parent)
     : TabWidget(parent)
 {
+    setUpTabBarContextMenuActions();
+
     //setTabVisility(TabWidget::HideOnMouseLeave);
 
     setTabsClosable(true);
@@ -162,6 +164,8 @@ bool WorkspaceWorkContainer::eventFilter(QObject *watched, QEvent *event)
 
 void WorkspaceWorkContainer::onCurrentWorkDirtyChanged()
 {
+    disableUselessToolBarActions();
+
     Work *work = currentWork();
     const QString &title = tabTitleFor(work);
     const QString &tip   = tabTooltipFor(work);
@@ -175,8 +179,76 @@ void WorkspaceWorkContainer::onCurrentWorkEditionRequired(bool required)
     emit editionFormAvailable(required ? currentWork()->editionForm() : nullptr);
 }
 
+void WorkspaceWorkContainer::setUpTabBarContextMenuActions()
+{
+    // create actions
+
+    m_save      = new QAction(QIcon(""), "", this);
+    m_saveAs    = new QAction(QIcon(""), "", this);
+    m_saveACopy = new QAction(QIcon(""), "", this);
+    m_saveAll   = new QAction(QIcon(""), "", this);
+
+    m_reload    = new QAction(QIcon(""), "", this);
+    m_exportAs  = new QAction(QIcon(""), "", this);
+
+    m_close     = new QAction(QIcon(""), "", this);
+    m_closeAll  = new QAction(QIcon(""), "", this);
+
+    // set shortcuts
+
+    m_save->setShortcut(QKeySequence("Ctrl+S")); addAction(m_save);
+    m_saveAs->setShortcut(QKeySequence("Ctrl+Alt+S")); addAction(m_saveAs);
+    m_saveAll->setShortcut(QKeySequence("Ctrl+Shift+S")); addAction(m_saveAll);
+
+    m_reload->setShortcut(QKeySequence::Refresh); addAction(m_reload);
+    m_exportAs->setShortcut(QKeySequence("Ctrl+E")); addAction(m_exportAs);
+
+    m_close->setShortcuts(QList<QKeySequence>() << QKeySequence("Ctrl+W") << QKeySequence("Ctrl+F4")); addAction(m_close);
+    m_closeAll->setShortcuts(QList<QKeySequence>() << QKeySequence("Ctrl+Shift+W") << QKeySequence("Ctrl+ShiftF4")); addAction(m_closeAll);
+
+    // connect signals to slots
+
+    connect(m_save,      &QAction::triggered, [this]() { saveWork(currentWork());             });
+    connect(m_saveAs,    &QAction::triggered, [this]() { saveWorkAs(currentWork());           });
+    connect(m_saveACopy, &QAction::triggered, [this]() { saveWorkCopy(currentWork());         });
+    connect(m_saveAll,   &QAction::triggered, [this]() { saveAllWorks();                      });
+
+    connect(m_reload,    &QAction::triggered, [this]() { reloadWork(currentWork());           });
+    connect(m_exportAs,  &QAction::triggered, [this]() { currentWork()->startExportFeature(); });
+
+    connect(m_close,     &QAction::triggered, [this]() { closeWork(currentWork());            });
+    connect(m_closeAll,  &QAction::triggered, [this]() { closeAllWorks();                     });
+}
+
+void WorkspaceWorkContainer::retranslateTabBarContextMenuActions()
+{
+    m_save->setText(trUtf8("Enregistrer"));
+    m_saveAs->setText(trUtf8("Enregistrer sous")+"...");
+    m_saveACopy->setText(trUtf8("Enregistrer une copie")+"...");
+    m_saveAll->setText(trUtf8("Enregistrer Tout"));
+
+    m_reload->setText(trUtf8("Recharger"));
+    m_exportAs->setText(trUtf8("Exporter sous")+"...");
+
+    m_close->setText(trUtf8("Fermer"));
+    m_closeAll->setText(trUtf8("Fermer Tout"));
+}
+
+void WorkspaceWorkContainer::disableUselessToolBarActions()
+{
+    Work *work = currentWork();
+    if(work) {
+        m_save->setEnabled(work->isDirty());
+        m_saveAll->setEnabled(hasDirtyWork());
+
+        m_reload->setEnabled(!work->filePath().isEmpty());
+        m_exportAs->setVisible(work->isExportFeatureEnabled());
+    }
+}
+
 void WorkspaceWorkContainer::retranslate()
 {
+    retranslateTabBarContextMenuActions();
     for(Work* work : m_works) {
         work->retranslate();
     }
@@ -187,38 +259,23 @@ void WorkspaceWorkContainer::onTabBarContextMenuRequested(const QPoint &pos)
     // Build menu
 
     QMenu menu;
-        QAction *save = menu.addAction(QIcon(""), trUtf8("Enregistrer"));
-        QAction *saveAs = menu.addAction(QIcon(""), trUtf8("Enregistrer sous")+"...");
-        QAction *saveACopy = menu.addAction(QIcon(""), trUtf8("Enregistrer une copie")+"...");
-        menu.addSeparator();
-        QAction *reload = menu.addAction(QIcon(""), trUtf8("Recharger"));
-        QAction *exportAs = menu.addAction(QIcon(""), trUtf8("Exporter sous")+"...");
-        menu.addSeparator();
-        QAction *close = menu.addAction(QIcon(""), trUtf8("Fermer"));
-
-    // Customize menu
-
-    Work *currWork = currentWork();
-    save->setEnabled(currWork->isDirty());
-    //
-    reload->setEnabled(!currWork->filePath().isEmpty());
-    exportAs->setVisible(currWork->isExportFeatureEnabled());
+    QList<QAction*> list;
+    list << m_save << m_saveAs << m_saveACopy << m_saveAll
+         << menu.addSeparator()
+         << m_reload << m_exportAs
+         << menu.addSeparator()
+         << m_close << m_closeAll;
+    menu.addActions(list);
 
     // Execute menu
 
-    QAction *selectedAction = Utility::execMenuAt(&menu, pos, tabBar());
-    if(selectedAction == save)      {saveWork(currWork);                  return;}
-    if(selectedAction == saveAs)    {saveWorkAs(currWork);                return;}
-    if(selectedAction == saveACopy) {saveWorkCopy(currWork);              return;}
-    //
-    if(selectedAction == reload)    {reloadWork(currWork);                return;}
-    if(selectedAction == exportAs)  {currWork->startExportFeature();      return;}
-    //
-    if(selectedAction == close)     {onTabCloseRequested(currentIndex()); return;}
+    Utility::execMenuAt(&menu, pos, tabBar());
 }
 
 void WorkspaceWorkContainer::onCurrentTabChanged(int index)
 {
+    disableUselessToolBarActions();
+
     if(index >= 0) {
         Work *curr = currentWork();
         MainData::setCurrentUndoStack(curr->undoStack());
@@ -359,9 +416,9 @@ void WorkspaceWorkContainer::closeWork(Work *work)
         .exec();
 
         switch(res) {
-        case QMessageBox::Yes:    saveWork(work); break;
-        case QMessageBox::No:     break;
-        case QMessageBox::Cancel: return;
+        case QMessageBox::Yes: saveWork(work); break;
+        case QMessageBox::No:                  break;
+        case QMessageBox::Cancel:              return;
         }
     }
 
@@ -370,8 +427,13 @@ void WorkspaceWorkContainer::closeWork(Work *work)
 
 void WorkspaceWorkContainer::closeAllWorks()
 {
-    // May change this later to show file dialog only once
-    while(!m_works.isEmpty()) {
-        closeWork(m_works.first());
+    /**
+     * We use such an algorithm since the close operation may be canceled (so the work is not removed).
+     * Moreover we first copy the inner work list since the list'll be altered while being iterated through.
+     */
+    QList<Work*> works = m_works;
+    for(Work *work : works) { // May change this later to show file dialog only once
+        closeWork(work);
     }
 }
+

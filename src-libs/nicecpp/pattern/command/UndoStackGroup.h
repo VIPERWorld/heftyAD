@@ -31,11 +31,15 @@ public:
     UndoStack* activeStack() const noexcept;
     /**
      * Sets the active stack of this group to the given stack.
-     * Returns true if the given stack is a member of this group (so it becomes the active stack),
+     * Returns true if the given stack is either null or a member of this group (so it becomes the active stack),
      *         false otherwise.
      */
     bool setActiveStack(UndoStack *stack) noexcept;
 
+    /**
+     * Adds the given stack to this group (only if it's not null).
+     * Note: This function doesn't check for duplicates.
+     */
     void addStack(UndoStack *stack) noexcept;
     /**
      * Removes the given stack from this group.

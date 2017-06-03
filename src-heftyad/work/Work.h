@@ -63,6 +63,7 @@ public:
     virtual void retranslate();
 
 protected:
+    virtual void postSave();
     virtual void execExportDialog();
 
 signals:

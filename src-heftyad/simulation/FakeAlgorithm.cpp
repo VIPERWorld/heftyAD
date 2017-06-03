@@ -44,14 +44,16 @@ void FakeAlgorithm::preExecute()
     ModelPropertyAnimation::configure((QPropertyAnimation*)animation->animationAt(1), &array.at(1), "brushColor", QColor(Qt::gray), QColor(Qt::white), 7000);
     ModelPropertyAnimation().trigger(animation, false, ModelPropertyAnimation::ThisThread);
 
-    // Actally, starting local HighlightingData in asynchronous way leads to crash (investigation later).
-    // So HighlightingData object should be declared as algorithm attributes.
     data.configureData(false);
     data.textPen = QPen(Qt::black);
     data.rectBrush = QBrush(Qt::green);
     const QRectF &r(array.coverage());
     data.configureTextData(__func__, QRectF(r.topLeft()-QPointF(0, 50+5), r.topRight()-QPointF(0, 5)), Qt::AlignCenter);
     data.setTimerSingleShot(false);
+    /*
+     * Actually, starting local HighlightingData in asynchronous way leads to crash (investigation later).
+     * So HighlightingData object should be declared as algorithm attributes.
+     */
     m_highlighter->start(&data, 2500, false);
 
     m_locker->lockFor(1000);

@@ -40,7 +40,7 @@ protected:
 signals:
 
 public slots:
-    void removeSelectedItems() override;
+    void removeSelection() override;
     void setEnabledItemMove(bool enabled) override;
 
     void setVisibleEdgePoints(bool visible);

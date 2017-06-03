@@ -15,8 +15,9 @@ protected:
 
     QAction *m_newSimulation;
     QMenu m_windows;
-        //QAction *m_cascade;
-        //QAction *m_tiled;
+        QAction *m_tiledHor;
+        QAction *m_tiledVer;
+        QAction *m_closeAll;
     QAction *m_background;
 
 public:
@@ -26,12 +27,15 @@ public:
     QList<QAction*> contextMenuActions() const override;
     void retranslate() override;
 
-    bool hasOpenedWork() const override;
+    bool hasARunningSimulation() const;
 
 signals:
 
 protected slots:
     void onNewSimulationActionTriggered();
+
+    void tileSubWindowsHorizontally();
+    void tileSubWindowsVertically();
 };
 
 #endif // WORKSPACESIMULATIONTAB_H

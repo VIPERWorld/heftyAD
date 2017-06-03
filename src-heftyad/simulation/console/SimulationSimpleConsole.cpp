@@ -54,26 +54,41 @@ void SimulationSimpleConsole::setClarifier(SimulationClarifier *clarifier)
 
     m_clarifier = clarifier;
     if(m_clarifier) {
-        connect(m_clarifier, &SimulationClarifier::needText, this, &SimulationSimpleConsole::onTextNeeded);
+        connect(m_clarifier, &SimulationClarifier::needText,        this, &SimulationSimpleConsole::onTextNeeded);
+        connect(m_clarifier, &SimulationClarifier::needTextRemoval, this, &SimulationSimpleConsole::onTextRemovalNeeded);
     }
 
-    m_clarifier->addText("Yes I can\n");
-    m_clarifier->addInfo("Yes we can\n");
-    m_clarifier->addWarning("Yes you can\n");
-    m_clarifier->addError("Yes they can");
+//    doTest();
 }
 
 void SimulationSimpleConsole::onTextNeeded(const QString &text, int kind)
 {
     switch(kind) {
-    case SimulationClarifier::InformativeText: setTextColor(m_colorScheme.infoColor);    break;
-    case SimulationClarifier::WarningText:     setTextColor(m_colorScheme.warningColor); break;
-    case SimulationClarifier::ErrorText:       setTextColor(m_colorScheme.errorColor);   break;
-    default:                                                                             break;
+    case SimulationClarifier::InformativeText: setTextColor(m_colorScheme.infoColor);       break;
+    case SimulationClarifier::WarningText:     setTextColor(m_colorScheme.warningColor);    break;
+    case SimulationClarifier::ErrorText:       setTextColor(m_colorScheme.errorColor);      break;
+    default:                                   setTextColor(m_colorScheme.foregroundColor); break;
     }
 
     append(text);
-    setTextColor(m_colorScheme.foregroundColor);
+}
+
+void SimulationSimpleConsole::onTextRemovalNeeded()
+{
+    clear();
+}
+
+void SimulationSimpleConsole::doTest()
+{
+    m_clarifier->addText("<I>Yes I can</I>\n");
+    //
+    m_clarifier->addInfo("Yes we can");
+    m_clarifier->addText("Yes we can");
+    m_clarifier->addInfo("Yes we can\n");
+    //
+    m_clarifier->addWarning("Yes you can\n");
+    //
+    m_clarifier->addError("Yes they can");
 }
 
 void SimulationSimpleConsole::colorScheme::lighter(bool excludeBackground, int factor)

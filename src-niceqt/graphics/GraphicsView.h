@@ -47,7 +47,14 @@ public slots:
     void selectAll();
     void deselectAll();
 
-    virtual void removeSelectedItems();
+    virtual void removeSelection();
+
+    virtual void cutSelection();
+    virtual void copySelection();
+    virtual void copySelectionToClipboard();
+    virtual void pasteCopiedSelection();
+
+    virtual void duplicateSelection();
 
     bool zoomIn();
     bool zoomOut();

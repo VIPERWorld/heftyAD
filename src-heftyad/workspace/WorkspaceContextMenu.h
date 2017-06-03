@@ -13,8 +13,6 @@ class WorkspaceContextMenu : public Menu
     Q_OBJECT
 
 protected:
-    QAction *m_saveAllWorks;
-    QAction *m_closeAllWorks;
     QMenu m_tabPos;
         QActionGroup *m_tabPosGroup;
             QAction *m_tabPosNorth;
@@ -31,9 +29,6 @@ public:
     void retranslate();
 
     void addDefaultActions();
-
-    QAction *saveAll() const;
-    QAction *closeAll() const;
 
 private:
     /**

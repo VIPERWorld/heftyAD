@@ -27,6 +27,9 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+protected:
+    void closeEvent(QCloseEvent *closeEvent) override;
+
 private:
     void connectSignalsToSlots();
     void addMenus();

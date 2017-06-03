@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "Resource.h"
 
+#include <QCloseEvent>
 #include <QMenuBar>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -23,6 +24,17 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::closeEvent(QCloseEvent *closeEvent)
+{
+    if(m_workspace.hasARunningSimulation()) {
+        closeEvent->ignore();
+        m_workspace.setCurrentIndex(3); // show simulation tab
+        return;
+    }
+
+    BasicMainWindow::closeEvent(closeEvent);
 }
 
 void MainWindow::connectSignalsToSlots()

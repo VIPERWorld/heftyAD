@@ -25,6 +25,8 @@ public:
 
     WorkspaceEmptyTab* currentTab();
 
+    bool hasARunningSimulation() const;
+
 signals:
 
 public slots:

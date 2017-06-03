@@ -12,7 +12,6 @@
 #include <QStateMachine>
 #include <QSlider>
 
-class ActionGroup;
 class Algorithm;
 class AlgorithmRunner;
 class SimulationClarifier;
@@ -28,7 +27,7 @@ protected:
     QPointer<AlgorithmRunner> m_algorithmRunner;
     SimulationLocker *m_locker;
     SimulationClarifier *m_clarifier;
-    View *m_view; // Simulation view
+    QPointer<View> m_view; // simulation view
 
     QLabel m_space;
     PushButton m_prev;
@@ -38,9 +37,8 @@ protected:
     PushButton m_restart;
     PushButton m_more;
         QMenu m_more_menu;
-            ActionGroup *m_actionGroup;
-            QAction *m_ignore_pauseDuration;
-            QAction *m_minimize_pauseDuration;
+            QAction *m_hideProgressBar;
+            QAction *m_blockClarifier;
     PushButton m_fullScreen;
     QProgressBar m_progressBar;
     QSlider m_acceleration; QLCDNumber m_accelerationLCD;
@@ -90,10 +88,10 @@ protected slots:
 
     void onNextButtonPressed();
 
-    void onActionGroupTriggered(QAction *action);
+    void onMoreMenuTriggered(QAction *action);
 
     void onAccelerationValueChanged(int value);
-    void onAccelerationValueChanged2();
+    void useAccelerationValue();
 
     void onAlgorithmRunnerFailsWith(int errorFlag, const QString &errorMessage = "");
     void handleAlgorithmException(const QString &message);

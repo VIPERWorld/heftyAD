@@ -38,6 +38,7 @@ public:
     void retranslate() override;
 
 protected:
+    void postSave() override;
     void execExportDialog() override;
 
 signals:

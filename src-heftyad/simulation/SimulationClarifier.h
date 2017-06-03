@@ -23,10 +23,12 @@ public:
     void addWarning(const QString &text);
     void addError(const QString &text);
 
+    void removeTexts();
+
 public:
     // older version
 
-    void prepareNewSection(void) const;
+    void prepareNewSection() const;
     void addShadowMessage(int msgType, const QString &msg = QString(), int alinea = 0) const;
     void addShadowMessageNormal(const QString &msg = QString(), int alinea = 0) const;
     void addShadowMessageInfo(const QString &msg = QString(), int alinea = 0) const;
@@ -38,6 +40,7 @@ public:
 
 signals:
     void needText(const QString &text, int kind);
+    void needTextRemoval();
 
     // older version
 

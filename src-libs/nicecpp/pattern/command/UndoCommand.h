@@ -21,9 +21,15 @@ public:
 
     /**
      * Returns a preferably short description of this command.
-     * Its default implementation merely returns "Undoable Command".
+     * The default implementation merely returns "UndoCommand".
      */
-    virtual std::string description() const;
+    virtual std::string shortDescription() const;
+    /**
+     * Returns a possibly long description of this command.
+     * The default implementation merely returns shortDescription().
+     */
+    virtual std::string longDescription() const;
+
     virtual void undo() = 0;
     virtual void redo() = 0;
 };

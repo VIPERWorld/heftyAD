@@ -21,6 +21,8 @@ class BasicGraphicsView : public HighlightableGraphicsView
 protected:
     ncpp::UndoStack m_undoStack;
 
+    int m_undoRedoCountSinceLastSave;
+
 private:
     bool m_dirty;
 
@@ -35,6 +37,8 @@ public:
 
     ncpp::UndoStack* undoStack() const;
 
+    void resetUndoRedoCountSinceLastSave();
+
     bool isDirty() const;
     void setDirty(bool dirty);
 
@@ -42,6 +46,9 @@ public:
     QList<QPointF> sceneSelectedItemPositions() const;
 
 protected:
+    void setDirtyFromCommandUndo();
+    void setDirtyFromCommandRedo();
+
     void contextMenuEvent(QContextMenuEvent *event) override;
 
     void mouseMoveEvent(QMouseEvent *event);

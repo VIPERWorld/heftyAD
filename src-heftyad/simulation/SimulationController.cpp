@@ -6,8 +6,6 @@
 #include "SimulationLocker.h"
 #include "View.h"
 
-#include "others/ActionGroup.h"
-
 #include <QThread>
 
 SimulationController::SimulationController(QWidget *parent)
@@ -51,42 +49,33 @@ SimulationController::SimulationController(QWidget *parent)
     m_restart.setAutoRepeat(true);
 
     m_more.setMenu(&m_more_menu);
-    m_ignore_pauseDuration = m_more_menu.addAction("");
-        m_ignore_pauseDuration->setCheckable(true);
-    m_minimize_pauseDuration = m_more_menu.addAction("");
-        m_minimize_pauseDuration->setCheckable(true);
-
-    m_actionGroup = new ActionGroup(this);
-    m_actionGroup->addAction(m_minimize_pauseDuration);
-    m_actionGroup->addAction(m_ignore_pauseDuration);
-    m_actionGroup->setAcceptNoSelection(true);
+    m_hideProgressBar = m_more_menu.addAction(""); m_hideProgressBar->setCheckable(true);
+    m_blockClarifier = m_more_menu.addAction(""); m_blockClarifier->setCheckable(true);
 
     //setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum)); // can't remember why this were done
 
     connectSignalsToSlots();
     loadStateMachine();
-
     setIcons();
-    retranslate();
 }
 
 void SimulationController::setAlgorithm(Algorithm *algorithm) {m_algorithm = algorithm;}
-void SimulationController::setLocker(SimulationLocker *locker) {m_locker = locker; onAccelerationValueChanged2();}
+void SimulationController::setLocker(SimulationLocker *locker) {m_locker = locker; useAccelerationValue();}
 void SimulationController::setClarifier(SimulationClarifier *clarifier) {m_clarifier = clarifier;}
-void SimulationController::setSimulationView(View *view) {m_view = view; onAccelerationValueChanged2();}
+void SimulationController::setSimulationView(View *view) {m_view = view; useAccelerationValue();}
 
 void SimulationController::retranslate()
 {
     m_prev.setToolTip(trUtf8("Retourner vers l'étape précédente"));
-    m_suspend.setToolTip(trUtf8("Suspendre la simulation"));
-    m_resume.setToolTip(trUtf8("Débuter/Continuer la simulation"));
+    m_suspend.setToolTip(trUtf8("Suspendre"));
+    m_resume.setToolTip(trUtf8("Débuter/Continuer"));
     m_next.setToolTip(trUtf8("Avancer vers l'étape suivante"));
-    m_stop.setToolTip(trUtf8("Arrêter la simulation"));
-    m_more.setToolTip(trUtf8("Accéder à plus de fonctionnalités"));
-        m_ignore_pauseDuration->setText(trUtf8("Ignorer les temps d'attente"));
-        m_minimize_pauseDuration->setText(trUtf8("Minimiser les temps d'attente"));
-    m_restart.setToolTip(trUtf8("Recommencer la simulation"));
-    m_fullScreen.setToolTip(trUtf8("Passer en mode plein écran"));
+    m_stop.setToolTip(trUtf8("Arrêter"));
+    m_more.setToolTip(trUtf8("Plus de fonctionnalités"));
+        m_hideProgressBar->setText(trUtf8("Cacher la barre de progression"));
+        m_blockClarifier->setText(trUtf8("Bloquer le Clarificateur"));
+    m_restart.setToolTip(trUtf8("Recommencer"));
+    m_fullScreen.setToolTip(trUtf8("Plein écran"));
 
     m_acceleration.setToolTip(trUtf8("Accélération des timers (en %age)"));
 }
@@ -123,10 +112,10 @@ void SimulationController::connectSignalsToSlots()
     connect(&m_restart,    &PushButton::pressed, this, &SimulationController::onRestartButtonPressed);
     connect(&m_fullScreen, &PushButton::toggled, this, &SimulationController::onFullScreenButtonToggled);
 
-    //connect(&m_prev,    &PushButton::pressed, this, &WorkSimulationController::onPrevButtonPressed);
-    connect(&m_next,    &PushButton::pressed, this, &SimulationController::onNextButtonPressed);
+    //connect(&m_prev,       &PushButton::pressed, this, &WorkSimulationController::onPrevButtonPressed);
+    connect(&m_next,       &PushButton::pressed, this, &SimulationController::onNextButtonPressed);
 
-    connect(m_actionGroup, SIGNAL(triggered(QAction*)), this, SLOT(onActionGroupTriggered(QAction*)));
+    connect(&m_more_menu, &QMenu::triggered, this, &SimulationController::onMoreMenuTriggered);
 
     connect(&m_acceleration, &QSlider::valueChanged, this, &SimulationController::onAccelerationValueChanged);
 }
@@ -140,7 +129,7 @@ void SimulationController::setIcons()
     m_stop.setIcon(Resource::instance().simulationIcon("stop.png"));
     m_restart.setIcon(Resource::instance().simulationIcon("restart.png"));
     m_more.setIcon(Resource::instance().simulationIcon("more.png"));
-    //m_fullScreen.setIcon(Resource::instance().simulationIcon("close.png")); // to be changed
+    m_fullScreen.setIcon(Resource::instance().simulationIcon(".png")); // to be changed
 }
 
 void SimulationController::loadStateMachine()
@@ -239,17 +228,18 @@ void SimulationController::onResumeButtonPressed()
         }
     }
     else {
-        // Remove any item previously added
+        // First clear clarifier
 
-//        m_clarifier.removeItems();
-//        m_clarifier.update();
+        m_clarifier->removeTexts();
 
-        // Launch algorithm runner in a new thread
+        // Since it is allowed to use indefinitely looping highlithting data,
+        // any remaining timer should be stopped first
 
         if(m_view) {
-            // Since it's allowed to use indefinitely looping highlithting data, any remaining timer should be stopped first
             m_view->stopHighlighting();
         }
+
+        // Launch algorithm runner in a new thread
 
         QThread* thread = new QThread;
         m_algorithmRunner->moveToThread(thread);
@@ -319,31 +309,26 @@ void SimulationController::onNextButtonPressed()
     }
 }
 
-void SimulationController::onActionGroupTriggered(QAction *action)
+void SimulationController::onMoreMenuTriggered(QAction *action)
 {
-    Q_UNUSED(action)
-//    auto *clarifier = m_clarifier.clarifier();
+    if(action == m_hideProgressBar) {
+        m_progressBar.setVisible(!action->isChecked());
+        return;
+    }
 
-//    if(action == m_ignore_pauseDuration) {
-//        clarifier->setMinimizePauseDuration(false);
-//        clarifier->setIgnorePauseRequests(action->isChecked());
-//        return;
-//    }
-
-//    if(action == m_minimize_pauseDuration) {
-//        clarifier->setIgnorePauseRequests(false);
-//        clarifier->setMinimizePauseDuration(action->isChecked());
-//        return;
-    //    }
+    if(action == m_blockClarifier) {
+        m_clarifier->blockSignals(action->isChecked());
+        return;
+    }
 }
 
 void SimulationController::onAccelerationValueChanged(int value)
 {
     m_accelerationLCD.display(value);
-    onAccelerationValueChanged2();
+    useAccelerationValue();
 }
 
-void SimulationController::onAccelerationValueChanged2()
+void SimulationController::useAccelerationValue()
 {
     const int &value(m_acceleration.value());
 
@@ -372,8 +357,8 @@ void SimulationController::onAlgorithmRunnerFailsWith(int errorFlag, const QStri
         .withIcon(QMessageBox::Critical)
         .withWindowIcon(Resource::instance().windowIcon())
         .withWindowTitle(trUtf8("La simulation ne peut démarrer"))
-        .withText(trUtf8("Une simulation implique forcément un algorithme.\n"
-                         "Merci de configurer votre simulation puis de recommencer."))
+        .withText(trUtf8("Une simulation implique forcément un algorithme.%1"
+                         "Merci de configurer votre simulation puis de recommencer.").arg("\n"))
         .withStandardButtons(QMessageBox::Ok)
         .withDefaultButton(QMessageBox::Ok)
         .exec();
@@ -383,8 +368,8 @@ void SimulationController::onAlgorithmRunnerFailsWith(int errorFlag, const QStri
         .withIcon(QMessageBox::Critical)
         .withWindowIcon(Resource::instance().windowIcon())
         .withWindowTitle(trUtf8("La simulation a terminé immédiatement"))
-        .withText(trUtf8("L'algorithme sollicité ne peut s'appliquer au modèle choisi.\n"
-                         "Merci de choisir un modèle adéquat puis de recommencer."))
+        .withText(trUtf8("L'algorithme sollicité ne peut s'appliquer au modèle choisi.%1"
+                         "Merci de choisir un modèle adéquat puis de recommencer.").arg("\n"))
         .withStandardButtons(QMessageBox::Ok)
         .withDefaultButton(QMessageBox::Ok)
         .exec();
@@ -403,14 +388,6 @@ void SimulationController::onAlgorithmRunnerFailsWith(int errorFlag, const QStri
 
 void SimulationController::handleAlgorithmException(const QString &message)
 {
-//    const auto *clarifier =  m_clarifier.clarifier();
-//    clarifier->prepareNewSection();
-//    clarifier->addShadowMessageError(trUtf8("Evénement indésirable"));
-//    clarifier->addMessage(trUtf8("Arrêt inopiné suite à une exception"), 1);
-//    clarifier->addMessage(message, 2);
-
-    // à revoir
-
     const QString &str1(trUtf8("Evénement indésirable"));
     const QString &str2(trUtf8("Arrêt inopiné suite à une exception"));
 
@@ -446,14 +423,6 @@ void SimulationController::onAlgorithmRunnerSuspended()
 
 void SimulationController::onAlgorithmRunnerStopped()
 {
-//    auto *clarifier = m_clarifier.clarifier();
-//    clarifier->setIgnoreClarificationRequests(false);
-//    clarifier->prepareNewSection();
-//    clarifier->addShadowMessageNormal(trUtf8("Requête particulière"));
-//    clarifier->addMessage(trUtf8("Simulation interrompue"), 1);
-
-    // à revoir
-
     m_clarifier->prepareNewSection();
     m_clarifier->addShadowMessageNormal(trUtf8("Requête particulière"));
     m_clarifier->addMessage(trUtf8("Simulation interrompue"), 1);

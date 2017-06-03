@@ -37,22 +37,26 @@ bool Work::isEditionEnabled() const {return false;}
 QList<QAction*> Work::toolBarActions() const {return QList<QAction*>();}
 void Work::retranslate() {}
 
+void Work::postSave() {}
 void Work::execExportDialog() {}
 
 bool Work::save()
 {
-    const bool &retVal(saveTo(m_filePath));
+    const bool retVal = saveTo(m_filePath);
     if(retVal) {
         setDirty(false);
+        postSave();
     }
+
     return retVal;
 }
 
 bool Work::load()
 {
-    const bool &retVal(loadFrom(m_filePath));
+    const bool retVal = loadFrom(m_filePath);
     if(retVal) {
         setDirty(false);
     }
+
     return retVal;
 }

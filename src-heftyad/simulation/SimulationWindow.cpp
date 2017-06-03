@@ -5,15 +5,16 @@
 #include <QMdiArea>
 
 SimulationWindow::SimulationWindow(QWidget *parent, Qt::WindowFlags flags)
-    : QMdiSubWindow(parent, flags)
+    : QMdiSubWindow(parent, flags),
+      m_mdiAreaBeforeGoingFullScreen(nullptr)
 {
-    m_mdiAreaBeforeGoingFullScreen = mdiArea();
-
     setWidget(&m_widget);
 
     connect(this, &SimulationWindow::windowStateChanged, this, &SimulationWindow::onWindowStateChanged);
     connect(&m_widget, &SimulationWidget::simulationFullScreenEnabled, this, &SimulationWindow::onSimulationFullScreenEnabled);
 }
+
+bool SimulationWindow::canBeClosed() const {return m_widget.sideWidget()->configWidget()->isEnabled();}
 
 void SimulationWindow::onSimulationFullScreenEnabled(bool enabled)
 {
@@ -24,6 +25,7 @@ void SimulationWindow::onSimulationFullScreenEnabled(bool enabled)
         m_mdiAreaBeforeGoingFullScreen->removeSubWindow(this);
         setWindowModality(Qt::ApplicationModal);
         showFullScreen();
+
         return;
     }
 
@@ -41,10 +43,10 @@ void SimulationWindow::retranslate()
 
 void SimulationWindow::closeEvent(QCloseEvent *closeEvent)
 {
-    /*if(true) {
+    if(!canBeClosed()) {
         closeEvent->ignore();
         return;
-    }*/
+    }
 
     QMdiSubWindow::closeEvent(closeEvent);
 }
@@ -56,7 +58,7 @@ void SimulationWindow::onWindowStateChanged(Qt::WindowStates oldState, Qt::Windo
     // Remove the sub window incon (if maximized)
 
     if(newState & Qt::WindowMaximized) {
-        setWindowIcon(QIcon("?")); // If an empty string is given to QIcon(), the sub window shows the Qt icon.
+        setWindowIcon(QIcon("?")); // We use "?" since if an empty string were given to QIcon(), the sub window would have shown the Qt icon.
         return;
     }
 

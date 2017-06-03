@@ -18,11 +18,17 @@ protected:
 public:
     explicit SimulationWindow(QWidget *parent = 0, Qt::WindowFlags flags = 0);
 
+    /**
+     * Returns false if a simulation is running
+     *         true otherwise
+     */
+    bool canBeClosed() const;
+
     void onSimulationFullScreenEnabled(bool enabled);
     void retranslate();
 
 protected:
-    virtual void closeEvent(QCloseEvent *closeEvent);
+    void closeEvent(QCloseEvent *closeEvent) override;
 
 signals:
 

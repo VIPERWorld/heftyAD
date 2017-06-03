@@ -10,10 +10,6 @@ class EditMenu : public Menu
 protected:
     QAction *m_undo;
     QAction *m_redo;
-    QAction *m_cut;
-    QAction *m_copy;
-    QAction *m_paste;
-    QAction *m_selectAll;
 
 public:
     explicit EditMenu(QWidget *parent = 0);
@@ -29,10 +25,6 @@ signals:
 public slots:
     void onUndoActionTriggered();
     void onRedoActionTriggered();
-    void onCutActionTriggered();
-    void onCopyActionTriggered();
-    void onPasteActionTriggered();
-    void onSelectAllActionTriggered();
 };
 
 #endif // EDITMENU_H

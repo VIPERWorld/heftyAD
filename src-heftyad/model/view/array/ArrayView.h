@@ -26,7 +26,9 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
 
 public slots:
-    void removeSelectedItems() override;
+    void removeSelection() override;
+
+    void cutSelection() override;
 
     void normalizeItemPositions();
     void shuffleItems();
@@ -36,9 +38,10 @@ public slots:
     void setOnMousePressedAddItem(bool value);
     void setVisibleItemIndexesInArray(bool visible);
 
-private slots:
+protected slots:
     void onModelChanged() override;
 
+private slots:
     void onItemAddedToModel(ArrayModelItem *item);
     void onItemRemovedFromModel(ArrayModelItem *item, bool viewDeletionRequested);
     void onModelCleared();

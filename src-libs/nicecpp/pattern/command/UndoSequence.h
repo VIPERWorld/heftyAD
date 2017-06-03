@@ -11,23 +11,23 @@
 namespace ncpp
 {
 /**
- * The UndoSequence class implements the Composite pattern
- * and defines a sequence of undoable commands.
- *
+ * The UndoSequence class implements the Composite pattern and defines a sequence of undoable commands.
  * It represents commands which are composed of sub-commands.
- * Sub-commands can be registered either via the convenient push() functions.
+ * Sub-commands can be registered via the convenient push() functions.
  *
- * This command may also take ownership of some of its sub-commands,
- * in which case it will delete them upon destruction.
+ * This command may also take ownership of sub-commands, in which case it will delete them upon destruction.
  */
 class NICECPPLIBSHARED_EXPORT UndoSequence : public UndoCommand
 {
 private:
+    std::string m_shortDescriptionPrefix;
+
     std::list<UndoCommand*> m_subCommands;
     std::list<std::unique_ptr<UndoCommand>> m_ownerships;
 
 public:
     UndoSequence() = default;
+    UndoSequence(const std::string &shortDescriptionPrefix);
     ~UndoSequence();
 
     /**
@@ -40,7 +40,9 @@ public:
     void push(UndoCommand *cmd, bool takeOwnerhipOfCommand = true);
     void push(const std::list<UndoCommand*> &subCommands, bool takeOwnerhipOfSubCommands = true);
 
-    std::string description() const override;
+    std::string shortDescription() const override;
+    std::string longDescription() const override;
+
     /**
      * Undoes all sub-commands.
      */

@@ -45,6 +45,8 @@ public:
     void resumeHighlighting();
     void stopHighlighting();
 
+    void doTest();
+
 protected:
     void onHighlighterNeedsStart(HighlightingData *data, int duration = -1);
     void onHighlighterNeedsSuspend(HighlightingData *data);

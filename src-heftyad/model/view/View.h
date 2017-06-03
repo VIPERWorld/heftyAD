@@ -27,6 +27,19 @@ private:
     QAction *m_sep2;
     QAction *m_fullEdition;
 
+    // default context menu actions
+
+    QAction *m_cut;
+    QAction *m_copy;
+    QAction *m_copyToSystemClipboard;
+    QAction *m_paste;
+    //
+    QAction *m_duplicate;
+    //
+    QAction *m_selectAll;
+
+    bool m_ignoreContextMenu;
+
 public:
     explicit View(QWidget *parent = 0);
 
@@ -45,9 +58,11 @@ public:
     QList<QAction*> toolBarActions() const;
     virtual void retranslate();
 
+    void setIgnoreContextMenu(bool ignore);
+
 protected:
-    virtual QList<QAction*> modelRelatedActions() const;
-    virtual QList<QAction*> selectionRelatedActions() const;
+    virtual QList<QAction*> modelMainRelatedActions() const;
+    virtual QList<QAction*> modelItemSelectionRelatedActions() const;
 
     void contextMenuEvent(QContextMenuEvent *event);
 
@@ -55,6 +70,10 @@ protected:
 
 private:
     QList<QAction*> defaultToolBarActions() const;
+
+    void setUpContextMenuDefaultActions();
+    void retranslateContextMenuDefaultActions();
+    void disableUselessContextMenuDefaultActions();
 
 signals:
     void modelChanged();

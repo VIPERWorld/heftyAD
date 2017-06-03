@@ -41,6 +41,11 @@ WorkspaceEmptyTab* Workspace::currentTab()
     return static_cast<WorkspaceEmptyTab*>(currentWidget());
 }
 
+bool Workspace::hasARunningSimulation() const
+{
+    return static_cast<WorkspaceSimulationTab*>(m_simulations)->hasARunningSimulation();
+}
+
 void Workspace::retranslate()
 {
     m_contextMenu.retranslate();
@@ -72,30 +77,9 @@ void Workspace::onTabBarContextMenuRequested(const QPoint &pos)
     m_contextMenu.addSeparator();
     m_contextMenu.addDefaultActions();
 
-    // customize actions
-
-    QAction *saveAll  = m_contextMenu.saveAll();
-    QAction *closeAll = m_contextMenu.closeAll();
-
-    WorkspaceEmptyTab *tab = currentTab();
-    //
-    saveAll->setVisible(tab->allowSaveAll());
-    saveAll->setEnabled(tab->hasDirtyWork());
-    //
-    closeAll->setVisible(tab->allowCloseAll());
-    closeAll->setEnabled(tab->hasOpenedWork());
-
     // execute menu
 
-    QAction *action = m_contextMenu.execAt(pos, (QWidget*)tabBar());
-    if(action == saveAll) {
-        tab->saveAllWorks();
-        return;
-    }
-    if(action == closeAll) {
-        tab->closeAllWorks();
-        return;
-    }
+    m_contextMenu.execAt(pos, (QWidget*)tabBar());
 }
 
 void Workspace::updateTabPosition(int newPos)

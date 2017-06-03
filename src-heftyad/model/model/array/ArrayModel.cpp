@@ -391,7 +391,7 @@ QRectF ArrayModel::coverage() const
     QPointF topLeft     = first().sceneBoundingRect().topLeft();
     QPointF bottomRight = first().sceneBoundingRect().bottomRight();
 
-    const int s(size());
+    const int s = size();
     for(int i=1; i<s; i++) {
         const QRectF &r(at(i).sceneBoundingRect());
         const QPointF &tl(r.topLeft());

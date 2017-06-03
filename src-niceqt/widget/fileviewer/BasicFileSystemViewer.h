@@ -8,7 +8,7 @@
 #include <QLineEdit>
 
 /**
- * The BasicFileSystemViewer class represents a simple but useful file system viewer.
+ * The BasicFileSystemViewer class represents a simple but handy file system viewer.
  * It's provided only for convenience.
  *
  * /!\ You shouldn't change this viewer' model, since a default file system model is already set.
@@ -30,7 +30,7 @@ protected:
 public:
     explicit BasicFileSystemViewer(QWidget *parent = 0);
 
-    QString selectedEntry(void) const;
+    QString selectedEntry() const;
 
 signals:
     void selectedEntryChanged(const QString &entryPath);
@@ -47,7 +47,7 @@ public slots:
 protected slots:
     void onViewChanged(QAbstractItemView *old, QAbstractItemView *current);
     void onViewItemPressed(const QModelIndex &index);
-    void onRootPathCustomizerButtonPressed(void);
+    void onRootPathCustomizerButtonPressed();
 };
 
 #endif // BASICFILESYSTEMVIEWER_H

@@ -47,7 +47,7 @@ void ArrayView::mousePressEvent(QMouseEvent *event)
     }
 }
 
-void ArrayView::removeSelectedItems()
+void ArrayView::removeSelection()
 {
     /*
      * Gather data required for the undo/redo to work.
@@ -91,9 +91,8 @@ void ArrayView::removeSelectedItems()
         return;
     }
 
-    const bool dirty = isDirty();
     QString description = "Remove Array Items [" + QString::number(selectedModelItems.size()) + "]";
-    m_undoStack.push(ncpp::UndoFactory::createCommand(
+    m_undoStack.push(ncpp::UndoFactory::createShortHandUndoCommand(
         []() {},
         /**
          * Undo Remove Items
@@ -123,7 +122,7 @@ void ArrayView::removeSelectedItems()
                 scene()->update(); // to make sure indexes (if painted) are well painted.
             }
 
-            setDirty(dirty);
+            setDirtyFromCommandUndo();
         },
         /**
          * Redo Remove Items
@@ -138,20 +137,27 @@ void ArrayView::removeSelectedItems()
                 viewItem->setVisible(false);
             }
 
-            setDirty(true);
+            setDirtyFromCommandRedo();
         },
         description.toStdString()
     ));
-    setDirty(true);
+    setDirtyFromCommandRedo();
+}
+
+void ArrayView::cutSelection()
+{
+    // not finished yet
+
+    m_undoStack.beginMacro("Cut");
+    removeSelection();
+    m_undoStack.endMacro();
 }
 
 void ArrayView::normalizeItemPositions()
 {
-    const auto &centerItemsVertically = QApplication::keyboardModifiers() & Qt::ControlModifier;
-
-    if(m_modelAsArray && !m_modelAsArray->isEmpty()) {
-        const QPointF &start = m_modelAsArray->first().sceneRect().topLeft();
-        m_modelAsArray->layout(start, centerItemsVertically);
+    const bool centerItemsVertically = QApplication::keyboardModifiers() & Qt::ControlModifier;
+    if(m_modelAsArray) {
+        m_modelAsArray->layout(centerItemsVertically);
     }
 }
 
@@ -233,8 +239,7 @@ void ArrayView::onItemAddedToModel(ArrayModelItem *item)
      * Register undo/redo
      */
 
-    const bool dirty = isDirty();
-    m_undoStack.push(ncpp::UndoFactory::createCommand(
+    m_undoStack.push(ncpp::UndoFactory::createShortHandUndoCommand(
         /**
          * Destructor body
          */
@@ -251,7 +256,7 @@ void ArrayView::onItemAddedToModel(ArrayModelItem *item)
             itemView->setParentItem(nullptr);
             itemView->setVisible(false);
 
-            setDirty(dirty);
+            setDirtyFromCommandUndo();
         },
         /**
          * Redo Add Item
@@ -261,11 +266,11 @@ void ArrayView::onItemAddedToModel(ArrayModelItem *item)
             itemView->setVisible(true);
             itemView->setDrawItemIndexInArray(m_visibleItemIndexesInArray); // to make sure index will be painted if needed
 
-            setDirty(true);
+            setDirtyFromCommandRedo();
         },
         "Add Array Item"
     ));
-    setDirty(true);
+    setDirtyFromCommandRedo();
 }
 
 void ArrayView::onItemRemovedFromModel(ArrayModelItem *item, bool viewDeletionRequested)

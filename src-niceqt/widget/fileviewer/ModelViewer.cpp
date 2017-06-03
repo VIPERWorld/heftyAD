@@ -22,6 +22,7 @@ void ModelViewer::setView(QAbstractItemView *view)
     if(m_view) {
         removeWidget(m_view);
     }
+
     m_view = view;
     if(m_view) {
         m_view->setModel(m_model);

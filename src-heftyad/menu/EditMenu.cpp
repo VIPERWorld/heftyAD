@@ -9,16 +9,8 @@ EditMenu::EditMenu(QWidget *parent)
 {
     MainGuiData::setEditMenu(this);
 
-    m_undo = addAction(QIcon(""), "");  m_undo->setEnabled(false);
-    m_redo = addAction(QIcon(""), "");  m_redo->setEnabled(false);
-
-    addSeparator();
-    m_cut = addAction(QIcon(""), "");
-    m_copy = addAction(QIcon(""), "");
-    m_paste = addAction(QIcon(""), "");
-
-    addSeparator();
-    m_selectAll = addAction(QIcon(""), "");
+    m_undo = addAction(QIcon(""), ""); m_undo->setEnabled(false);
+    m_redo = addAction(QIcon(""), ""); m_redo->setEnabled(false);
 
     setShortcuts();
     connectSignalsToSlots();
@@ -34,24 +26,12 @@ void EditMenu::setShortcuts()
 {
     m_undo->setShortcut(QKeySequence::Undo);
     m_redo->setShortcut(QKeySequence::Redo);
-
-    m_cut->setShortcut(QKeySequence::Cut);
-    m_copy->setShortcut(QKeySequence::Copy);
-    m_paste->setShortcut(QKeySequence::Paste);
-
-    m_selectAll->setShortcut(QKeySequence::SelectAll);
 }
 
 void EditMenu::connectSignalsToSlots()
 {   
     connect(m_undo, &QAction::triggered, this, &EditMenu::onUndoActionTriggered);
     connect(m_redo, &QAction::triggered, this, &EditMenu::onRedoActionTriggered);
-
-    connect(m_cut,   &QAction::triggered, this, &EditMenu::onCutActionTriggered);
-    connect(m_copy,  &QAction::triggered, this, &EditMenu::onCopyActionTriggered);
-    connect(m_paste, &QAction::triggered, this, &EditMenu::onPasteActionTriggered);
-
-    connect(m_selectAll, &QAction::triggered, this, &EditMenu::onSelectAllActionTriggered);
 }
 
 void EditMenu::retranslate()
@@ -60,17 +40,22 @@ void EditMenu::retranslate()
 
     m_undo->setText(trUtf8("Annuler"));
     m_redo->setText(trUtf8("Refaire"));
-    m_cut->setText(trUtf8("Couper"));
-    m_copy->setText(trUtf8("Copier"));
-    m_paste->setText(trUtf8("Coller"));
-    m_selectAll->setText(trUtf8("Tout Sélectionner"));
 }
 
 #include <QDebug>
 #include "command/UndoCommand.h"
-void debug(const QString &text, ncpp::UndoCommand *cmd)
+void debug(const QString &text, const ncpp::UndoCommand *cmd)
 {
-    qDebug() << text.toStdString().c_str() << QString(cmd->description().c_str());
+//    qDebug() << text.toStdString().c_str() << QString(cmd->shortDescription().c_str());
+
+    const QStringList &lines = QString(cmd->longDescription().c_str()).split("\n");
+    const int len = lines.length();
+
+    qDebug() << text.toStdString().c_str() << lines.first();
+    for(int i=1; i<len; i++) {
+        const QString &line = lines.at(i);
+        qDebug() << line.toStdString().c_str();
+    }
 }
 
 void EditMenu::onUndoActionTriggered()
@@ -99,20 +84,4 @@ void EditMenu::onRedoActionTriggered()
         undoStack->redo();
     }
     setUndoRedoEnabled(undoStack->canUndo(), undoStack->canRedo());
-}
-
-void EditMenu::onCutActionTriggered()
-{
-}
-
-void EditMenu::onCopyActionTriggered()
-{
-}
-
-void EditMenu::onPasteActionTriggered()
-{
-}
-
-void EditMenu::onSelectAllActionTriggered()
-{
 }

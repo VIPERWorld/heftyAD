@@ -3,6 +3,7 @@
 
 #include "widget/TabWidget.h"
 
+#include <QAction>
 #include <QMap>
 
 class Work;
@@ -14,6 +15,19 @@ class WorkspaceWorkContainer : public TabWidget
 private:
     QList<Work*> m_works;
     QMap<Work*, int> m_works_titleIndexes;
+
+    // tab bar context menu
+
+    QAction *m_save;
+    QAction *m_saveAs;
+    QAction *m_saveACopy;
+    QAction *m_saveAll;
+    //
+    QAction *m_reload;
+    QAction *m_exportAs;
+    //
+    QAction *m_close;
+    QAction *m_closeAll;
 
 public:
     explicit WorkspaceWorkContainer(QWidget *parent = 0);
@@ -46,6 +60,11 @@ public:
 protected:
     void onCurrentWorkDirtyChanged();
     void onCurrentWorkEditionRequired(bool required);
+
+private:
+    void setUpTabBarContextMenuActions();
+    void retranslateTabBarContextMenuActions();
+    void disableUselessToolBarActions();
 
 signals:
     void toolBarActionsChanged(const QList<QAction*> &actions);

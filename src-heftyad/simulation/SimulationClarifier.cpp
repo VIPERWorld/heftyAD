@@ -10,7 +10,9 @@ void SimulationClarifier::addInfo(const QString &text) {addText(text, Informativ
 void SimulationClarifier::addWarning(const QString &text) {addText(text, WarningText);}
 void SimulationClarifier::addError(const QString &text) {addText(text, ErrorText);}
 
-void SimulationClarifier::prepareNewSection(void) const
+void SimulationClarifier::removeTexts() {emit needTextRemoval();}
+
+void SimulationClarifier::prepareNewSection() const
 {
     emit needNewSection();
 }

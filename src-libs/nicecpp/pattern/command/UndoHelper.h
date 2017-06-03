@@ -16,7 +16,7 @@ protected:
     UndoStackGroup m_undoStackGroup;
 
 public:
-    UndoHelper();
+    UndoHelper() = default;
     ~UndoHelper();
 
     /**

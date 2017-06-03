@@ -7,16 +7,7 @@ HighlightableGraphicsView::HighlightableGraphicsView(QWidget *parent)
       m_highlighter(nullptr),
       m_highlightingDataAcceleration(0)
 {
-//    addHighlightingText(7500, false, true,
-//                        "I can do it!", QRectF(-200, -200, 100, 50), Qt::AlignCenter,
-//                        QPen(Qt::blue), QFont(),
-//                        QPen(), QBrush(Qt::lightGray));
-//    addHighlightingText(5000, true, true,
-//                        "Yes we can!", QRectF(-100, -100, 100, 50), Qt::AlignCenter,
-//                        QPen(), QFont(),
-//                        QPen(Qt::DashLine));
-//    addHighlightingText(2500, true, false,
-//                        "Text spreading over\ntwo lines", QRectF(0, 0, 150, 35), Qt::AlignLeft);
+//    doTest();
 }
 
 HighlightableGraphicsView::~HighlightableGraphicsView()
@@ -63,11 +54,15 @@ void HighlightableGraphicsView::addHighlighting(HighlightingData *data)
         m_highlightingData.append(data);
         data->setAcceleration(m_highlightingDataAcceleration);
 
-        connect(data, &HighlightingData::timerStopped, [this, data]() {
+        auto *conn = new QMetaObject::Connection;
+        *conn = connect(data, &HighlightingData::timerStopped, [this, data, conn]() {
             m_highlightingData.removeOne(data);
             if(m_highlightingNewedData.removeOne(data)) {
                 delete data;
             }
+
+            QObject::disconnect(*conn);
+            delete conn;
         });
     }
 }
@@ -121,6 +116,22 @@ void HighlightableGraphicsView::stopHighlighting()
     for(HighlightingData *data : m_highlightingData) {
         data->stopTimer();
     }
+}
+
+void HighlightableGraphicsView::doTest()
+{
+    addHighlightingText(7500, false, true,
+                        "I can do it!", QRectF(-200, -200, 100, 50), Qt::AlignCenter,
+                        QPen(Qt::blue), QFont(),
+                        QPen(), QBrush(Qt::lightGray));
+
+    addHighlightingText(5000, true, true,
+                        "Yes we can!", QRectF(-100, -100, 100, 50), Qt::AlignCenter,
+                        QPen(), QFont(),
+                        QPen(Qt::DashLine));
+
+    addHighlightingText(2500, true, false,
+                        "Text spreading over\ntwo lines", QRectF(0, 0, 150, 35), Qt::AlignLeft);
 }
 
 void HighlightableGraphicsView::onHighlighterNeedsStart(HighlightingData *data, int duration)

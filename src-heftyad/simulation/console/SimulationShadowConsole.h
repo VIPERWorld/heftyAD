@@ -37,21 +37,21 @@ public:
 
     void setClarifier(SimulationClarifier *clarifier);
 
-    void removeLastSectionItems(void);
-    void removeItems(void);
+    void removeLastSectionItems();
+    void removeItems();
 
 protected:
     void addItem(const Item &item, int alinea);
     void removeItem(const Item &item);
 
-    void updateMaxCol(void);
+    void updateMaxCol();
 
     void resizeEvent(QResizeEvent *event);
 
 signals:
 
 protected slots:
-    void onNewSectionNeeded(void);
+    void onNewSectionNeeded();
 
     void onMessageNeeded(const QString &msg = QString(), int alinea = 0);
     void onShadowMessageNeeded(int msgType, const QString &msg = QString(), int alinea = 0);

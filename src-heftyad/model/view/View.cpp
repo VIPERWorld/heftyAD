@@ -20,6 +20,9 @@ View::View(QWidget *parent)
     m_fullEdition->setIcon(Resource::instance().toolBarIcon(".png"));
     connect(m_fullEdition, &QAction::toggled, this, &View::fullEditionEnabled);
 
+    setUpContextMenuDefaultActions();
+    m_ignoreContextMenu = false;
+
     connect(this, &View::modelChanged, this, &View::onModelChanged);
 
     connect(this, &View::highlightingDataAccelerationChanged, [this]() {
@@ -69,7 +72,7 @@ void View::setModelBackgroundBrush(const QBrush &brush)
 
 QList<QAction*> View::toolBarActions() const
 {
-    QList<QAction*> retVal = modelRelatedActions();
+    QList<QAction*> retVal = modelMainRelatedActions();
     if(!retVal.isEmpty()) { // then add separators
         retVal << m_sep1 << m_sep2;
     }
@@ -81,28 +84,29 @@ QList<QAction*> View::toolBarActions() const
 void View::retranslate()
 {
     m_fullEdition->setText(trUtf8("Edition Complète"));
-
+    retranslateContextMenuDefaultActions();
     if(m_editionForm) {
         editionForm()->retranslate();
     }
 }
 
-QList<QAction*> View::modelRelatedActions() const {return QList<QAction*>();}
-QList<QAction*> View::selectionRelatedActions() const {return QList<QAction*>();}
+void View::setIgnoreContextMenu(bool ignore) {m_ignoreContextMenu = ignore;}
+
+QList<QAction*> View::modelMainRelatedActions() const {return QList<QAction*>();}
+QList<QAction*> View::modelItemSelectionRelatedActions() const {return QList<QAction*>();}
 
 void View::contextMenuEvent(QContextMenuEvent *event)
 {
+    if(m_ignoreContextMenu) {
+        return;
+    }
+
     BasicGraphicsView::contextMenuEvent(event);
 
     // temporary data
 
     QMenu toolBar(trUtf8("Modèle"));
-    toolBar.addActions(modelRelatedActions());
-
-    QAction cut      (Resource::instance().toolBarIcon(".png"), trUtf8("Couper"), this);
-    QAction copy     (Resource::instance().toolBarIcon(".png"), trUtf8("Copier"), this);
-    QAction paste    (Resource::instance().toolBarIcon(".png"), trUtf8("Coller"), this);
-    QAction selectAll(Resource::instance().toolBarIcon(".png"), trUtf8("Tout Sélectionner"), this);
+    toolBar.addActions(modelMainRelatedActions());
 
     // Now build context menu
 
@@ -111,19 +115,19 @@ void View::contextMenuEvent(QContextMenuEvent *event)
     menu.addActions(defaultToolBarActions());
     menu.addSeparator();
     //
-    menu.addAction(&cut); // maybe pass the following actions to Edit Menu (so that we do not create different actions)
-    menu.addAction(&copy);
-    menu.addAction(&paste);
+    menu.addAction(m_cut); // maybe: pass the following actions to Edit Menu later (so that we do not create different actions)
+    menu.addAction(m_copy);
+    menu.addAction(m_copyToSystemClipboard);
+    menu.addAction(m_paste);
     menu.addSeparator();
     //
-    menu.addActions(selectionRelatedActions());
-    menu.addAction(&selectAll);
+    menu.addAction(m_duplicate);
+    menu.addSeparator();
+    //
+    menu.addActions(modelItemSelectionRelatedActions());
+    menu.addAction(m_selectAll);
 
-    QAction *action = Utility::execMenuAt(&menu, event->pos(), this);
-    if(action == &selectAll) {
-        this->selectAll();
-        return;
-    }
+    Utility::execMenuAt(&menu, event->pos(), this);
 }
 
 //#include <QGraphicsItem>
@@ -151,6 +155,78 @@ void View::contextMenuEvent(QContextMenuEvent *event)
 QList<QAction*> View::defaultToolBarActions() const
 {
     return QList<QAction*>() << m_fullEdition;
+}
+
+void View::setUpContextMenuDefaultActions()
+{
+    // create actions
+
+    m_cut                   = new QAction(QIcon(""), "", this);
+    m_copy                  = new QAction(QIcon(""), "", this);
+    m_copyToSystemClipboard = new QAction(QIcon(""), "", this);
+    m_paste                 = new QAction(QIcon(""), "", this);
+
+    m_duplicate             = new QAction(QIcon(""), "", this);
+
+    m_selectAll             = new QAction(QIcon(""), "", this);
+
+    // set shortcuts
+
+    m_cut->setShortcut(QKeySequence::Cut); addAction(m_cut);
+    m_copy->setShortcut(QKeySequence::Copy); addAction(m_copy);
+    m_copyToSystemClipboard->setShortcut(QKeySequence("Ctrl+Shift+C")); addAction(m_copyToSystemClipboard);
+    m_paste->setShortcut(QKeySequence::Paste); addAction(m_paste);
+
+    m_duplicate->setShortcut(QKeySequence("Ctrl+D")); addAction(m_duplicate);
+
+    m_selectAll->setShortcut(QKeySequence::SelectAll); addAction(m_selectAll);
+
+    // connect signals to slots
+
+    connect(m_cut,                   &QAction::triggered, [this]() { cutSelection();             });
+    connect(m_copy,                  &QAction::triggered, [this]() { copySelection();            });
+    connect(m_copyToSystemClipboard, &QAction::triggered, [this]() { copySelectionToClipboard(); });
+    connect(m_paste,                 &QAction::triggered, [this]() { pasteCopiedSelection();     });
+
+    connect(m_duplicate,             &QAction::triggered, [this]() { duplicateSelection();       });
+
+    connect(m_selectAll,             &QAction::triggered, [this]() { selectAll();                });
+
+    connect(scene(), &QGraphicsScene::selectionChanged, this, &View::disableUselessContextMenuDefaultActions);
+    disableUselessContextMenuDefaultActions();
+    m_paste->setEnabled(false);
+
+    // momentarily
+
+    m_cut->setVisible(false);
+    m_copy->setVisible(false);
+    m_copyToSystemClipboard->setVisible(false);
+    m_paste->setVisible(false);
+
+    m_duplicate->setVisible(false);
+}
+
+void View::retranslateContextMenuDefaultActions()
+{
+    m_cut->setText(trUtf8("Couper"));
+    m_copy->setText(trUtf8("Copier"));
+    m_copyToSystemClipboard->setText(trUtf8("Copier dans le Press-papiers System"));
+    m_paste->setText(trUtf8("Coller"));
+
+    m_duplicate->setText(trUtf8("Dupliquer"));
+
+    m_selectAll->setText(trUtf8("Tout Sélectionner"));
+}
+
+void View::disableUselessContextMenuDefaultActions()
+{
+    const QList<QGraphicsItem*> &list = scene()->selectedItems();
+    const bool empty = list.isEmpty();
+
+    m_cut->setEnabled(!empty);
+    m_copy->setEnabled(!empty);
+
+    m_duplicate->setEnabled(!empty);
 }
 
 void View::onModelChanged()

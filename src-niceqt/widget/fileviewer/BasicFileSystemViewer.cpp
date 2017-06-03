@@ -24,7 +24,7 @@ BasicFileSystemViewer::BasicFileSystemViewer(QWidget *parent)
     connect(&m_rootPathCustomizerButton, &PushButton::pressed, this, &BasicFileSystemViewer::onRootPathCustomizerButtonPressed);
 }
 
-QString BasicFileSystemViewer::selectedEntry(void) const {return m_selectedEntry;}
+QString BasicFileSystemViewer::selectedEntry() const {return m_selectedEntry;}
 
 QString BasicFileSystemViewer::entryRootPath() const {return static_cast<QFileSystemModel*>(m_model)->rootPath();}
 void BasicFileSystemViewer::setEntryRootPath(const QString &dirPath)
@@ -52,11 +52,12 @@ void BasicFileSystemViewer::setRootPathCustomizerVisibility(bool visible)
 
 void BasicFileSystemViewer::onViewChanged(QAbstractItemView *old, QAbstractItemView *current)
 {
+    Q_UNUSED(current) // current is same as m_view
+
     if(old) {
         disconnect(old, &QAbstractItemView::pressed, this, &BasicFileSystemViewer::onViewItemPressed);
     }
 
-    Q_UNUSED(current) // current is same as m_view
     connect(m_view, &QAbstractItemView::pressed, this, &BasicFileSystemViewer::onViewItemPressed);
 }
 
@@ -69,7 +70,7 @@ void BasicFileSystemViewer::onViewItemPressed(const QModelIndex &index)
     }
 }
 
-void BasicFileSystemViewer::onRootPathCustomizerButtonPressed(void)
+void BasicFileSystemViewer::onRootPathCustomizerButtonPressed()
 {
     QFileDialog diag(this);
     diag.setDirectory(m_rootPathCustomizerLineEdit.text());

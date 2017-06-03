@@ -96,7 +96,14 @@ void GraphicsView::deselectAll()
     }
 }
 
-void GraphicsView::removeSelectedItems() {}
+void GraphicsView::removeSelection() {}
+
+void GraphicsView::cutSelection() {}
+void GraphicsView::copySelection() {}
+void GraphicsView::copySelectionToClipboard() {}
+void GraphicsView::pasteCopiedSelection() {}
+
+void GraphicsView::duplicateSelection() {}
 
 bool GraphicsView::zoomIn()  {return scaleView(m_zoomInScalFactor);}
 bool GraphicsView::zoomOut() {return scaleView(1/m_zoomInScalFactor);}

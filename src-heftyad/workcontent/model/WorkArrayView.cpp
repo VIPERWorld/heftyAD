@@ -19,7 +19,7 @@ void WorkArrayView::retranslate()
     retranslateModelRelatedActions();
 }
 
-QList<QAction*> WorkArrayView::modelRelatedActions() const
+QList<QAction*> WorkArrayView::modelMainRelatedActions() const
 {
     return QList<QAction*>() << m_actionGroup1.actions() << m_separator1
                              << m_actionGroup2.actions() << m_separator2
@@ -45,7 +45,7 @@ void WorkArrayView::createModelRelatedActions()
 
     connect(m_addItems,    &QAction::toggled,   this, &WorkArrayView::setOnMousePressedAddItem);
     connect(m_textEdition, &QAction::toggled,   this, &WorkArrayView::setEnabledItemEdition);
-    connect(m_removeItems, &QAction::triggered, this, &WorkArrayView::removeSelectedItems);
+    connect(m_removeItems, &QAction::triggered, this, &WorkArrayView::removeSelection);
 
     // Separator
 

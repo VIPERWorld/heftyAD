@@ -63,39 +63,19 @@
 <context>
     <name>EditMenu</name>
     <message>
-        <location filename="src-heftyad/menu/EditMenu.cpp" line="59"/>
+        <location filename="src-heftyad/menu/EditMenu.cpp" line="39"/>
         <source>Edition</source>
         <translation>Edit</translation>
     </message>
     <message>
-        <location filename="src-heftyad/menu/EditMenu.cpp" line="61"/>
+        <location filename="src-heftyad/menu/EditMenu.cpp" line="41"/>
         <source>Annuler</source>
         <translation>Undo</translation>
     </message>
     <message>
-        <location filename="src-heftyad/menu/EditMenu.cpp" line="62"/>
+        <location filename="src-heftyad/menu/EditMenu.cpp" line="42"/>
         <source>Refaire</source>
         <translation>Redo</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/menu/EditMenu.cpp" line="66"/>
-        <source>Tout Sélectionner</source>
-        <translation>Select All</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/menu/EditMenu.cpp" line="63"/>
-        <source>Couper</source>
-        <translation>Cut</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/menu/EditMenu.cpp" line="64"/>
-        <source>Copier</source>
-        <translation>Copy</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/menu/EditMenu.cpp" line="65"/>
-        <source>Coller</source>
-        <translation>Paste</translation>
     </message>
 </context>
 <context>
@@ -263,7 +243,7 @@
 <context>
     <name>ModelWork</name>
     <message>
-        <location filename="src-heftyad/work/ModelWork.cpp" line="77"/>
+        <location filename="src-heftyad/work/ModelWork.cpp" line="85"/>
         <source>Exporter comme png</source>
         <translation>Export as png</translation>
     </message>
@@ -302,15 +282,15 @@
     <message>
         <location filename="src-heftyad/simulation/SimulationAlgorithmFileViewer.cpp" line="15"/>
         <source>Répertoire racine des plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Plugin root directory</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationAlgorithmFileViewer.cpp" line="17"/>
+        <location filename="src-heftyad/simulation/SimulationAlgorithmFileViewer.cpp" line="16"/>
         <source>Répertoire à partir duquel les entrées sont lues</source>
-        <translation type="unfinished"></translation>
+        <translation>Directory from which entries are read</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationAlgorithmFileViewer.cpp" line="19"/>
+        <location filename="src-heftyad/simulation/SimulationAlgorithmFileViewer.cpp" line="18"/>
         <source>Changer</source>
         <translation>Change</translation>
     </message>
@@ -331,13 +311,23 @@
 <context>
     <name>SimulationConfigWidget</name>
     <message>
+        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="68"/>
+        <source>Fichier décrivant l&apos;algorithme</source>
+        <translation>File describing the algorithm</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="71"/>
+        <source>Modèle associé à l&apos;algorithme</source>
+        <translation>Model used by the algorithm</translation>
+    </message>
+    <message>
         <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="74"/>
         <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="75"/>
         <source>Choisir</source>
         <translation>Choose</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="127"/>
+        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="126"/>
         <source>Choisir un modèle</source>
         <translation>Choose a model</translation>
     </message>
@@ -345,108 +335,115 @@
 <context>
     <name>SimulationController</name>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="80"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="69"/>
         <source>Retourner vers l&apos;étape précédente</source>
-        <translation type="unfinished"></translation>
+        <translation>Moving backward</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="81"/>
-        <source>Suspendre la simulation</source>
-        <translation type="unfinished"></translation>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="70"/>
+        <source>Suspendre</source>
+        <oldsource>Suspendre la simulation</oldsource>
+        <translation>Suspend</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="82"/>
-        <source>Débuter/Continuer la simulation</source>
-        <translation type="unfinished"></translation>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="71"/>
+        <source>Débuter/Continuer</source>
+        <oldsource>Débuter/Continuer la simulation</oldsource>
+        <translation>Start / Continue</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="83"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="72"/>
         <source>Avancer vers l&apos;étape suivante</source>
-        <translation type="unfinished"></translation>
+        <translation>Moving forward</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="84"/>
-        <source>Arrêter la simulation</source>
-        <translation type="unfinished"></translation>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="73"/>
+        <source>Arrêter</source>
+        <translation>Stop</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="85"/>
-        <source>Accéder à plus de fonctionnalités</source>
-        <translation type="unfinished"></translation>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="74"/>
+        <source>Plus de fonctionnalités</source>
+        <oldsource>Accéder à plus de fonctionnalités</oldsource>
+        <translation>More</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="86"/>
-        <source>Ignorer les temps d&apos;attente</source>
-        <translation type="unfinished"></translation>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="75"/>
+        <source>Cacher la barre de progression</source>
+        <translation>Hide progress bar</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="87"/>
-        <source>Minimiser les temps d&apos;attente</source>
-        <translation type="unfinished"></translation>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="76"/>
+        <source>Bloquer le Clarificateur</source>
+        <translation>Block Clarifier</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="88"/>
-        <source>Recommencer la simulation</source>
-        <translation type="unfinished"></translation>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="77"/>
+        <source>Recommencer</source>
+        <oldsource>Recommencer la simulation</oldsource>
+        <translation>Restart</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="89"/>
-        <source>Passer en mode plein écran</source>
-        <translation type="unfinished"></translation>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="78"/>
+        <source>Plein écran</source>
+        <oldsource>Passer en mode plein écran</oldsource>
+        <translation>Full screen</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="91"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="80"/>
         <source>Accélération des timers (en %age)</source>
-        <translation type="unfinished"></translation>
+        <translation>Timer acceleration (in %age)</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="374"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="359"/>
         <source>La simulation ne peut démarrer</source>
-        <translation type="unfinished"></translation>
+        <translation>Simulation can not start</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="375"/>
-        <source>Une simulation implique forcément un algorithme.
-Merci de configurer votre simulation puis de recommencer.</source>
-        <translation type="unfinished"></translation>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="360"/>
+        <source>Une simulation implique forcément un algorithme.%1Merci de configurer votre simulation puis de recommencer.</source>
+        <oldsource>Une simulation implique forcément un algorithme.
+Merci de configurer votre simulation puis de recommencer.</oldsource>
+        <translation>A simulation should involve an algorithm.%1Please configure your simulation and try again.</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="385"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="370"/>
         <source>La simulation a terminé immédiatement</source>
-        <translation type="unfinished"></translation>
+        <translation>Simulation ended immediately</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="386"/>
-        <source>L&apos;algorithme sollicité ne peut s&apos;appliquer au modèle choisi.
-Merci de choisir un modèle adéquat puis de recommencer.</source>
-        <translation type="unfinished"></translation>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="371"/>
+        <source>L&apos;algorithme sollicité ne peut s&apos;appliquer au modèle choisi.%1Merci de choisir un modèle adéquat puis de recommencer.</source>
+        <oldsource>L&apos;algorithme sollicité ne peut s&apos;appliquer au modèle choisi.
+Merci de choisir un modèle adéquat puis de recommencer.</oldsource>
+        <translation>Current model doesn&apos;t match the one expected by the algorithm.%1Please choose a suitable model and try again.</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="397"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="382"/>
         <source>Source de l&apos;exception inconnue</source>
-        <translation type="unfinished"></translation>
+        <translation>Source of exception is unknown</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="414"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="391"/>
         <source>Evénement indésirable</source>
-        <translation type="unfinished"></translation>
+        <translation>Unwanted event</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="415"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="392"/>
         <source>Arrêt inopiné suite à une exception</source>
-        <translation type="unfinished"></translation>
+        <translation>Unexpected stop due to an exception</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="458"/>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="462"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="427"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="431"/>
         <source>Requête particulière</source>
-        <translation type="unfinished"></translation>
+        <translation>Special request</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="459"/>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="463"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="428"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="432"/>
         <source>Simulation interrompue</source>
-        <translation type="unfinished"></translation>
+        <translation>Simulation interrupted</translation>
     </message>
 </context>
 <context>
@@ -459,7 +456,7 @@ Merci de choisir un modèle adéquat puis de recommencer.</source>
     <message>
         <location filename="src-heftyad/simulation/SimulationSideWidget.cpp" line="67"/>
         <source>Consoles de log</source>
-        <translation>Log console</translation>
+        <translation>Log consoles</translation>
     </message>
     <message>
         <location filename="src-heftyad/simulation/SimulationSideWidget.cpp" line="69"/>
@@ -475,34 +472,44 @@ Merci de choisir un modèle adéquat puis de recommencer.</source>
 <context>
     <name>View</name>
     <message>
-        <location filename="src-heftyad/model/view/View.cpp" line="83"/>
+        <location filename="src-heftyad/model/view/View.cpp" line="85"/>
         <source>Edition Complète</source>
         <translation>Full Edition</translation>
     </message>
     <message>
-        <location filename="src-heftyad/model/view/View.cpp" line="99"/>
+        <location filename="src-heftyad/model/view/View.cpp" line="101"/>
         <source>Modèle</source>
         <translation>Model</translation>
     </message>
     <message>
-        <location filename="src-heftyad/model/view/View.cpp" line="102"/>
+        <location filename="src-heftyad/model/view/View.cpp" line="204"/>
         <source>Couper</source>
-        <translation type="unfinished">Cut</translation>
+        <translation>Cut</translation>
     </message>
     <message>
-        <location filename="src-heftyad/model/view/View.cpp" line="103"/>
+        <location filename="src-heftyad/model/view/View.cpp" line="205"/>
         <source>Copier</source>
-        <translation type="unfinished">Copy</translation>
+        <translation>Copy</translation>
     </message>
     <message>
-        <location filename="src-heftyad/model/view/View.cpp" line="104"/>
+        <location filename="src-heftyad/model/view/View.cpp" line="206"/>
+        <source>Copier dans le Press-papiers System</source>
+        <translation>Copy to System Clipboard</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/view/View.cpp" line="207"/>
         <source>Coller</source>
-        <translation type="unfinished">Paste</translation>
+        <translation>Paste</translation>
     </message>
     <message>
-        <location filename="src-heftyad/model/view/View.cpp" line="105"/>
+        <location filename="src-heftyad/model/view/View.cpp" line="209"/>
+        <source>Dupliquer</source>
+        <translation>Duplicate</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/model/view/View.cpp" line="211"/>
         <source>Tout Sélectionner</source>
-        <translation type="unfinished">Select All</translation>
+        <translation>Select All</translation>
     </message>
 </context>
 <context>
@@ -752,77 +759,65 @@ Bonne découverte !</source>
 <context>
     <name>WorkspaceBasicTab</name>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="43"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="41"/>
         <source>Travaux récents</source>
         <translation>Recent works</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="45"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="43"/>
         <source>Barre d&apos;outils</source>
         <translation>Toolbar</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="46"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="44"/>
         <source>Travaux en cours</source>
         <translation>Work in progress</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="61"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="59"/>
         <source>Sélectionner les travaux à ouvrir</source>
-        <translation type="unfinished"></translation>
+        <translation>Select works to open</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="91"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="89"/>
         <source>Travaux déjà ouverts</source>
-        <translation type="unfinished"></translation>
+        <translation>Works already open</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="101"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="99"/>
         <source>Travaux dont l&apos;ouverture a échoué</source>
-        <translation type="unfinished"></translation>
+        <translation>Works that failed to open</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="110"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="108"/>
         <source>A votre attention je vous prie</source>
-        <translation type="unfinished"></translation>
+        <translation>To your attention please</translation>
     </message>
 </context>
 <context>
     <name>WorkspaceContextMenu</name>
     <message>
         <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="28"/>
-        <source>Enregistrer Tout</source>
-        <oldsource>Enregistrer tous les travaux</oldsource>
-        <translation>Save All</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="29"/>
-        <source>Fermer Tout</source>
-        <oldsource>Fermer tous les travaux</oldsource>
-        <translation>Close All</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="31"/>
         <source>Position des onglets</source>
         <translation>Tab position</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="32"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="29"/>
         <source>Nord</source>
         <translation>North</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="33"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="30"/>
         <source>Sud</source>
         <translation>South</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="34"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="31"/>
         <source>Ouest</source>
         <translation>West</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="35"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="32"/>
         <source>Est</source>
         <translation>East</translation>
     </message>
@@ -868,86 +863,111 @@ Bonne découverte !</source>
 <context>
     <name>WorkspaceSimulationTab</name>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="34"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="49"/>
         <source>Nouvelle simulation</source>
         <translation>New simulation</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="35"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="51"/>
         <source>Fenêtres</source>
         <translation>Windows</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="36"/>
-        <source>Arrière-plan</source>
-        <translation type="unfinished"></translation>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="52"/>
+        <source>Aligner horizontalement</source>
+        <translation>Align horizontally</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="58"/>
-        <source>Simulation %1</source>
-        <translation type="unfinished"></translation>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="53"/>
+        <source>Aligner verticalement</source>
+        <translation>Align vertically</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="54"/>
+        <source>Fermer Tout</source>
+        <translation>Close All</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="56"/>
+        <source>Arrière-plan</source>
+        <translation>Background</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="75"/>
+        <source>Nouvelle Simulation</source>
+        <translation>New Simulation</translation>
     </message>
 </context>
 <context>
     <name>WorkspaceWorkContainer</name>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="190"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="225"/>
         <source>Enregistrer</source>
         <translation>Save</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="191"/>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="267"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="226"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="324"/>
         <source>Enregistrer sous</source>
         <translation>Save As</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="192"/>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="288"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="227"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="345"/>
         <source>Enregistrer une copie</source>
         <translation>Save A Copy</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="194"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="228"/>
+        <source>Enregistrer Tout</source>
+        <translation>Save All</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="230"/>
         <source>Recharger</source>
         <translation>Reload</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="195"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="231"/>
         <source>Exporter sous</source>
         <translation>Export As</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="197"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="233"/>
         <source>Fermer</source>
         <translation>Close</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="314"/>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="333"/>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="351"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="234"/>
+        <source>Fermer Tout</source>
+        <translation>Close All</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="371"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="390"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="408"/>
         <source>Attention</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="316"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="373"/>
         <source>Des modifications &lt;B&gt;non enregistrées&lt;/B&gt; sont en cours.&lt;br/&gt;Elles seront &lt;B&gt;perdues&lt;/B&gt; si vous continuez.&lt;br/&gt;Souhaitez-vous recharger %1 ?</source>
         <translation>Unsaved changes will be &lt;B&gt;lost&lt;/B&gt; if you continue.&lt;br/&gt;Reload %1?</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="335"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="392"/>
         <source>%1 n&apos;a pu être rechargée.</source>
         <translation>Unable to reload %1.</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="336"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="393"/>
         <source>&lt;I&gt;Le fichier de travail n&apos;existe probablement plus&lt;/I&gt;.</source>
         <translation>&lt;I&gt;The working file probably no more exists&lt;/I&gt;.</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="353"/>
+        <location filename="src-heftyad/workspace/WorkspaceWorkContainer.cpp" line="410"/>
         <source>Des modifications &lt;B&gt;non enregistrées&lt;/B&gt; sont en cours.&lt;br/&gt;Souhaitez-vous enregistrer %1 ?</source>
-        <translation>Unsaved changes will be &lt;B&gt;lost&lt;/B&gt; if you continue.&lt;br/&gt;Save %1?</translation>
+        <translation>Unsaved changes will be &lt;B&gt;lost&lt;/B&gt;.&lt;br/&gt;Save %1 prior to close?</translation>
     </message>
 </context>
 <context>

@@ -8,6 +8,7 @@
 
 BasicGraphicsView::BasicGraphicsView(QWidget *parent)
     : HighlightableGraphicsView(parent),
+      m_undoRedoCountSinceLastSave(0),
       m_dirty(false),
       m_onMouseReleased_thereAreUnregisteredItemMoveCommands(false)
 {
@@ -46,6 +47,8 @@ BasicGraphicsView::BasicGraphicsView(QWidget *parent)
 
 ncpp::UndoStack* BasicGraphicsView::undoStack() const {return const_cast<ncpp::UndoStack*>(&m_undoStack);}
 
+void BasicGraphicsView::resetUndoRedoCountSinceLastSave() {m_undoRedoCountSinceLastSave = 0;}
+
 bool BasicGraphicsView::isDirty() const {return m_dirty;}
 void BasicGraphicsView::setDirty(bool dirty)
 {
@@ -64,6 +67,18 @@ QList<QPointF> BasicGraphicsView::sceneSelectedItemPositions() const
     }
 
     return res;
+}
+
+void BasicGraphicsView::setDirtyFromCommandUndo()
+{
+    m_undoRedoCountSinceLastSave--;
+    setDirty(m_undoRedoCountSinceLastSave != 0);
+}
+
+void BasicGraphicsView::setDirtyFromCommandRedo()
+{
+    m_undoRedoCountSinceLastSave++;
+    setDirty(m_undoRedoCountSinceLastSave != 0);
 }
 
 void BasicGraphicsView::contextMenuEvent(QContextMenuEvent *event)
@@ -135,9 +150,8 @@ void BasicGraphicsView::registerMoveCommandIfAvailable()
     const QList<QPointF>        &from  = m_onMousePressed_selectedItemsPos;
     const QList<QPointF>        &to    = sceneSelectedItemPositions();
 
-    const bool dirty = isDirty();
     QString description = "Move Items [" + QString::number(items.count()) + "]";
-    m_undoStack.push(ncpp::UndoFactory::createCommand(
+    m_undoStack.push(ncpp::UndoFactory::createShortHandUndoCommand(
         []() {},
         /**
          * Undo Move Items
@@ -149,7 +163,7 @@ void BasicGraphicsView::registerMoveCommandIfAvailable()
                 item->setPos(from.at(i));
             }
 
-            setDirty(dirty);
+            setDirtyFromCommandUndo();
         },
         /**
          * Redo Move Items
@@ -161,9 +175,9 @@ void BasicGraphicsView::registerMoveCommandIfAvailable()
                 item->setPos(to.at(i));
             }
 
-            setDirty(true);
+            setDirtyFromCommandRedo();
         },
         description.toStdString()
     ));
-    setDirty(true);
+    setDirtyFromCommandRedo();
 }

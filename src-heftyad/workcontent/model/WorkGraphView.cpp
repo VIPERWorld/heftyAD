@@ -19,14 +19,14 @@ void WorkGraphView::retranslate()
     retranslateSelectionRelatedActions();
 }
 
-QList<QAction*> WorkGraphView::modelRelatedActions() const
+QList<QAction*> WorkGraphView::modelMainRelatedActions() const
 {
     return QList<QAction*>() << m_actionGroup1.actions()
                              << m_separator
                              << m_actionGroup2.actions();
 }
 
-QList<QAction*> WorkGraphView::selectionRelatedActions() const
+QList<QAction*> WorkGraphView::modelItemSelectionRelatedActions() const
 {
     return QList<QAction*>() << m_selectVertices << m_selectEdges;
 }
@@ -62,7 +62,7 @@ void WorkGraphView::createModelRelatedActions()
     connect(m_addEdgesSuccessively,             &QAction::toggled,   this, &WorkGraphView::setOnMousePressedAddEdgeSuccessively);
     connect(m_addEdgeFromSourceOnMousePressed, &QAction::toggled,   this, &WorkGraphView::setOnMousePressedAddEdgeFromSource);
     connect(m_textEdition,                     &QAction::toggled,   this, &WorkGraphView::setEnabledItemEdition);
-    connect(m_removeItems,                      &QAction::triggered, this, &WorkGraphView::removeSelectedItems);
+    connect(m_removeItems,                      &QAction::triggered, this, &WorkGraphView::removeSelection);
 
     // Separator
 

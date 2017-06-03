@@ -13,8 +13,7 @@ QString SimulationAlgorithmFileViewer::selectedAlgorithm() const {return m_selec
 void SimulationAlgorithmFileViewer::retranslate()
 {
     m_rootPathCustomizerLineEdit.setPlaceholderText(trUtf8("Répertoire racine des plugins"));
-    m_rootPathCustomizerLineEdit.setToolTip(m_rootPathCustomizerLineEdit.placeholderText()
-                                           +"\n"+trUtf8("Répertoire à partir duquel les entrées sont lues"));
+    m_rootPathCustomizerLineEdit.setToolTip(trUtf8("Répertoire à partir duquel les entrées sont lues"));
 
     m_rootPathCustomizerButton.setText(trUtf8("Changer"));
 }
@@ -25,7 +24,7 @@ void SimulationAlgorithmFileViewer::onSelectedEntryChanged(const QString &entryP
     if(fsmodel->isDir(fsmodel->index(entryPath))) {
         m_selectedAlgorithm = "";
     }
-    else if(m_selectedAlgorithm!=entryPath) {
+    else {
         m_selectedAlgorithm = entryPath;
     }
 

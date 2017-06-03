@@ -156,7 +156,7 @@ void GraphView::resetLastlyPressedVertices(GraphViewVertex *vertex0, GraphViewVe
 }
 
 #include <QDebug>
-void GraphView::removeSelectedItems()
+void GraphView::removeSelection()
 {
     qDebug() << "Supprimer items sélectionnés";
 }
@@ -234,8 +234,7 @@ void GraphView::onVertexAddedToModel(GraphModelVertex *vertex)
      * Register undo/redo
      */
 
-    const bool dirty = isDirty();
-    m_undoStack.push(ncpp::UndoFactory::createCommand(
+    m_undoStack.push(ncpp::UndoFactory::createShortHandUndoCommand(
         /**
          * Destructor body
          */
@@ -251,7 +250,7 @@ void GraphView::onVertexAddedToModel(GraphModelVertex *vertex)
             /*m_modelAsGraph->m_graph.removeVertex(vertex);
             vertexView->setVisible(false);*/
 
-            setDirty(dirty);
+            setDirtyFromCommandUndo();
         },
         /**
          * Redo Add Vertex
@@ -260,11 +259,11 @@ void GraphView::onVertexAddedToModel(GraphModelVertex *vertex)
             /*m_modelAsGraph->m_graph.addVertex(vertex);
             vertexView->setVisible(true);*/
 
-            setDirty(true);
+            setDirtyFromCommandRedo();
         },
         "Add Graph Vertex"
     ));
-    setDirty(true);
+    setDirtyFromCommandRedo();
 }
 
 void GraphView::onEdgeAddedToModel(GraphModelEdge *edge)

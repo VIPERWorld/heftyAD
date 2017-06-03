@@ -37,8 +37,8 @@ public:
     void retranslate() override;
 
 protected:
-    QList<QAction*> modelRelatedActions() const override;
-    QList<QAction*> selectionRelatedActions() const override;
+    QList<QAction*> modelMainRelatedActions() const override;
+    QList<QAction*> modelItemSelectionRelatedActions() const override;
 
 private:
     void createModelRelatedActions();

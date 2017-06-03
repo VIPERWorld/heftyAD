@@ -50,6 +50,7 @@ bool ModelWork::loadFrom(const QString &filePath)
             model->empty();
             loaded = model->loadFrom(filePath);
             m_view->undoStack()->clear();
+            m_view->resetUndoRedoCountSinceLastSave();
         }
     }
 
@@ -68,6 +69,13 @@ void ModelWork::retranslate()
 {
     if(m_view) {
         m_view->retranslate();
+    }
+}
+
+void ModelWork::postSave()
+{
+    if(m_view) {
+        m_view->resetUndoRedoCountSinceLastSave();
     }
 }
 

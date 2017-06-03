@@ -19,9 +19,7 @@ SimulationWidget::SimulationWidget(QWidget *parent)
     });
 }
 
-SimulationSideWidget* SimulationWidget::sideWidget() const {
-    return const_cast<SimulationSideWidget*>(&m_sideWidget);
-}
+SimulationSideWidget* SimulationWidget::sideWidget() const {return const_cast<SimulationSideWidget*>(&m_sideWidget);}
 
 void SimulationWidget::setView(View *view)
 {
@@ -29,6 +27,7 @@ void SimulationWidget::setView(View *view)
 
     if(m_view) {
         m_view->setParent(nullptr);
+        m_view->setIgnoreContextMenu(false); // not mandatory
     }
 
     // Then set the new view
@@ -36,12 +35,9 @@ void SimulationWidget::setView(View *view)
     m_view = view;
     if(m_view) {
         m_splitter.addWidget(m_view);
+        m_view->retranslate(); // not mandatory
+        m_view->setIgnoreContextMenu(true);
     }
-}
-
-void SimulationWidget::addSimulationWidget(QWidget *widget, int index)
-{
-    m_splitter.insertWidget(index, widget);
 }
 
 void SimulationWidget::retranslate()

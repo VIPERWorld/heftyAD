@@ -41,12 +41,6 @@ public:
     void openNewWork(const QString &workType);
     void openExistingWorks(const QString &workFamily);
 
-    bool hasDirtyWork() const override;
-    bool hasOpenedWork() const override;
-
-    void saveAllWorks() override;
-    void closeAllWorks() override;
-
 signals:
 
 protected slots:

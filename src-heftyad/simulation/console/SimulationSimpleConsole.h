@@ -13,6 +13,7 @@ public:
     typedef struct colorScheme {
         QColor backgroundColor;
         QColor foregroundColor;
+
         QColor infoColor;
         QColor warningColor;
         QColor errorColor;
@@ -22,14 +23,19 @@ public:
     } ColorScheme ;
 
     /**
-     * Dark<...> means dark background.
-     * White<...> means white background
-     * ...
+     * In this enum:
+     *     Dark<...>  means dark  background
+     *     White<...> means white background
+     *     ...
      */
     typedef enum {
-        DarkScheme, DarkSchemeLighten,
+        DarkScheme,
+        DarkSchemeLighten,
+
         GrayScheme,
-        WhiteScheme, WhiteSchemeDarken,
+
+        WhiteScheme,
+        WhiteSchemeDarken,
     } BuiltinColorScheme;
 
 protected:
@@ -48,6 +54,9 @@ signals:
 
 protected slots:
     void onTextNeeded(const QString &text, int kind);
+    void onTextRemovalNeeded();
+
+    void doTest();
 };
 
 #endif // SIMULATIONSIMPLECONSOLE_H

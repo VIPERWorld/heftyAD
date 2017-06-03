@@ -38,7 +38,7 @@ void SimulationShadowConsole::setClarifier(SimulationClarifier *clarifier)
     }
 }
 
-void SimulationShadowConsole::removeLastSectionItems(void)
+void SimulationShadowConsole::removeLastSectionItems()
 {
     QList<Item>::iterator it;
     for(it = m_items.end(); it != m_items.begin(); --it) {
@@ -52,10 +52,10 @@ void SimulationShadowConsole::removeLastSectionItems(void)
     updateMaxCol();
 }
 
-void SimulationShadowConsole::removeItems(void)
+void SimulationShadowConsole::removeItems()
 {
     setUpdatesEnabled(false);
-    foreach(const auto &item, m_items) {
+    foreach(const Item &item, m_items) {
         scene()->removeItem(item.m_item);
         delete item.m_item;
     }
@@ -97,15 +97,15 @@ void SimulationShadowConsole::removeItem(const SimulationShadowConsole::Item &it
     delete item.m_item;
 }
 
-void SimulationShadowConsole::updateMaxCol(void)
+void SimulationShadowConsole::updateMaxCol()
 {
     m_max_col = 0;
-    foreach(const auto item, m_items) {
+    foreach(const Item &item, m_items) {
         if(!item.m_item->isVisible()) {
             continue;
         }
 
-        const auto right = item.m_item->x() + item.m_item->boundingRect().width();
+        const qreal right = item.m_item->x() + item.m_item->boundingRect().width();
         if(right > m_max_col) {
             m_max_col = right;
         }
@@ -118,7 +118,7 @@ void SimulationShadowConsole::resizeEvent(QResizeEvent *event)
     onSceneChanged();
 }
 
-void SimulationShadowConsole::onNewSectionNeeded(void)
+void SimulationShadowConsole::onNewSectionNeeded()
 {
     m_next_section++;
 
@@ -129,7 +129,7 @@ void SimulationShadowConsole::onNewSectionNeeded(void)
 
 void SimulationShadowConsole::onMessageNeeded(const QString &msg, int alinea)
 {
-    auto item = new QGraphicsTextItem(msg);
+    auto *item = new QGraphicsTextItem(msg);
     item->setFont(QFont("Time News Roman", 15));
 
     const Item i = {item, m_next_section, alinea};
@@ -138,9 +138,9 @@ void SimulationShadowConsole::onMessageNeeded(const QString &msg, int alinea)
 
 void SimulationShadowConsole::onShadowMessageNeeded(int msgType, const QString &msg, int alinea)
 {
-    auto item = new GraphicsPixmapItem;
+    auto *item = new GraphicsPixmapItem;
 
-    auto image = "shadow.png";
+    QString image = "shadow.png";
     switch(msgType) {
         case SimulationClarifier::NormalText:                                    break;
         case SimulationClarifier::InformativeText: image = "shadow_info.png";    break;

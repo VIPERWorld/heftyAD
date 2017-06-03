@@ -20,20 +20,24 @@ protected:
     std::function<void ()> m_destructorBody;
     std::function<void ()> m_undoBody;
     std::function<void ()> m_redoBody;
-    std::string m_description;
+    std::string m_shortDescription;
+    std::string m_longDescription;
 
 public:
+    /**
+     * Note: If no longDescription is provided, the value of shortDescription will be used.
+     */
     ShortHandUndoCommand(std::function<void ()> destructorBody,
                          std::function<void ()> undoBody,
                          std::function<void ()> redoBody,
-                         const std::string &description = "ShortHandUndoCommand");
+                         const std::string &shortDescription = "ShortHandUndoCommand",
+                         const std::string &longDescription = std::string());
 
     ~ShortHandUndoCommand();
 
-    /**
-     * Returns the description given to this class constructor.
-     */
-    std::string description() const override;
+    std::string shortDescription() const override;
+    std::string longDescription() const override;
+
     void undo() override;
     void redo() override;
 };
