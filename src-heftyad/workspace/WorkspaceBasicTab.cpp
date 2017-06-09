@@ -36,15 +36,7 @@ WorkspaceBasicTab::~WorkspaceBasicTab()
 {
 }
 
-void WorkspaceBasicTab::retranslate()
-{
-    m_recentStudies.setTitle(trUtf8("Travaux récents"));
-
-    m_workToolBar->setToolTip(trUtf8("Barre d'outils"));
-    m_workContainer_groupBox.setTitle(trUtf8("Travaux en cours"));
-    m_workContainer.retranslate();
-    m_workEditor->retranslate();
-}
+Work *WorkspaceBasicTab::currentWork() {return m_workContainer.currentWork();}
 
 void WorkspaceBasicTab::openNewWork(const QString &workType)
 {
@@ -56,7 +48,8 @@ void WorkspaceBasicTab::openNewWork(const QString &workType)
 
 void WorkspaceBasicTab::openExistingWorks(const QString &workFamily)
 {
-    const QStringList &filePaths = QFileDialog::getOpenFileNames(this, trUtf8("Sélectionner les travaux à ouvrir"), "", "*.xml");
+    const QString &filter = "*"+m_workContainer.workFilePathExtension();
+    const QStringList &filePaths = QFileDialog::getOpenFileNames(this, trUtf8("Sélectionner les travaux à ouvrir"), "", filter);
     if(filePaths.isEmpty()) {
         return;
     }
@@ -112,6 +105,16 @@ void WorkspaceBasicTab::openExistingWorks(const QString &workFamily)
     .withStandardButtons(QMessageBox::Ok)
     .withDefaultButton(QMessageBox::Ok)
     .exec();
+}
+
+void WorkspaceBasicTab::retranslate()
+{
+    m_recentStudies.setTitle(trUtf8("Travaux récents"));
+
+    m_workToolBar->setToolTip(trUtf8("Barre d'outils"));
+    m_workContainer_groupBox.setTitle(trUtf8("Travaux en cours"));
+    m_workContainer.retranslate();
+    m_workEditor->retranslate();
 }
 
 void WorkspaceBasicTab::onToolBarActionsChanged(const QList<QAction*> &actions)

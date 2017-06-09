@@ -3,6 +3,10 @@
 
 #include <Qsci/qsciscintilla.h>
 
+/**
+ * This class is based from the tutorial
+ *     http://qtsimplify.blogspot.fr/2013/08/code-editor-in-making.html
+ */
 class SciCodeEditor : public QsciScintilla
 {
     Q_OBJECT

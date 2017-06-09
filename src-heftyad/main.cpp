@@ -3,8 +3,8 @@
 #include <QApplication>
 #include <QTime>
 
-//#include "scripting/ScriptEngine.h"
-//#include <QDebug>
+#include "scripting/ScriptEngine.h"
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    /*ScriptEngine engine;
+    ScriptEngine engine;
     engine.installExtensions(QJSEngine::TranslationExtension | QJSEngine::ConsoleExtension);
     engine.globalObject().setProperty("myNumber", 123);
     engine.globalObject().setProperty("myFunction", engine.evaluate("function() {return 5;}"));
@@ -30,9 +30,9 @@ int main(int argc, char *argv[])
         qDebug() << "Something goes wrong at line" << result.property("lineNumber").toInt() << ":" << result.toString();
     }
 
-    qDebug() << result.property("food").toString();
+    qDebug() << result.property("zzz").toString();
     qDebug() << engine.globalObject().property("myNumber").toString();
-    qDebug() << engine.globalObject().property("myFunction").toString();*/
+    qDebug() << engine.globalObject().property("myFunction").toString();
 
     return a.exec();
 }

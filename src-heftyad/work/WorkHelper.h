@@ -31,7 +31,7 @@ public:
     static View* modelViewInstanceByFilePath(const QString &filePath);
 
 private:
-    static QString getTypeFromFilePath(const QString filePath);
+    static QString getTypeFromXmlFilePath(const QString &filePath);
 };
 
 #endif // WORKHELPER_H

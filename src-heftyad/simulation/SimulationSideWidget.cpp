@@ -29,11 +29,11 @@ SimulationSideWidget::SimulationSideWidget(QWidget *parent)
     // Set attributes
 
     //m_others.setTabPosition(QTabWidget::West);
-    m_others.setTabIcon(0, Resource::instance().windowIcon());
-    m_others.setTabIcon(1, Resource::instance().windowIcon());
+    m_others.setTabIcon(0, Resource::windowIcon());
+    m_others.setTabIcon(1, Resource::windowIcon());
 
-    m_consoles.setTabIcon(0, Resource::instance().windowIcon());
-    m_consoles.setTabIcon(1, Resource::instance().shadowIcon("shadow.png"));
+    m_consoles.setTabIcon(0, Resource::windowIcon());
+    m_consoles.setTabIcon(1, Resource::shadowIcon("shadow.png"));
 
     connectSignalsToSlots();
 }

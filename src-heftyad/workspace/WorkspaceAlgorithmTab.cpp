@@ -5,7 +5,7 @@
 WorkspaceAlgorithmTab::WorkspaceAlgorithmTab(QWidget *parent)
     : WorkspaceBasicTab(parent)
 {
-    //m_splitter.insertWidget(1, &m_viewer);
+    m_workContainer.setWorkFilePathExtension(".js");
 
     m_newAlgorithm = new QAction(QIcon(""), "", nullptr);
     m_loadAlgorithms = new QAction(QIcon(""), "", nullptr);
@@ -30,8 +30,6 @@ void WorkspaceAlgorithmTab::retranslate()
 
     m_newAlgorithm->setText(trUtf8("Nouvel algorithme"));
     m_loadAlgorithms->setText(trUtf8("Algorithmes existants")+"...");
-
-    m_viewer.retranslate();
 }
 
 void WorkspaceAlgorithmTab::connectSignalsToSlots()

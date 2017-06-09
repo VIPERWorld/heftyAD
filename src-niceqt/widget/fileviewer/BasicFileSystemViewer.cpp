@@ -25,6 +25,21 @@ BasicFileSystemViewer::BasicFileSystemViewer(QWidget *parent)
 }
 
 QString BasicFileSystemViewer::selectedEntry() const {return m_selectedEntry;}
+void BasicFileSystemViewer::clearSelectedEntry()
+{
+    if(m_view) {
+        m_view->clearSelection();
+    }
+    setSelectedEntry("");
+}
+
+void BasicFileSystemViewer::setSelectedEntry(const QString &entry)
+{
+    if(m_selectedEntry != entry) {
+        m_selectedEntry = entry;
+        emit selectedEntryChanged(m_selectedEntry);
+    }
+}
 
 QString BasicFileSystemViewer::entryRootPath() const {return static_cast<QFileSystemModel*>(m_model)->rootPath();}
 void BasicFileSystemViewer::setEntryRootPath(const QString &dirPath)
@@ -64,10 +79,7 @@ void BasicFileSystemViewer::onViewChanged(QAbstractItemView *old, QAbstractItemV
 void BasicFileSystemViewer::onViewItemPressed(const QModelIndex &index)
 {
     auto *fsmodel = static_cast<QFileSystemModel*>(m_model);
-    if(m_selectedEntry != fsmodel->filePath(index)) {
-        m_selectedEntry = fsmodel->filePath(index);
-        emit selectedEntryChanged(m_selectedEntry);
-    }
+    setSelectedEntry(fsmodel->filePath(index));
 }
 
 void BasicFileSystemViewer::onRootPathCustomizerButtonPressed()

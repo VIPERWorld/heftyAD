@@ -15,18 +15,18 @@ protected:
 public:
     PluginLoader();
 
-    QString pluginDirPath(void) const;
+    QString pluginDirPath() const;
     void setPluginDirPath(QString path);
 
     void setLoadPluginsFromSubDirs(bool value);
 
-    const QStringList& pluginFilePaths(void) const;
+    const QStringList& pluginFilePaths() const;
 
     /**
      * Tells whether the given fileName matches with a plugin fileName.
      */
     template <typename T>
-    bool isPlugin(QString filePath) const
+    bool isPlugin(const QString &filePath) const
     {
         bool isAPlugin = false;
 
@@ -46,16 +46,17 @@ public:
     /**
      * T should be a pointer ==> ? (to be edited).
      *
-     * If the plugin dir path is empty, this method (which uses QDirIterator) seems
+     * If the plugin dir path is empty, this function (which uses QDirIterator) seems
      * to search for plugins in a specific directory (e.g. "D:" for the Windows OS).
      *
-     * Note: This method can have a very long running time (if there are several
-     * directories and/or files to analyze). ==> So use Thread later.
+     * Note: This function can have a very long running time,
+     *       if there are several directories and/or files to analyze.
+     *       So use Thread later.
      *
      * To be completed.
      */
     template <typename T>
-    void findPlugins(void)
+    void findPlugins()
     {
         // First clear plugin list
 
@@ -70,7 +71,7 @@ public:
 
         QDirIterator it(m_pluginDirPath, QStringList() << "*.so" << "*.dll", QDir::Files, flags);
         while(it.hasNext()) {
-            const auto filePath = it.next();
+            const QString &filePath = it.next();
             if(isPlugin<T>(filePath)) {
                 m_pluginFilePaths << filePath;
             }

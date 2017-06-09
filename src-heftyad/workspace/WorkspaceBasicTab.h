@@ -36,10 +36,11 @@ public:
     explicit WorkspaceBasicTab(QWidget *parent = 0);
     ~WorkspaceBasicTab();
 
-    void retranslate() override;
-
+    Work* currentWork();
     void openNewWork(const QString &workType);
     void openExistingWorks(const QString &workFamily);
+
+    void retranslate() override;
 
 signals:
 

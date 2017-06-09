@@ -122,14 +122,14 @@ void SimulationController::connectSignalsToSlots()
 
 void SimulationController::setIcons()
 {
-    m_prev.setIcon(Resource::instance().simulationIcon("previous.png"));
-    m_suspend.setIcon(Resource::instance().simulationIcon("pause.png"));
-    m_resume.setIcon(Resource::instance().simulationIcon("play.png"));
-    m_next.setIcon(Resource::instance().simulationIcon("next.png"));
-    m_stop.setIcon(Resource::instance().simulationIcon("stop.png"));
-    m_restart.setIcon(Resource::instance().simulationIcon("restart.png"));
-    m_more.setIcon(Resource::instance().simulationIcon("more.png"));
-    m_fullScreen.setIcon(Resource::instance().simulationIcon(".png")); // to be changed
+    m_prev.setIcon(Resource::simulationIcon("previous.png"));
+    m_suspend.setIcon(Resource::simulationIcon("pause.png"));
+    m_resume.setIcon(Resource::simulationIcon("play.png"));
+    m_next.setIcon(Resource::simulationIcon("next.png"));
+    m_stop.setIcon(Resource::simulationIcon("stop.png"));
+    m_restart.setIcon(Resource::simulationIcon("restart.png"));
+    m_more.setIcon(Resource::simulationIcon("more.png"));
+    m_fullScreen.setIcon(Resource::simulationIcon(".png")); // to be changed
 }
 
 void SimulationController::loadStateMachine()
@@ -355,7 +355,7 @@ void SimulationController::onAlgorithmRunnerFailsWith(int errorFlag, const QStri
     case AlgorithmRunner::AlgorithmIsNull:
         ShadowMessageBox(this)
         .withIcon(QMessageBox::Critical)
-        .withWindowIcon(Resource::instance().windowIcon())
+        .withWindowIcon(Resource::windowIcon())
         .withWindowTitle(trUtf8("La simulation ne peut démarrer"))
         .withText(trUtf8("Une simulation implique forcément un algorithme.%1"
                          "Merci de configurer votre simulation puis de recommencer.").arg("\n"))
@@ -366,7 +366,7 @@ void SimulationController::onAlgorithmRunnerFailsWith(int errorFlag, const QStri
     case AlgorithmRunner::AlgorithmHasInvalidModel:
         ShadowMessageBox(this)
         .withIcon(QMessageBox::Critical)
-        .withWindowIcon(Resource::instance().windowIcon())
+        .withWindowIcon(Resource::windowIcon())
         .withWindowTitle(trUtf8("La simulation a terminé immédiatement"))
         .withText(trUtf8("L'algorithme sollicité ne peut s'appliquer au modèle choisi.%1"
                          "Merci de choisir un modèle adéquat puis de recommencer.").arg("\n"))

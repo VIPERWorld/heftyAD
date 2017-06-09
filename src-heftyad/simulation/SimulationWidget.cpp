@@ -27,7 +27,7 @@ void SimulationWidget::setView(View *view)
 
     if(m_view) {
         m_view->setParent(nullptr);
-        m_view->setIgnoreContextMenu(false); // not mandatory
+        m_view->setInvolvedInASimulation(false);
     }
 
     // Then set the new view
@@ -36,7 +36,7 @@ void SimulationWidget::setView(View *view)
     if(m_view) {
         m_splitter.addWidget(m_view);
         m_view->retranslate(); // not mandatory
-        m_view->setIgnoreContextMenu(true);
+        m_view->setInvolvedInASimulation(true);
     }
 }
 

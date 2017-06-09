@@ -1,7 +1,7 @@
 #ifndef ALGORITHMWORKCONTENT_H
 #define ALGORITHMWORKCONTENT_H
 
-#include "AlgorithmWorkFileViewer.h"
+#include "AlgorithmWorkViewer.h"
 
 #include "widget/GridWidget.h"
 
@@ -11,24 +11,19 @@
 
 class SciCodeEditor;
 
-/**
- * This class is based from the tutorial
- *     http://qtsimplify.blogspot.fr/2013/08/code-editor-in-making.html
- */
 class AlgorithmWorkContent : public GridWidget
 {
     Q_OBJECT
 
+private:
     QMap<QStandardItem*, SciCodeEditor*> m_map; // correspondance between an item and its editor
 
     QSplitter m_splitter;
-        AlgorithmWorkFileViewer m_files;
+        AlgorithmWorkViewer m_viewer;
         QStackedWidget m_editors;
 
 public:
     explicit AlgorithmWorkContent(QWidget *parent = 0);
-
-    QStandardItem* addFile(const QString &fileName, int category);
 
     void retranslate();
 
@@ -36,16 +31,17 @@ private:
     /**
      * Should be called once.
      */
-    void initProject();
-    QStandardItem* addGlobalFile(const QString &fileName);
-    QStandardItem* addSourceFile(const QString &fileName);
+    void fillViewer();
+    QStandardItem* addItem(const QString &name, int category);
+    QStandardItem* addMetaItem(const QString &name);
+    QStandardItem* addSourceItem(const QString &name);
 
 signals:
 
 public slots:
 
 protected slots:
-    void onFileItemDoubleClicked(const QModelIndex &index);
+    void onViewItemPressed(const QModelIndex &index);
 };
 
 #endif // ALGORITHMWORKCONTENT_H

@@ -23,7 +23,12 @@ void PluginForm::fillIn(PluginInterface *plugin)
     //
     m_authors.clear();
     for(const PluginInterface::Author &author : plugin->authors()) {
-        m_authors.append(author.name + " " + author.surname + "{" + author.description + "}");
+        QString text = author.name;
+        if(!author.description.isEmpty()) {
+            text += " {" + author.description + "}";
+        }
+
+        m_authors.append(text);
         m_authors.append("");
     }
 }

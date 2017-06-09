@@ -10,6 +10,7 @@
 #include <QLabel>
 
 class AlgorithmPluginInterface;
+class JSPluginInterface;
 
 class SimulationAlgorithmPluginPicker : public Dialog
 {
@@ -26,15 +27,19 @@ protected:
     SimulationAlgorithmFileViewer m_algorithmViewer;
     PushButton m_choose;
 
+private:
+    QMap<QString, JSPluginInterface*> m_jsPlugins;
+
 public:
     explicit SimulationAlgorithmPluginPicker(QWidget *parent = 0);
 
     QString selectedPluginPath() const;
-    AlgorithmPluginInterface* selectedPlugin() const;
+    AlgorithmPluginInterface* selectedPlugin();
 
     int currentLanguage() const;
-
     void retranslate();
+
+    int exec() override;
 
     static QString textFor(int language);
 

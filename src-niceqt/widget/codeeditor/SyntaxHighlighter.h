@@ -10,7 +10,7 @@ class SyntaxHighlighter : public QSyntaxHighlighter
 public:
     typedef struct {
         QTextCharFormat format;
-        QRegExp expression;
+        QRegExp regex;
     } SyntaxHighlightingRule;
 
 protected:
@@ -20,11 +20,11 @@ public:
     explicit SyntaxHighlighter(QTextDocument *parent);
 
     void registerRule(const SyntaxHighlightingRule &rule);
-    void registerRule(const QTextCharFormat &format, const QRegExp &expression);
-    void registerRule(const QTextCharFormat &format, const QString &pattern);
+    void registerRule(const QTextCharFormat &format, const QRegExp &regex);
+    void registerRule(const QTextCharFormat &format, const QString &regexPattern);
 
-    void registerRules(const QTextCharFormat &format, const QList<QRegExp> &expressions);
-    void registerRules(const QTextCharFormat &format, const QStringList &patterns);
+    void registerRules(const QTextCharFormat &format, const QList<QRegExp> &regexes);
+    void registerRules(const QTextCharFormat &format, const QStringList &regexPatterns);
 
     void clearRules();
 

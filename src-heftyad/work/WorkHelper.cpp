@@ -39,12 +39,12 @@ Work* WorkHelper::workInstanceByType(const QString &type)
 
 Work* WorkHelper::workInstanceByFilePath(const QString &filePath, const QString &family)
 {
-    const QString &type = getTypeFromFilePath(filePath);
-    if(family=="model" && !validModelTypes().contains(type)) {
-        return nullptr;
-    }
-    if(family=="algorithm" && !validAlgorithmTypes().contains(type)) {
-        return nullptr;
+    QString type = family;
+    if(family == "model") {
+        type = getTypeFromXmlFilePath(filePath);
+        if(!validModelTypes().contains(type)) {
+            return nullptr;
+        }
     }
 
     Work *work = workInstanceByType(type);
@@ -70,10 +70,8 @@ View* WorkHelper::modelViewInstanceByType(const QString &type)
 
 View* WorkHelper::modelViewInstanceByFilePath(const QString &filePath)
 {
-    View *view = nullptr;
-
-    const QString &type = getTypeFromFilePath(filePath);
-    view = modelViewInstanceByType(type);
+    const QString &type = getTypeFromXmlFilePath(filePath);
+    View *view = modelViewInstanceByType(type);
     if(view) {
         view->model()->loadFrom(filePath);
     }
@@ -81,13 +79,12 @@ View* WorkHelper::modelViewInstanceByFilePath(const QString &filePath)
     return view;
 }
 
-QString WorkHelper::getTypeFromFilePath(const QString filePath)
+QString WorkHelper::getTypeFromXmlFilePath(const QString &filePath)
 {
     QString retVal;
 
     QFile file(filePath);
     if(file.open(QIODevice::ReadOnly)) {
-        // currently uses xml loading mode only
         QXmlStreamReader xml;
         xml.setDevice(&file);
         if(xml.readNextStartElement()) {

@@ -50,12 +50,12 @@ void WorkGraphView::createModelRelatedActions()
     m_addEdgeFromSourceOnMousePressed->setCheckable(true);
     m_textEdition->setCheckable(true);
 
-    m_addNodes->setIcon(Resource::instance().toolBarIcon("node.png"));
-    m_addEdges->setIcon(Resource::instance().toolBarIcon("curve.png"));
-    m_addEdgesSuccessively->setIcon(Resource::instance().toolBarIcon("curve_continuous.png"));
-    m_addEdgeFromSourceOnMousePressed->setIcon(Resource::instance().toolBarIcon("curve_sourced.png"));
-    m_textEdition->setIcon(Resource::instance().toolBarIcon(".png"));
-    m_removeItems->setIcon(Resource::instance().toolBarIcon("remove_item.png"));
+    m_addNodes->setIcon(Resource::toolBarIcon("node.png"));
+    m_addEdges->setIcon(Resource::toolBarIcon("curve.png"));
+    m_addEdgesSuccessively->setIcon(Resource::toolBarIcon("curve_continuous.png"));
+    m_addEdgeFromSourceOnMousePressed->setIcon(Resource::toolBarIcon("curve_sourced.png"));
+    m_textEdition->setIcon(Resource::toolBarIcon(".png"));
+    m_removeItems->setIcon(Resource::toolBarIcon("remove_item.png"));
 
     connect(m_addNodes,                         &QAction::toggled,   this, &WorkGraphView::setOnMousePressedAddNode);
     connect(m_addEdges,                         &QAction::toggled,   this, &WorkGraphView::setOnMousePressedAddEdgeTwoByTwo);
@@ -75,7 +75,7 @@ void WorkGraphView::createModelRelatedActions()
 
     m_showEdgePoints = new QAction(&m_actionGroup2);
     m_showEdgePoints->setCheckable(true);
-    m_showEdgePoints->setIcon(Resource::instance().toolBarIcon(".png"));
+    m_showEdgePoints->setIcon(Resource::toolBarIcon(".png"));
     connect(m_showEdgePoints, &QAction::toggled,   this, &WorkGraphView::setVisibleEdgePoints);
 
     m_actionGroup2.setSelectedAction(m_showEdgePoints);
@@ -98,8 +98,8 @@ void WorkGraphView::createSelectionRelatedActions()
     m_selectVertices = new QAction("", this);
     m_selectEdges    = new QAction("", this);
 
-    m_selectVertices->setIcon(Resource::instance().toolBarIcon(".png"));
-    m_selectEdges   ->setIcon(Resource::instance().toolBarIcon(".png"));
+    m_selectVertices->setIcon(Resource::toolBarIcon(".png"));
+    m_selectEdges   ->setIcon(Resource::toolBarIcon(".png"));
 
     connect(m_selectVertices, &QAction::triggered, this, &WorkGraphView::selectVertices);
     connect(m_selectEdges,    &QAction::triggered, this, &WorkGraphView::selectEdges);

@@ -17,11 +17,10 @@ View::View(QWidget *parent)
 
     m_fullEdition = new QAction("", this);
     m_fullEdition->setCheckable(true);
-    m_fullEdition->setIcon(Resource::instance().toolBarIcon(".png"));
+    m_fullEdition->setIcon(Resource::toolBarIcon(".png"));
     connect(m_fullEdition, &QAction::toggled, this, &View::fullEditionEnabled);
 
     setUpContextMenuDefaultActions();
-    m_ignoreContextMenu = false;
 
     connect(this, &View::modelChanged, this, &View::onModelChanged);
 
@@ -90,14 +89,12 @@ void View::retranslate()
     }
 }
 
-void View::setIgnoreContextMenu(bool ignore) {m_ignoreContextMenu = ignore;}
-
 QList<QAction*> View::modelMainRelatedActions() const {return QList<QAction*>();}
 QList<QAction*> View::modelItemSelectionRelatedActions() const {return QList<QAction*>();}
 
 void View::contextMenuEvent(QContextMenuEvent *event)
 {
-    if(m_ignoreContextMenu) {
+    if(isInvolvedInASimulation()) {
         return;
     }
 

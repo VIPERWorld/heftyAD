@@ -148,7 +148,7 @@ void SimulationShadowConsole::onShadowMessageNeeded(int msgType, const QString &
         case SimulationClarifier::ErrorText:       image = "shadow_error.png";   break;
     }
 
-    item->setPixmapImage(Resource::instance().shadowFileName(image));
+    item->setPixmapImage(Resource::shadowFilePath(image));
 
     const Item i = {item, m_next_section, alinea};
     addItem(i, alinea);

@@ -5,12 +5,12 @@
 SettingMenu::SettingMenu(QWidget *parent)
     : Menu(parent)
 {
-    const QString &iconDir(Resource::instance().languageDir());
+    const QString &iconDir(Resource::languageDir());
     const QString &iconFileType("png");
-    const QString &qmFileDir(Resource::instance().userAppTranslationDir());
+    const QString &qmFileDir(Resource::userAppTranslationDir());
     const QString &qmFileBaseName("heftyAD");
     const QString &translationSource("fr");
-    const QString &saveLocation(Resource::instance().userAppTranslationDir()+"/lang.txt");
+    const QString &saveLocation(Resource::userAppTranslationDir()+"/lang.txt");
 
     m_langPicker = new LanguagePicker(iconDir, iconFileType, qmFileDir, qmFileBaseName, translationSource, saveLocation);
     m_langPicker->loadIcons();

@@ -20,3 +20,16 @@ QJSValue ScriptEngine::evaluateFromFile(const QString &filePath, int lineNumber)
 
     return evaluate(file.readAll(), filePath, lineNumber);
 }
+
+QString ScriptEngine::getStringProperty(const QJSValue &jsValue, const QString &propertyName)
+{
+    QString retVal;
+    if(!jsValue.isUndefined() && !jsValue.isError()) {
+        const QJSValue &v = jsValue.property(propertyName);
+        if(v.isString()) {
+            retVal = v.toString();
+        }
+    }
+
+    return retVal;
+}

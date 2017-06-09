@@ -32,6 +32,8 @@ private:
      */
     bool m_onMouseReleased_thereAreUnregisteredItemMoveCommands;
 
+    bool m_involvedInASimulation;
+
 public:
     explicit BasicGraphicsView(QWidget *parent = 0);
 
@@ -44,6 +46,9 @@ public:
 
     QList<QGraphicsItem*> sceneSelectedItems() const;
     QList<QPointF> sceneSelectedItemPositions() const;
+
+    bool isInvolvedInASimulation() const;
+    void setInvolvedInASimulation(bool involved);
 
 protected:
     void setDirtyFromCommandUndo();

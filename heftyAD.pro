@@ -6,7 +6,7 @@
 
 CONFIG += c++11
 
-QT       += core gui xml qml
+QT += core gui xml qml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -40,6 +40,7 @@ TRANSLATIONS += \
 
 DISTFILES += \
     tools/copySharedLibs.bat \
+    tools/copyPlugins.bat
 
 INCLUDEPATH += \
     src-libs \
@@ -52,6 +53,8 @@ INCLUDEPATH += \
     src-heftyad \
     src-heftyad/algorithm \
     src-heftyad/algorithm/basis \
+    src-heftyad/binding \
+    src-heftyad/binding/js \
     src-heftyad/model \
     src-heftyad/model/animation \
     src-heftyad/model/inout \
@@ -148,10 +151,8 @@ HEADERS += \
     src-heftyad/workcontent/model/WorkArrayView.h \
     src-heftyad/workcontent/model/WorkGraphView.h \
     src-heftyad/workcontent/AlgorithmWorkContent.h \
-    src-heftyad/workcontent/AlgorithmWorkFileViewer.h \
     src-heftyad/workspace/Workspace.h \
     src-heftyad/workspace/WorkspaceAlgorithmTab.h \
-    src-heftyad/workspace/WorkspaceAlgorithmViewer.h \
     src-heftyad/workspace/WorkspaceBasicTab.h \
     src-heftyad/workspace/WorkspaceContextMenu.h \
     src-heftyad/workspace/WorkspaceEmptyTab.h \
@@ -288,7 +289,10 @@ HEADERS += \
     src-niceqt/utility/Utility.h \
     src-niceqt/thread/Thread.h \
     src-niceqt/thread/ThreadWorker.h \
-    src-niceqt/others/SignalBreaker.hpp
+    src-niceqt/others/SignalBreaker.hpp \
+    src-heftyad/workcontent/AlgorithmWorkViewer.h \
+    src-heftyad/binding/js/JSPluginInterface.h \
+    src-heftyad/binding/js/JSAlgorithmParser.h
 
 SOURCES += \
     src-heftyad/algorithm/basis/Iterable.cpp \
@@ -356,10 +360,8 @@ SOURCES += \
     src-heftyad/workcontent/model/WorkArrayView.cpp \
     src-heftyad/workcontent/model/WorkGraphView.cpp \
     src-heftyad/workcontent/AlgorithmWorkContent.cpp \
-    src-heftyad/workcontent/AlgorithmWorkFileViewer.cpp \
     src-heftyad/workspace/Workspace.cpp \
     src-heftyad/workspace/WorkspaceAlgorithmTab.cpp \
-    src-heftyad/workspace/WorkspaceAlgorithmViewer.cpp \
     src-heftyad/workspace/WorkspaceBasicTab.cpp \
     src-heftyad/workspace/WorkspaceContextMenu.cpp \
     src-heftyad/workspace/WorkspaceEmptyTab.cpp \
@@ -430,4 +432,7 @@ SOURCES += \
     src-niceqt/widget/dataform/DataFormWidget.cpp \
     src-niceqt/utility/Utility.cpp \
     src-niceqt/thread/Thread.cpp \
-    src-niceqt/thread/ThreadWorker.cpp
+    src-niceqt/thread/ThreadWorker.cpp \
+    src-heftyad/workcontent/AlgorithmWorkViewer.cpp \
+    src-heftyad/binding/js/JSPluginInterface.cpp \
+    src-heftyad/binding/js/JSAlgorithmParser.cpp

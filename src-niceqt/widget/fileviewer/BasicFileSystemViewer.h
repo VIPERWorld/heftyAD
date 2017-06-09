@@ -31,6 +31,10 @@ public:
     explicit BasicFileSystemViewer(QWidget *parent = 0);
 
     QString selectedEntry() const;
+    void clearSelectedEntry();
+
+protected:
+    void setSelectedEntry(const QString &entry);
 
 signals:
     void selectedEntryChanged(const QString &entryPath);

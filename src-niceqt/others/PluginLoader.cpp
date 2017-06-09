@@ -5,9 +5,9 @@ PluginLoader::PluginLoader()
     m_loadPluginsFromSubDirs = false;
 }
 
-QString PluginLoader::pluginDirPath(void) const {return m_pluginDirPath;}
+QString PluginLoader::pluginDirPath() const {return m_pluginDirPath;}
 void PluginLoader::setPluginDirPath(QString path) {m_pluginDirPath = path;}
 
 void PluginLoader::setLoadPluginsFromSubDirs(bool value) {m_loadPluginsFromSubDirs = value;}
 
-const QStringList& PluginLoader::pluginFilePaths(void) const {return m_pluginFilePaths;}
+const QStringList& PluginLoader::pluginFilePaths() const {return m_pluginFilePaths;}

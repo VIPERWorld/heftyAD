@@ -38,8 +38,6 @@ private:
     //
     QAction *m_selectAll;
 
-    bool m_ignoreContextMenu;
-
 public:
     explicit View(QWidget *parent = 0);
 
@@ -57,8 +55,6 @@ public:
 
     QList<QAction*> toolBarActions() const;
     virtual void retranslate();
-
-    void setIgnoreContextMenu(bool ignore);
 
 protected:
     virtual QList<QAction*> modelMainRelatedActions() const;

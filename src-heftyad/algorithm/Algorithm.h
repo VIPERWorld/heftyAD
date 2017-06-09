@@ -36,7 +36,7 @@ public:
     virtual void preExecute() = 0;
     virtual void execute() = 0;
     virtual void postExecute() = 0;
-    virtual void run();
+    void run();
 
     void setLocker(SimulationLocker *locker);
     void setClarifier(SimulationClarifier *clarifier);

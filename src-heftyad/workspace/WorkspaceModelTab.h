@@ -11,11 +11,11 @@ class WorkspaceModelTab : public WorkspaceBasicTab
 
 protected:
     QMenu m_newModel;
-        QAction *m_newAutomaton;
-        QAction *m_newGraph;
-        // ---
         QAction *m_newArray;
         QAction *m_newMatrix;
+        // ---
+        QAction *m_newAutomaton;
+        QAction *m_newGraph;
         // ---
         QAction *m_newMaze;
     QAction *m_loadModels;

@@ -11,8 +11,11 @@ class Work : public GridWidget
 {
     Q_OBJECT
 
-protected:
-    bool m_exportFeatureEnabled;
+public:
+    typedef enum {
+        Compile,
+        Export
+    } ExtraFeature;
 
 private:
     QString m_filePath;
@@ -20,9 +23,8 @@ private:
 public:
     explicit Work(QWidget *parent = 0);
 
-    bool isExportFeatureEnabled() const;
-    void setExportFeatureEnabled(bool enabled);
-    void startExportFeature();
+    virtual bool allowsExtraFeature(int feature);
+    void startExtraFeature(int feature);
 
     QString filePath() const;
     /**
@@ -64,7 +66,7 @@ public:
 
 protected:
     virtual void postSave();
-    virtual void execExportDialog();
+    virtual void execExtraFeature(int feature);
 
 signals:
     void dirtyChanged();

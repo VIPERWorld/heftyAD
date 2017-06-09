@@ -27,18 +27,18 @@ class PluginInterface
 public:
     typedef struct {
         QString name;
-        QString surname;
         QString description; // a (preferably short) description about this author.
     } Author;
 
 public:
-    PluginInterface();
-    virtual ~PluginInterface();
+    PluginInterface() = default;
+    virtual ~PluginInterface() = default;
 
     /**
      * Returns the name of this plugin.
      */
     virtual QString name() const = 0;
+
     /**
      * Returns a string describing this plugin.
      */
@@ -50,6 +50,8 @@ public:
     virtual QList<Author> authors() const;
 };
 
-Q_DECLARE_INTERFACE(PluginInterface, "org.heftyAD.plugins.PluginInterface")
+#define PluginInterface_ID "org.heftyAD.plugins.PluginInterface"
+
+Q_DECLARE_INTERFACE(PluginInterface, PluginInterface_ID)
 
 #endif // PLUGININTERFACE_H

@@ -1,7 +1,6 @@
 #ifndef WORKSPACEALGORITHMTAB_H
 #define WORKSPACEALGORITHMTAB_H
 
-#include "WorkspaceAlgorithmViewer.h"
 #include "WorkspaceBasicTab.h"
 
 class WorkspaceAlgorithmTab : public WorkspaceBasicTab
@@ -11,8 +10,6 @@ class WorkspaceAlgorithmTab : public WorkspaceBasicTab
 protected:
     QAction *m_newAlgorithm;
     QAction *m_loadAlgorithms;
-
-    WorkspaceAlgorithmViewer m_viewer;
 
 public:
     explicit WorkspaceAlgorithmTab(QWidget *parent = 0);

@@ -15,6 +15,7 @@ class WorkspaceWorkContainer : public TabWidget
 private:
     QList<Work*> m_works;
     QMap<Work*, int> m_works_titleIndexes;
+    QString m_workFilePathExtension; // .xml or .js for instance
 
     // tab bar context menu
 
@@ -24,6 +25,7 @@ private:
     QAction *m_saveAll;
     //
     QAction *m_reload;
+    QAction *m_compile;
     QAction *m_exportAs;
     //
     QAction *m_close;
@@ -32,6 +34,9 @@ private:
 public:
     explicit WorkspaceWorkContainer(QWidget *parent = 0);
     ~WorkspaceWorkContainer();
+
+    QString workFilePathExtension() const;
+    void setWorkFilePathExtension(const QString &filter);
 
     QString tabTitleFor(Work *work);
     QString tabTooltipFor(Work *work);

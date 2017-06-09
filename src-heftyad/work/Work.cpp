@@ -1,14 +1,17 @@
 #include "Work.h"
 
 Work::Work(QWidget *parent)
-    : GridWidget(parent),
-      m_exportFeatureEnabled(false)
+    : GridWidget(parent)
 {
 }
 
-bool Work::isExportFeatureEnabled() const {return m_exportFeatureEnabled;}
-void Work::setExportFeatureEnabled(bool enabled) {m_exportFeatureEnabled = enabled;}
-void Work::startExportFeature() {if(m_exportFeatureEnabled) execExportDialog();}
+bool Work::allowsExtraFeature(int feature) {Q_UNUSED(feature) return false;}
+void Work::startExtraFeature(int feature)
+{
+    if(allowsExtraFeature(feature)) {
+        execExtraFeature(feature);
+    }
+}
 
 QString Work::filePath() const {return m_filePath;}
 void Work::setFilePath(const QString &filePath)
@@ -38,7 +41,7 @@ QList<QAction*> Work::toolBarActions() const {return QList<QAction*>();}
 void Work::retranslate() {}
 
 void Work::postSave() {}
-void Work::execExportDialog() {}
+void Work::execExtraFeature(int feature) {Q_UNUSED(feature)}
 
 bool Work::save()
 {

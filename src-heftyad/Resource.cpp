@@ -3,16 +3,7 @@
 #include <QApplication>
 #include <QDir>
 
-Resource::Resource()
-    : Singleton<Resource>()
-{
-}
-
-Resource::~Resource()
-{
-}
-
-void Resource::makeUserDirs(void) const
+void Resource::makeUserDirs()
 {
     QDir().mkdir(userCommonDir());
     QDir().mkdir(userBackupDir());
@@ -22,42 +13,47 @@ void Resource::makeUserDirs(void) const
     QDir().mkdir(userAppWorkingModelDir());
 }
 
-QString Resource::userCommonDir(void) const {return QApplication::applicationDirPath();}
-QString Resource::userBackupDir(void) const {return userCommonDir()+"/heftyAD-backups";}
-QString Resource::userAppPluginDir(void) const {return userCommonDir()+"/heftyAD-plugins";}
-QString Resource::userAppPropertyDir(void) const {return userCommonDir()+"/heftyAD-properties";}
-QString Resource::userAppTranslationDir(void) const {return userCommonDir()+"/heftyAD-translations";}
-QString Resource::userAppWorkingModelDir(void) const {return userCommonDir()+"/heftyAD-workingmodel";}
-
-void Resource::loadStyleSheets(QString fileName) const
+void Resource::loadStyleSheets(const QString &fileName)
 {
-    if(fileName.isEmpty()) {
-        fileName = stylesheetFileName("style.qss");
-    }
-
-    QFile file(fileName);
-    file.open(QFile::ReadOnly);
-    qApp->setStyleSheet(file.readAll());
+    const QString &filePath = Resource::stylesheetFilePath(fileName);
+    qApp->setStyleSheet(readTextFile(filePath));
 }
 
-QString Resource::languageDir(void) const {return ":/rsrc/icons/languages";}
-QString Resource::languageFileName(QString fileName) const {return languageDir()+"/"+fileName;}
-QIcon Resource::languageIcon(QString fileName) const {return QIcon(languageFileName(fileName));}
+QString Resource::readTextFile(const QString &filePath)
+{
+    QFile file(filePath);
+    if(file.open(QFile::ReadOnly)) {
+        return file.readAll();
+    }
 
-QString Resource::simulationDir(void) const {return ":/rsrc/icons/simulation";}
-QString Resource::simulationFileName(QString fileName) const {return simulationDir()+"/"+fileName;}
-QIcon Resource::simulationIcon(QString fileName) const {return QIcon(simulationFileName(fileName));}
+    return "";
+}
 
-QString Resource::toolBarDir(void) const {return ":/rsrc/icons/toolbar";}
-QString Resource::toolBarFileName(QString fileName) const {return toolBarDir()+"/"+fileName;}
-QIcon Resource::toolBarIcon(QString fileName) const {return QIcon(toolBarFileName(fileName));}
+QString Resource::userCommonDir() {return QApplication::applicationDirPath();}
+QString Resource::userBackupDir() {return userCommonDir()+"/heftyAD-backups";}
+QString Resource::userAppPluginDir() {return userCommonDir()+"/heftyAD-plugins";}
+QString Resource::userAppPropertyDir() {return userCommonDir()+"/heftyAD-properties";}
+QString Resource::userAppTranslationDir() {return userCommonDir()+"/heftyAD-translations";}
+QString Resource::userAppWorkingModelDir() {return userCommonDir()+"/heftyAD-workingmodel";}
 
-QIcon Resource::windowIcon(void) const {return QIcon(":/rsrc/logo/heftyAD.png");}
+QString Resource::languageDir() {return ":/rsrc/icons/languages";}
+QString Resource::languageFilePath(const QString &fileName) {return languageDir()+"/"+fileName;}
+QIcon Resource::languageIcon(const QString &fileName) {return QIcon(languageFilePath(fileName));}
 
-QString Resource::shadowDir(void) const {return ":/rsrc/shadow";}
-QString Resource::shadowFileName(QString fileName) const {return shadowDir()+"/"+fileName;}
-QIcon Resource::shadowIcon(QString fileName) const {return QIcon(shadowFileName(fileName));}
+QString Resource::shadowDir() {return ":/rsrc/shadow";}
+QString Resource::shadowFilePath(const QString &fileName) {return shadowDir()+"/"+fileName;}
+QIcon Resource::shadowIcon(const QString &fileName) {return QIcon(shadowFilePath(fileName));}
 
-QString Resource::stylesheetDir(void) const {return ":/rsrc/stylesheets";}
-QString Resource::stylesheetFileName(QString fileName) const {return stylesheetDir()+"/"+fileName;}
-QIcon Resource::stylesheetIcon(QString fileName) const {return QIcon(stylesheetFileName(fileName));}
+QString Resource::simulationDir() {return ":/rsrc/icons/simulation";}
+QString Resource::simulationFilePath(const QString &fileName) {return simulationDir()+"/"+fileName;}
+QIcon Resource::simulationIcon(const QString &fileName) {return QIcon(simulationFilePath(fileName));}
+
+QString Resource::stylesheetDir() {return ":/rsrc/stylesheets";}
+QString Resource::stylesheetFilePath(const QString &fileName) {return stylesheetDir()+"/"+fileName;}
+QIcon Resource::stylesheetIcon(const QString &fileName) {return QIcon(stylesheetFilePath(fileName));}
+
+QString Resource::toolBarDir() {return ":/rsrc/icons/toolbar";}
+QString Resource::toolBarFilePath(const QString &fileName) {return toolBarDir()+"/"+fileName;}
+QIcon Resource::toolBarIcon(const QString &fileName) {return QIcon(toolBarFilePath(fileName));}
+
+QIcon Resource::windowIcon() {return QIcon(":/rsrc/logo/heftyAD.png");}

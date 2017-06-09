@@ -3,6 +3,8 @@
 WorkspaceModelTab::WorkspaceModelTab(QWidget *parent)
     : WorkspaceBasicTab(parent)
 {
+    m_workContainer.setWorkFilePathExtension(".xml");
+
     // Fulfill new-model menu
 
     m_newArray = m_newModel.addAction(QIcon(""), "");

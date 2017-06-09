@@ -24,12 +24,14 @@ public:
     AlgorithmPluginInterface() = default;
 
     /**
-     * Returns a new instance of a subclass of Algorithm.
-     * For instance, if MyAlgorithm is a concret Algorithm, this method may merly return new MyAlgorithm().
+     * Returns a new algorithm.
+     * For instance if MyAlgorithm is a concret Algorithm, this function may merly return new MyAlgorithm().
      */
     virtual Algorithm* algorithmInstance() const = 0;
 };
 
-Q_DECLARE_INTERFACE(AlgorithmPluginInterface, "org.heftyAD.plugins.AlgorithmPluginInterface")
+#define AlgorithmPluginInterface_ID "org.heftyAD.plugins.AlgorithmPluginInterface"
+
+Q_DECLARE_INTERFACE(AlgorithmPluginInterface, AlgorithmPluginInterface_ID)
 
 #endif // ALGORITHMPLUGININTERFACE_H

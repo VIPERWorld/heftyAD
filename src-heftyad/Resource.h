@@ -1,8 +1,6 @@
 #ifndef RESOURCE_H
 #define RESOURCE_H
 
-#include "singleton/Singleton.hpp"
-
 #include <QIcon>
 #include <QString>
 
@@ -24,47 +22,47 @@
  * [To be completed]
  */
 
-class Resource : public ncpp::Singleton<Resource>
+class Resource
 {
-    friend class Singleton<Resource>;
-
-private:
-    Resource();
-    ~Resource();
-
 public:
-    void makeUserDirs(void) const;
+    Resource() = delete;
+    Resource(const Resource&) = delete;
+    Resource& operator=(const Resource&) = delete;
+    Resource(const Resource&&) = delete;
+    ~Resource() = delete;
 
-    QString userCommonDir(void) const;
-    QString userBackupDir(void) const;
-    QString userAppPluginDir(void) const;
-    QString userAppPropertyDir(void) const;
-    QString userAppTranslationDir(void) const;
-    QString userAppWorkingModelDir(void) const;
+    static void makeUserDirs();
+    static void loadStyleSheets(const QString &fileName);
+    static QString readTextFile(const QString &filePath);
 
-    void loadStyleSheets(QString fileName = "") const;
+    static QString userCommonDir();
+    static QString userBackupDir();
+    static QString userAppPluginDir();
+    static QString userAppPropertyDir();
+    static QString userAppTranslationDir();
+    static QString userAppWorkingModelDir();
 
-    QString languageDir(void) const;
-    QString languageFileName(QString fileName) const;
-    QIcon languageIcon(QString fileName) const;
+    static QString languageDir();
+    static QString languageFilePath(const QString &fileName);
+    static QIcon languageIcon(const QString &fileName);
 
-    QString simulationDir(void) const;
-    QString simulationFileName(QString fileName) const;
-    QIcon simulationIcon(QString fileName) const;
+    static QString shadowDir();
+    static QString shadowFilePath(const QString &fileName);
+    static QIcon shadowIcon(const QString &fileName);
 
-    QString toolBarDir(void) const;
-    QString toolBarFileName(QString fileName) const;
-    QIcon toolBarIcon(QString fileName) const;
+    static QString simulationDir();
+    static QString simulationFilePath(const QString &fileName);
+    static QIcon simulationIcon(const QString &fileName);
 
-    QIcon windowIcon(void) const;
+    static QString stylesheetDir();
+    static QString stylesheetFilePath(const QString &fileName);
+    static QIcon stylesheetIcon(const QString &fileName);
 
-    QString shadowDir(void) const;
-    QString shadowFileName(QString fileName) const;
-    QIcon shadowIcon(QString fileName) const;
+    static QString toolBarDir();
+    static QString toolBarFilePath(const QString &fileName);
+    static QIcon toolBarIcon(const QString &fileName);
 
-    QString stylesheetDir(void) const;
-    QString stylesheetFileName(QString fileName) const;
-    QIcon stylesheetIcon(QString fileName) const;
+    static QIcon windowIcon();
 };
 
 #endif // RESOURCE_H

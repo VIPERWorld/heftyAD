@@ -10,7 +10,8 @@ BasicGraphicsView::BasicGraphicsView(QWidget *parent)
     : HighlightableGraphicsView(parent),
       m_undoRedoCountSinceLastSave(0),
       m_dirty(false),
-      m_onMouseReleased_thereAreUnregisteredItemMoveCommands(false)
+      m_onMouseReleased_thereAreUnregisteredItemMoveCommands(false),
+      m_involvedInASimulation(false)
 {
     setScene(new QGraphicsScene(this));
     scene()->setSceneRect(-300, -300, 600, 600);
@@ -67,6 +68,13 @@ QList<QPointF> BasicGraphicsView::sceneSelectedItemPositions() const
     }
 
     return res;
+}
+
+bool BasicGraphicsView::isInvolvedInASimulation() const {return m_involvedInASimulation;}
+void BasicGraphicsView::setInvolvedInASimulation(bool involved)
+{
+    m_involvedInASimulation = involved;
+    setInteractive(!m_involvedInASimulation);
 }
 
 void BasicGraphicsView::setDirtyFromCommandUndo()
@@ -132,7 +140,7 @@ void BasicGraphicsView::mouseReleaseEvent(QMouseEvent *event)
     GraphicsView::mouseReleaseEvent(event);
 
     // Re-enable interactions (disabled on mouse pressed)
-    setInteractive(true);
+    setInteractive(!m_involvedInASimulation);
 
     // Register commands for selected items which has moved.
 

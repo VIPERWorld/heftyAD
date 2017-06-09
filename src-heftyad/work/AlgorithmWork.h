@@ -1,18 +1,24 @@
 #ifndef ALGORITHMWORK_H
 #define ALGORITHMWORK_H
 
-#include "AlgorithmWorkContent.h"
+#include "SciCodeEditor.h"
 #include "Work.h"
+
+#include <QTextEdit>
+#include <QSplitter>
 
 class AlgorithmWork : public Work
 {
     Q_OBJECT
 
 protected:
-    AlgorithmWorkContent m_content;
-
+    QSplitter m_splitter;
+        SciCodeEditor m_editor;
+        QTextEdit m_console;
 public:
     explicit AlgorithmWork(QWidget *parent = 0);
+
+    bool allowsExtraFeature(int feature) override;
 
     bool isDirty() const override;
     void setDirty(bool dirty) override;
@@ -21,6 +27,10 @@ public:
     bool loadFrom(const QString &filePath) override;
 
     void retranslate() override;
+
+protected:
+    void setEditorInitialText();
+    void execExtraFeature(int feature) override;
 
 signals:
 

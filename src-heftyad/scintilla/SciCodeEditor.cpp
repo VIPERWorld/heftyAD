@@ -1,6 +1,6 @@
 #include "SciCodeEditor.h"
 
-#include <Qsci/qscilexerxml.h>
+#include <Qsci/qscilexerjavascript.h>
 
 #include <QWheelEvent>
 
@@ -8,7 +8,7 @@ SciCodeEditor::SciCodeEditor(QWidget *parent)
     : QsciScintilla(parent)
 {
     setBraceMatching(QsciScintilla::SloppyBraceMatch);
-    SendScintilla(QsciScintilla::SCI_SETHSCROLLBAR, 0); // Hide the horizontal scrollbar
+//    SendScintilla(QsciScintilla::SCI_SETHSCROLLBAR, 0); // Hide the horizontal scrollbar
 
     initializeFont();
     initializeMargin();
@@ -46,7 +46,7 @@ void SciCodeEditor::initializeCaretLine()
 
 void SciCodeEditor::initializeLexer()
 {
-    auto *lexer = new QsciLexerXML;
+    auto *lexer = new QsciLexerJavaScript;
     lexer->setDefaultFont(font());
     setLexer(lexer);
 }

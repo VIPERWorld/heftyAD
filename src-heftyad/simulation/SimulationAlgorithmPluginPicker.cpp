@@ -2,18 +2,20 @@
 #include "Resource.h"
 #include "SimulationAlgorithmPluginPicker.h"
 
+#include "JSPluginInterface.h"
+
 #include <QPluginLoader>
 #include <QTreeView>
 
 SimulationAlgorithmPluginPicker::SimulationAlgorithmPluginPicker(QWidget *parent)
     : Dialog(parent)
 {
-    setWindowIcon(Resource::instance().windowIcon()); // actually done because no icon is shown, even when this widget has a parent
+    setWindowIcon(Resource::windowIcon()); // actually done because no icon is shown, even when this widget has a parent
     setMinimumSize(500, 350);
 
     m_algorithmViewer.setView(new QTreeView); // the view will be deleted when the algorithm chooser will be (due to parent/child relation)
     ModelViewer::configure((QTreeView*)m_algorithmViewer.view());
-    m_algorithmViewer.setEntryRootPath(Resource::instance().userAppPluginDir());
+    m_algorithmViewer.setEntryRootPath(Resource::userAppPluginDir());
     //m_algorithmViewer.setEntriesFilters(QStringList() << "*.fileExtension"); // done when the current language changed
 
     m_choose.setEnabled(false);
@@ -33,21 +35,18 @@ SimulationAlgorithmPluginPicker::SimulationAlgorithmPluginPicker(QWidget *parent
 
 QString SimulationAlgorithmPluginPicker::selectedPluginPath() const {return m_algorithmViewer.selectedAlgorithm();}
 
-AlgorithmPluginInterface* SimulationAlgorithmPluginPicker::selectedPlugin() const
+AlgorithmPluginInterface* SimulationAlgorithmPluginPicker::selectedPlugin()
 {
     AlgorithmPluginInterface *interface = nullptr;
+    const QString &filePath(selectedPluginPath());
 
-    const QString &path(selectedPluginPath());
     switch(currentLanguage()) {
     case Cpp:
-        if(!path.isEmpty()) {
-            QPluginLoader loader(path);
+        if(!filePath.isEmpty()) {
+            QPluginLoader loader(filePath);
             QObject *plugin = loader.instance();
             if(plugin) {
-                auto *pluginCasted = qobject_cast<AlgorithmPluginInterface*>(plugin);
-                if(pluginCasted) {
-                    interface = pluginCasted;
-                }
+                interface = qobject_cast<AlgorithmPluginInterface*>(plugin);
                 /*
                  * If the instruction below was not commented, any algorithm instance,
                  * EVEN THOSE CREATED BEFORE the plugin loader is unloaded,
@@ -60,7 +59,17 @@ AlgorithmPluginInterface* SimulationAlgorithmPluginPicker::selectedPlugin() cons
         }
         break;
 
-    case JavaScript: // later: test qobject_cast<JavaScriptPluginInterface*>(...)
+    case JavaScript:
+        if(QFileInfo(filePath).isFile()) {
+            if(!m_jsPlugins.contains(filePath)) {
+                m_jsPlugins.insert(filePath, new JSPluginInterface(this));
+            }
+
+            auto *plugin = m_jsPlugins[filePath];
+            if(plugin->load(filePath)) { // reload the plugin
+                interface = plugin;
+            }
+        }
         break;
     }
 
@@ -75,6 +84,12 @@ void SimulationAlgorithmPluginPicker::retranslate()
 
     m_algorithmViewer.retranslate();
     m_choose.setText(trUtf8("Choisir"));
+}
+
+int SimulationAlgorithmPluginPicker::exec()
+{
+    m_algorithmViewer.clearSelectedEntry();
+    return Dialog::exec();
 }
 
 QString SimulationAlgorithmPluginPicker::textFor(int language)
@@ -121,7 +136,7 @@ void SimulationAlgorithmPluginPicker::onCurrentLanguageChanged()
     const int lang = m_languages.currentIndex();
     switch(lang) {
     case Cpp:           setEntryFilters(QStringList() << "*.dll" << "*.dylib" << "*.lib" << "*.so"); break;
-    case JavaScript:    setEntryFilters(QStringList() << "*.xml");                                   break;
+    case JavaScript:    setEntryFilters(QStringList() << "*.js");                                    break;
     }
 
     m_choose.setEnabled(false);

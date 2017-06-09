@@ -8,8 +8,6 @@ ModelWork::ModelWork(View *view, QWidget *parent)
     : Work(parent),
       m_view(view)
 {
-    m_exportFeatureEnabled = true;
-
     if(m_view != nullptr) {
         addWidget(m_view, 0, 0);
 
@@ -23,6 +21,8 @@ ModelWork::~ModelWork()
     delete m_view->model();
     delete m_view;
 }
+
+bool ModelWork::allowsExtraFeature(int feature) {return feature == Export;}
 
 bool ModelWork::isDirty() const {return m_view && m_view->isDirty();}
 void ModelWork::setDirty(bool dirty) {if(m_view) m_view->setDirty(dirty);}
@@ -60,7 +60,7 @@ bool ModelWork::loadFrom(const QString &filePath)
 QWidget* ModelWork::editionForm() const {return m_view ? (QWidget*)m_view->editionForm() : nullptr;}
 bool ModelWork::isEditionEnabled() const {return m_view ? m_view->isFullEditionEnabled() : false;}
 
-QList<QAction *> ModelWork::toolBarActions() const
+QList<QAction*> ModelWork::toolBarActions() const
 {
     return m_view ? m_view->toolBarActions() : Work::toolBarActions();
 }
@@ -79,16 +79,19 @@ void ModelWork::postSave()
     }
 }
 
-void ModelWork::execExportDialog()
+void ModelWork::execExtraFeature(int feature)
 {
-    if(m_view) {
-        QString filePath = QFileDialog::getSaveFileName(this, trUtf8("Exporter comme png"), "", "*.png");
-        if(!filePath.isEmpty()) {
-            if(!filePath.endsWith(".png")) {
-                filePath += ".png";
-            }
+    if(feature == Export) {
+        if(m_view) {
+            QString filePath = QFileDialog::getSaveFileName(this, trUtf8("Exporter comme png"), "", "*.png");
+            if(!filePath.isEmpty()) {
+                if(!filePath.endsWith(".png")) {
+                    filePath += ".png";
+                }
 
-            m_view->saveImageTo(filePath, "PNG");
+                m_view->saveImageTo(filePath, "PNG");
+            }
         }
     }
 }
+

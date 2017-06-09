@@ -64,5 +64,5 @@ void SimulationWindow::onWindowStateChanged(Qt::WindowStates oldState, Qt::Windo
 
     // Restore window icon for the sub window
 
-    setWindowIcon(Resource::instance().windowIcon());
+    setWindowIcon(Resource::windowIcon());
 }

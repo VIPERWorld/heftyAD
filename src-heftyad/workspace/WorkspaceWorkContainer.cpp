@@ -38,6 +38,9 @@ WorkspaceWorkContainer::~WorkspaceWorkContainer()
     }
 }
 
+QString WorkspaceWorkContainer::workFilePathExtension() const {return m_workFilePathExtension;}
+void WorkspaceWorkContainer::setWorkFilePathExtension(const QString &filter) {m_workFilePathExtension = filter;}
+
 QString WorkspaceWorkContainer::tabTitleFor(Work *work)
 {
     QString title;
@@ -189,6 +192,7 @@ void WorkspaceWorkContainer::setUpTabBarContextMenuActions()
     m_saveAll   = new QAction(QIcon(""), "", this);
 
     m_reload    = new QAction(QIcon(""), "", this);
+    m_compile   = new QAction(QIcon(""), "", this);
     m_exportAs  = new QAction(QIcon(""), "", this);
 
     m_close     = new QAction(QIcon(""), "", this);
@@ -201,6 +205,7 @@ void WorkspaceWorkContainer::setUpTabBarContextMenuActions()
     m_saveAll->setShortcut(QKeySequence("Ctrl+Shift+S")); addAction(m_saveAll);
 
     m_reload->setShortcut(QKeySequence::Refresh); addAction(m_reload);
+    m_compile->setShortcut(QKeySequence("Ctrl+B")); addAction(m_compile);
     m_exportAs->setShortcut(QKeySequence("Ctrl+E")); addAction(m_exportAs);
 
     m_close->setShortcuts(QList<QKeySequence>() << QKeySequence("Ctrl+W") << QKeySequence("Ctrl+F4")); addAction(m_close);
@@ -208,16 +213,17 @@ void WorkspaceWorkContainer::setUpTabBarContextMenuActions()
 
     // connect signals to slots
 
-    connect(m_save,      &QAction::triggered, [this]() { saveWork(currentWork());             });
-    connect(m_saveAs,    &QAction::triggered, [this]() { saveWorkAs(currentWork());           });
-    connect(m_saveACopy, &QAction::triggered, [this]() { saveWorkCopy(currentWork());         });
-    connect(m_saveAll,   &QAction::triggered, [this]() { saveAllWorks();                      });
+    connect(m_save,      &QAction::triggered, [this]() { saveWork(currentWork());                         });
+    connect(m_saveAs,    &QAction::triggered, [this]() { saveWorkAs(currentWork());                       });
+    connect(m_saveACopy, &QAction::triggered, [this]() { saveWorkCopy(currentWork());                     });
+    connect(m_saveAll,   &QAction::triggered, [this]() { saveAllWorks();                                  });
 
-    connect(m_reload,    &QAction::triggered, [this]() { reloadWork(currentWork());           });
-    connect(m_exportAs,  &QAction::triggered, [this]() { currentWork()->startExportFeature(); });
+    connect(m_reload,    &QAction::triggered, [this]() { reloadWork(currentWork());                       });
+    connect(m_compile,   &QAction::triggered, [this]() { currentWork()->startExtraFeature(Work::Compile); });
+    connect(m_exportAs,  &QAction::triggered, [this]() { currentWork()->startExtraFeature(Work::Export);  });
 
-    connect(m_close,     &QAction::triggered, [this]() { closeWork(currentWork());            });
-    connect(m_closeAll,  &QAction::triggered, [this]() { closeAllWorks();                     });
+    connect(m_close,     &QAction::triggered, [this]() { closeWork(currentWork());                        });
+    connect(m_closeAll,  &QAction::triggered, [this]() { closeAllWorks();                                 });
 }
 
 void WorkspaceWorkContainer::retranslateTabBarContextMenuActions()
@@ -228,6 +234,7 @@ void WorkspaceWorkContainer::retranslateTabBarContextMenuActions()
     m_saveAll->setText(trUtf8("Enregistrer Tout"));
 
     m_reload->setText(trUtf8("Recharger"));
+    m_compile->setText(trUtf8("Compiler"));
     m_exportAs->setText(trUtf8("Exporter sous")+"...");
 
     m_close->setText(trUtf8("Fermer"));
@@ -242,7 +249,8 @@ void WorkspaceWorkContainer::disableUselessToolBarActions()
         m_saveAll->setEnabled(hasDirtyWork());
 
         m_reload->setEnabled(!work->filePath().isEmpty());
-        m_exportAs->setVisible(work->isExportFeatureEnabled());
+        m_compile->setVisible(work->allowsExtraFeature(Work::Compile));
+        m_exportAs->setVisible(work->allowsExtraFeature(Work::Export));
     }
 }
 
@@ -262,7 +270,7 @@ void WorkspaceWorkContainer::onTabBarContextMenuRequested(const QPoint &pos)
     QList<QAction*> list;
     list << m_save << m_saveAs << m_saveACopy << m_saveAll
          << menu.addSeparator()
-         << m_reload << m_exportAs
+         << m_reload << m_compile << m_exportAs
          << menu.addSeparator()
          << m_close << m_closeAll;
     menu.addActions(list);
@@ -321,10 +329,10 @@ void WorkspaceWorkContainer::saveWorkAs(Work *work)
         return;
     }
 
-    QString filePath = QFileDialog::getSaveFileName(this, trUtf8("Enregistrer sous"), "", "*.xml");
+    QString filePath = QFileDialog::getSaveFileName(this, trUtf8("Enregistrer sous"), "", "*"+m_workFilePathExtension);
     if(!filePath.isEmpty()) {
-        if(!filePath.endsWith(".xml")) {
-            filePath += ".xml";
+        if(!filePath.endsWith(m_workFilePathExtension)) {
+            filePath += m_workFilePathExtension;
         }
 
         if(!work->isDirty()) {
@@ -342,10 +350,10 @@ void WorkspaceWorkContainer::saveWorkCopy(Work *work)
         return;
     }
 
-    QString filePath = QFileDialog::getSaveFileName(this, trUtf8("Enregistrer une copie"), "", "*.xml");
+    QString filePath = QFileDialog::getSaveFileName(this, trUtf8("Enregistrer une copie"), "", "*"+m_workFilePathExtension);
     if(!filePath.isEmpty()) {
-        if(!filePath.endsWith(".xml")) {
-            filePath += ".xml";
+        if(!filePath.endsWith(m_workFilePathExtension)) {
+            filePath += m_workFilePathExtension;
         }
         work->saveTo(filePath);
     }

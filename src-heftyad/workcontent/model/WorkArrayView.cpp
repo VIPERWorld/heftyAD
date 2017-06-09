@@ -39,9 +39,9 @@ void WorkArrayView::createModelRelatedActions()
     m_addItems->setCheckable(true);
     m_textEdition->setCheckable(true);
 
-    m_addItems->setIcon(Resource::instance().toolBarIcon(".png"));
-    m_textEdition->setIcon(Resource::instance().toolBarIcon(".png"));
-    m_removeItems->setIcon(Resource::instance().toolBarIcon("remove_item.png"));
+    m_addItems->setIcon(Resource::toolBarIcon(".png"));
+    m_textEdition->setIcon(Resource::toolBarIcon(".png"));
+    m_removeItems->setIcon(Resource::toolBarIcon("remove_item.png"));
 
     connect(m_addItems,    &QAction::toggled,   this, &WorkArrayView::setOnMousePressedAddItem);
     connect(m_textEdition, &QAction::toggled,   this, &WorkArrayView::setEnabledItemEdition);
@@ -61,8 +61,8 @@ void WorkArrayView::createModelRelatedActions()
 
     m_showItemIndexes->setCheckable(true);
 
-    m_showItemIndexes->setIcon(Resource::instance().toolBarIcon(".png"));
-    m_normalizeItemPositions->setIcon(Resource::instance().toolBarIcon(".png"));
+    m_showItemIndexes->setIcon(Resource::toolBarIcon(".png"));
+    m_normalizeItemPositions->setIcon(Resource::toolBarIcon(".png"));
 
     connect(m_showItemIndexes,        &QAction::toggled,   this, &WorkArrayView::setVisibleItemIndexesInArray);
     connect(m_normalizeItemPositions, &QAction::triggered, this, &WorkArrayView::normalizeItemPositions);
@@ -80,9 +80,9 @@ void WorkArrayView::createModelRelatedActions()
     m_sortItemsByPos = new QAction(&m_actionGroup3);
     m_sortItemsByValue = new QAction(&m_actionGroup3);
 
-    m_shuffleItems->setIcon(Resource::instance().toolBarIcon(".png"));
-    m_sortItemsByPos->setIcon(Resource::instance().toolBarIcon(".png"));
-    m_sortItemsByValue->setIcon(Resource::instance().toolBarIcon(".png"));
+    m_shuffleItems->setIcon(Resource::toolBarIcon(".png"));
+    m_sortItemsByPos->setIcon(Resource::toolBarIcon(".png"));
+    m_sortItemsByValue->setIcon(Resource::toolBarIcon(".png"));
 
     connect(m_shuffleItems,     &QAction::triggered, this, &WorkArrayView::shuffleItems);
     connect(m_sortItemsByPos,   &QAction::triggered, this, &WorkArrayView::sortItemsBySceneRectX);

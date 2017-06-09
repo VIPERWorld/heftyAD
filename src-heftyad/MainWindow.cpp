@@ -8,11 +8,11 @@ MainWindow::MainWindow(QWidget *parent)
     : BasicMainWindow(parent)
 {
     setWindowTitle("heftyAD - Your hefty algorithm demystifier");
-    setWindowIcon(Resource::instance().windowIcon());
+    setWindowIcon(Resource::windowIcon());
     resize(800, 600);
 
-    Resource::instance().loadStyleSheets();
-    Resource::instance().makeUserDirs();
+    Resource::loadStyleSheets("style.qss");
+    Resource::makeUserDirs();
 
     addWidget(&m_welcomeWidget); // becomes the current widget since the inner stack widget is empty
     addWidget(&m_homeWidget);

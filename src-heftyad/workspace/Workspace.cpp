@@ -1,3 +1,4 @@
+#include "MainGuiData.h"
 #include "Resource.h"
 #include "Workspace.h"
 #include "WorkspaceAlgorithmTab.h"
@@ -17,7 +18,7 @@ Workspace::Workspace(QWidget *parent)
     addTab(m_algorithms, "");
     addTab(m_simulations, "");
 
-    setTabIcon(0, Resource::instance().windowIcon());
+    setTabIcon(0, Resource::windowIcon());
     setTabIcon(1, QIcon());
     setTabIcon(2, QIcon());
     setTabIcon(3, QIcon());
@@ -65,7 +66,8 @@ void Workspace::retranslate()
 
 void Workspace::onCurrentChanged(int index)
 {
-    Q_UNUSED(index)
+    auto *curr = qobject_cast<WorkspaceBasicTab*>(widget(index));
+    MainGuiData::setCurrentWork(curr ? curr->currentWork() : nullptr);
 }
 
 void Workspace::onTabBarContextMenuRequested(const QPoint &pos)

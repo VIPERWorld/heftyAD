@@ -25,6 +25,8 @@ public:
     explicit ModelWork(View *view, QWidget *parent = 0);
     ~ModelWork();
 
+    bool allowsExtraFeature(int feature) override;
+
     bool isDirty() const override;
     void setDirty(bool dirty) override;
     ncpp::UndoStack* undoStack() const override;
@@ -39,7 +41,7 @@ public:
 
 protected:
     void postSave() override;
-    void execExportDialog() override;
+    void execExtraFeature(int feature) override;
 
 signals:
 

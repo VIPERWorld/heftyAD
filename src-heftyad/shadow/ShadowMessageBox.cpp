@@ -8,7 +8,7 @@ ShadowMessageBox::ShadowMessageBox(QWidget *parent)
     : QMessageBox(parent)
 {
     if(parent == nullptr) { // Do that only if the message box has no parent widget.
-        setWindowIcon(Resource::instance().windowIcon());
+        setWindowIcon(Resource::windowIcon());
     }
 }
 
@@ -64,5 +64,5 @@ QIcon ShadowMessageBox::shadowIconFor(QMessageBox::Icon icon) const
         default: break;
     }
 
-    return Resource::instance().shadowIcon(image);
+    return Resource::shadowIcon(image);
 }
