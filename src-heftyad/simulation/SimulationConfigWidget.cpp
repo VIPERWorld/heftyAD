@@ -45,7 +45,7 @@ SimulationConfigWidget::SimulationConfigWidget(QWidget *parent)
 
 SimulationConfigWidget::~SimulationConfigWidget()
 {
-    delete m_algorithm;
+    deleteAlgorithm();
     delete m_model;
     delete m_view;
 }
@@ -76,6 +76,20 @@ void SimulationConfigWidget::retranslate()
     m_form.retranslate();
 }
 
+void SimulationConfigWidget::deleteAlgorithm()
+{
+    /*
+     * First make sure any highlighting data (which is an attribute of the current algorithm)
+     * is first stopped (removed from the current view).
+     */
+
+    if(m_view) {
+        m_view->stopHighlighting();
+    }
+
+    delete m_algorithm;
+}
+
 void SimulationConfigWidget::onChooseAlgorithmButtonPressed()
 {
     if(m_diag->exec() == QDialog::Rejected) {
@@ -94,7 +108,7 @@ void SimulationConfigWidget::onChooseAlgorithmButtonPressed()
     m_modelLineEdit.setVisible(pluginAlgorithm && pluginAlgorithm->requiresAModel());
     m_chooseModel.setVisible(m_modelLineEdit.isVisible());
 
-    delete m_algorithm;
+    deleteAlgorithm();
     m_algorithm = pluginAlgorithm;
     if(!m_algorithm || !m_algorithm->requiresAModel()) {
         delete m_model;

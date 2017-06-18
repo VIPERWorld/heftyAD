@@ -48,7 +48,7 @@ bool AlgorithmRunner::canRun() const
         return false;
     }
 
-    if(!m_algorithm->hasAValidModel()) {
+    if(m_algorithm->requiresAModel() && !m_algorithm->hasAValidModel()) {
         emit runFailsWith(AlgorithmHasInvalidModel);
         return false;
     }

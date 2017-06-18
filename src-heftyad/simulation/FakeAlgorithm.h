@@ -17,7 +17,10 @@ private:
 public:
     explicit FakeAlgorithm();
 
-    // When using highlighting data, a model should be defined for timers to work
+    /*
+     * When using highlighting data, a model should be defined.
+     * Indeed m_highlighter needs to communicate with m_model' view.
+     */
     bool requiresAModel() const override;
     bool hasAValidModel() const override;
 

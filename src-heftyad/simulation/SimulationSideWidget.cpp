@@ -20,6 +20,7 @@ SimulationSideWidget::SimulationSideWidget(QWidget *parent)
 
     m_consoles.addTab(&m_simpleConsole, "");
     m_consoles.addTab(&m_shadowConsole, "");
+    m_consoles.setTabPosition(QTabWidget::South);
     m_consoles.setCurrentIndex(1);
 
     gridLayout()->setSpacing(5);
@@ -52,10 +53,10 @@ void SimulationSideWidget::connectSignalsToSlots()
         emit configWidgetModelChanged();
     });
 
-    connect(&m_controller, &SimulationController::simulationStarted,  [this]() {m_configWidget.setEnabled(false);});
-    connect(&m_controller, &SimulationController::simulationFinished, [this]() {m_configWidget.setEnabled(true); });
-    connect(&m_controller, &SimulationController::simulationFullScreenEnabled,
-            this, &SimulationSideWidget::simulationFullScreenEnabled);
+    connect(&m_controller, &SimulationController::simulationStarted,             [this]() { m_configWidget.setEnabled(false);       });
+    connect(&m_controller, &SimulationController::simulationFinished,            [this]() { m_configWidget.setEnabled(true);        });
+    connect(&m_controller, &SimulationController::simulationFailedWithException, [this]() { m_others.setCurrentWidget(&m_consoles); });
+    connect(&m_controller, &SimulationController::simulationFullScreenEnabled, this, &SimulationSideWidget::simulationFullScreenEnabled);
 }
 
 void SimulationSideWidget::retranslate()

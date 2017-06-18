@@ -57,6 +57,9 @@ public:
 
     void retranslate();
 
+private:
+    void deleteAlgorithm();
+
 signals:
     void algorithmChanged();
     void modelChanged();

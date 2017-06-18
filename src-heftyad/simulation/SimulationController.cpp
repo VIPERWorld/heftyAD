@@ -82,8 +82,8 @@ void SimulationController::retranslate()
 
 void SimulationController::setAlgorithmRunner(AlgorithmRunner *algorithmRunner)
 {
-    const auto badCond1 = m_algorithmRunner == algorithmRunner;
-    const auto badCond2 = m_algorithmRunner && m_algorithmRunner->isRunning();
+    const bool badCond1 = m_algorithmRunner == algorithmRunner;
+    const bool badCond2 = m_algorithmRunner && m_algorithmRunner->isRunning();
     if(badCond1 || badCond2) {
         return;
     }
@@ -277,8 +277,6 @@ void SimulationController::onStopButtonPressed()
     m_simulation_acceleration_onStop = m_acceleration.value();
     m_acceleration.setValue(m_acceleration.maximum()); // to accelerate simulation
 
-//    auto *clarifier =  m_clarifier.clarifier();
-//    clarifier->setIgnoreClarificationRequests(true);
     m_algorithmRunner->resume(); // just in case if the simulation were suspended
     m_algorithmRunner->stop();
     if(m_view) {
@@ -401,11 +399,18 @@ void SimulationController::handleAlgorithmException(const QString &message)
     m_clarifier->addError("    "+str2);
     m_clarifier->addError("        "+message);
 
-    QFont font; font.setPointSize(15);
-    m_view->addHighlightingText(5000, true, true,
-                                "Evénement indésirable détecté.\nVoir consoles.", m_view->modelCoverage(), Qt::AlignLeft,
-                                QPen(Qt::red), font,
-                                Qt::NoPen, QBrush(Qt::green));
+    if(m_view) {
+        const QString &text = trUtf8("Evénement indésirable détecté.") + "\n" + trUtf8("Voir consoles de log.");
+        QFont font;
+        font.setPointSize(15);
+
+        m_view->addHighlightingText(5000, true, true,
+                                    text, m_view->sceneRect(), Qt::AlignLeft,
+                                    QPen(Qt::red), font,
+                                    Qt::NoPen, QBrush(Qt::green));
+    }
+
+    emit simulationFailedWithException();
 }
 
 void SimulationController::onAlgorithmRunnerResumed()
@@ -439,9 +444,10 @@ void SimulationController::onAlgorithmRunnerFinished()
 
 void SimulationController::onAlgorithmRunnerDestroyed()
 {
-    if(m_simulation_acceleration_onStop > -101) {
+    // We check the value since this function is called even if algorithm terminates without being stopped (button stop)
+    if(m_simulation_acceleration_onStop != -101) {
         m_acceleration.setValue(m_simulation_acceleration_onStop);
-        m_simulation_acceleration_onStop = -101;
+        m_simulation_acceleration_onStop = -101; // reset value
     }
     setEnabled(true);
 

@@ -13,8 +13,6 @@ HighlightingData::HighlightingData()
     m_acceleration = 0;
 }
 
-bool HighlightingData::isUseless() const {return m_timer && !m_timer->isActive() && m_remainingTimeWhenSuspended<0;}
-
 bool HighlightingData::isTimerSingleShot() const {return m_timer && m_timer->isSingleShot();}
 void HighlightingData::setTimerSingleShot(bool singleShot)
 {
@@ -37,7 +35,7 @@ void HighlightingData::setAcceleration(int acc)
 
     m_acceleration = acc;
 
-    const int d = durationFromAcceleration();
+    const int d = acceleratedDuration();
     if(m_timer) {
         if(m_timer->isActive()) { // timer is running (neither stopped nor paused)
             m_timer->setInterval(d);
@@ -47,10 +45,10 @@ void HighlightingData::setAcceleration(int acc)
             m_remainingTimeWhenSuspended = d;
             return;
         }
-        // if the timer is stopped, ther is nothing to do since since the right duration will be set on start
+        // if the timer is stopped, there is nothing to do since since the right duration will be set on start
     }
 }
-int HighlightingData::durationFromAcceleration() const {return m_duration - m_duration*m_acceleration/100;}
+int HighlightingData::acceleratedDuration() const {return m_duration - m_duration*m_acceleration/100;}
 
 void HighlightingData::startTimer()
 {
@@ -71,14 +69,14 @@ void HighlightingData::startTimer()
 
     m_remainingTimeWhenSuspended = -1;
 
-    m_timer->setInterval(durationFromAcceleration());
+    m_timer->setInterval(acceleratedDuration());
     m_timer->start();
 }
 
 void HighlightingData::stopTimer()
 {
     if(m_timer) {
-        m_timer->stop();
+        m_timer->stop(); // Note: QTimer::timeout won't be emitted
         registerTimerStop();
     }
 }
@@ -94,7 +92,6 @@ void HighlightingData::suspendTimer()
 void HighlightingData::resumeTimer()
 {
     if(m_timer && m_remainingTimeWhenSuspended >= 0) {
-        m_timer->setSingleShot(m_singleShot);
         m_timer->start(m_remainingTimeWhenSuspended);
         m_remainingTimeWhenSuspended = -1;
     }

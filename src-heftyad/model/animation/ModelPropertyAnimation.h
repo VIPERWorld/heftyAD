@@ -12,7 +12,9 @@ class ModelPropertyAnimation : public QObject
 
 public:
     typedef enum {
-        None, ThisThread, GuiThread
+        None,
+        ThisThread,
+        GuiThread
     } DeletionContext;
 
 public:

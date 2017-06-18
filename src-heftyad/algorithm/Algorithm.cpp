@@ -14,7 +14,13 @@ bool Algorithm::requiresAModel() const {return false;}
 bool Algorithm::hasAValidModel() const {return !requiresAModel();}
 
 Model* Algorithm::model() const {return m_model;}
-void Algorithm::setModel(Model *model) {m_model = model;}
+void Algorithm::setModel(Model *model)
+{
+    if(m_model != model) {
+        m_model = model;
+        emit modelChanged();
+    }
+}
 
 void Algorithm::run()
 {

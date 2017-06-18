@@ -51,7 +51,9 @@ void FakeAlgorithm::preExecute()
     data.configureTextData(__func__, QRectF(r.topLeft()-QPointF(0, 50+5), r.topRight()-QPointF(0, 5)), Qt::AlignCenter);
     data.setTimerSingleShot(false);
     /*
-     * Actually, starting local HighlightingData in asynchronous way leads to crash (investigation later).
+     * Starting local HighlightingData in asynchronous way will lead to crash
+     * when the data is added to a highlightable view (see HighlightableGraphicsView' doc).
+     *
      * So HighlightingData object should be declared as algorithm attributes.
      */
     m_highlighter->start(&data, 2500, false);

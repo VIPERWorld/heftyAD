@@ -56,6 +56,14 @@ protected:
     void register_classifier_message(const QString &msg = QString(), int alinea = 0);
 
     void register_classifier_pause(long msecs);*/
+
+signals:
+    /*
+     * This signal shouldn't normally exist.
+     * It was introduced so that JavaScript algorithms may be notified when their inner model (if any) changes.
+     * Algorithms may therefore update what's being exposed to script environment.
+     */
+    void modelChanged();
 };
 
 #endif // ALGORITHM_H

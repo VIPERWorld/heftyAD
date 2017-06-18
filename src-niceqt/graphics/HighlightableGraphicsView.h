@@ -32,6 +32,12 @@ public:
     int highlightingDataAcceleration() const;
     void setHighlightingDataAcceleration(int acc);
 
+    /*
+     * When adding a highlighting data, make sure it won't get deleted before this view is deleted.
+     * You shouldn't for instance add a locally created data and start it asynchronously.
+     * Indeed since this view uses the data's attributes to draw stuffs on screen,
+     * the application may crash if the data is deleted first.
+     */
     void addHighlighting(HighlightingData *data);
     void addHighlighting(HighlightingData *data, bool inForeground);
     void addHighlightingNewedData(HighlightingData *data, bool inForeground);

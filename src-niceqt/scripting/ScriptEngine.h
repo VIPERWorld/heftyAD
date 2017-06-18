@@ -13,7 +13,7 @@ public:
 
     QJSValue evaluateFromFile(const QString &filePath, int lineNumber = 1);
 
-    static QString getStringProperty(const QJSValue &jsValue, const QString &propertyName);
+    static QString getStringProperty(const QString &propertyName, const QJSValue &from);
 
 signals:
 

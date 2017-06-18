@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     ScriptEngine engine;
     engine.installExtensions(QJSEngine::TranslationExtension | QJSEngine::ConsoleExtension);
     engine.globalObject().setProperty("myNumber", 123);
-    engine.globalObject().setProperty("myFunction", engine.evaluate("function() {return 5;}"));
+    engine.globalObject().setProperty("myFunction", engine.evaluate("function() {myNumber = 0; return 5;}"));
 
     const auto &filePath("C:/Users/Fadyl/Desktop/script1.txt");
     const QJSValue &result(engine.evaluateFromFile(filePath));
@@ -33,6 +33,8 @@ int main(int argc, char *argv[])
     qDebug() << result.property("zzz").toString();
     qDebug() << engine.globalObject().property("myNumber").toString();
     qDebug() << engine.globalObject().property("myFunction").toString();
+    qDebug() << engine.globalObject().property("myFunction").call().toString();
+    qDebug() << engine.globalObject().property("myNumber").toString();
 
     return a.exec();
 }

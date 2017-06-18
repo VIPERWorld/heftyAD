@@ -292,7 +292,8 @@ HEADERS += \
     src-niceqt/others/SignalBreaker.hpp \
     src-heftyad/workcontent/AlgorithmWorkViewer.h \
     src-heftyad/binding/js/JSPluginInterface.h \
-    src-heftyad/binding/js/JSAlgorithmParser.h
+    src-heftyad/binding/js/JSFileParser.h \
+    src-heftyad/binding/js/JSAlgorithm.h
 
 SOURCES += \
     src-heftyad/algorithm/basis/Iterable.cpp \
@@ -435,4 +436,5 @@ SOURCES += \
     src-niceqt/thread/ThreadWorker.cpp \
     src-heftyad/workcontent/AlgorithmWorkViewer.cpp \
     src-heftyad/binding/js/JSPluginInterface.cpp \
-    src-heftyad/binding/js/JSAlgorithmParser.cpp
+    src-heftyad/binding/js/JSFileParser.cpp \
+    src-heftyad/binding/js/JSAlgorithm.cpp

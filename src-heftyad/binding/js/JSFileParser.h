@@ -1,12 +1,12 @@
-#ifndef JSALGORITHMPARSER_H
-#define JSALGORITHMPARSER_H
+#ifndef JSFILEPARSER_H
+#define JSFILEPARSER_H
 
 #include "scripting/ScriptEngine.h"
 
 #include <QJSValue>
 #include <QObject>
 
-class JSAlgorithmParser : public QObject
+class JSFileParser : public QObject
 {
     Q_OBJECT
 
@@ -21,10 +21,11 @@ private:
 
     ScriptEngine m_jsEngine;
     QJSValue m_jsValue;
-    QJSValue m_metadata;
+        QJSValue m_metadata;
+        QJSValue m_code;
 
 public:
-    explicit JSAlgorithmParser(QObject *parent = 0);
+    explicit JSFileParser(QObject *parent = 0);
 
     bool loadFile(const QString &filePath);
     bool loadProgram(const QString &program);
@@ -34,6 +35,11 @@ public:
     QString algorithmDescription() const;
     QList<Author> algorithmAuthors() const;
 
+    QString algorithmRequiredModel() const;
+    QJSValue algorithmPreExecFunc() const;
+    QJSValue algorithmExecFunc() const;
+    QJSValue algorithmPostExecFunc() const;
+
 protected:
     bool load();
 
@@ -42,4 +48,4 @@ signals:
 public slots:
 };
 
-#endif // JSALGORITHMPARSER_H
+#endif // JSFILEPARSER_H

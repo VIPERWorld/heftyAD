@@ -1,5 +1,5 @@
 #include "AlgorithmWork.h"
-#include "JSAlgorithmParser.h"
+#include "JSFileParser.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -80,13 +80,13 @@ void AlgorithmWork::setEditorInitialText()
 void AlgorithmWork::execExtraFeature(int feature)
 {
     if(feature == Compile) {
-        JSAlgorithmParser parser;
+        JSFileParser parser;
         if(!parser.loadProgram(m_editor.text())) {
             m_console.setText(parser.errorText());
             return;
         }
 
-        m_console.setText(trUtf8("Votre algorithme est <B>syntaxiquement</B> correct. Vous pouvez l'exécuter."));
+        m_console.append(trUtf8("Votre algorithme est <B>syntaxiquement</B> correct. Vous pouvez l'exécuter."));
 
         m_console.append("");
         m_console.append("<B><U>"+trUtf8("nom")+"</B></U><br />");
@@ -98,7 +98,7 @@ void AlgorithmWork::execExtraFeature(int feature)
 
         m_console.append("");
         m_console.append("<B><U>"+trUtf8("auteurs")+"</B></U>");
-        for(const JSAlgorithmParser::Author &author : parser.algorithmAuthors()) {
+        for(const JSFileParser::Author &author : parser.algorithmAuthors()) {
             m_console.append("");
             m_console.append(author.name);
             m_console.append(author.description);

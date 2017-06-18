@@ -75,6 +75,7 @@ private:
 signals:
     void simulationStarted();
     void simulationFinished();
+    void simulationFailedWithException();
     void simulationFullScreenEnabled(bool enabled);
 
 protected slots:

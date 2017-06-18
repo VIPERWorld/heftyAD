@@ -2,7 +2,7 @@
 #define JSPLUGININTERFACE_H
 
 #include "AlgorithmPluginInterface.h"
-#include "JSAlgorithmParser.h"
+#include "JSFileParser.h"
 
 #include <QObject>
 
@@ -17,18 +17,18 @@ class JSPluginInterface : public QObject, public AlgorithmPluginInterface
     Q_INTERFACES(PluginInterface AlgorithmPluginInterface)
 
 private:
-    JSAlgorithmParser m_parser;
+    JSFileParser m_parser;
 
 public:
     explicit JSPluginInterface(QObject *parent = 0);
-
-    bool load(const QString &filePath);
 
     QString name() const override;
     QString description() const override;
     QList<Author> authors() const override;
 
     Algorithm* algorithmInstance() const override;
+
+    bool load(const QString &filePath);
 
 signals:
 

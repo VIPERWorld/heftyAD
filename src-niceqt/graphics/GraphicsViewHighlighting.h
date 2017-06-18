@@ -12,6 +12,10 @@ class HighlightingData : public QObject
     Q_OBJECT
 
 private:
+    /*
+     * We use a pointer so that timer is created in the thread from which startTimer() is called,
+     * not in the one which creates the highlighting data.
+     */
     QTimer *m_timer;
     bool m_singleShot; // timer singleshot
     int m_duration; // timer duration
@@ -25,8 +29,6 @@ public:
 public:
     HighlightingData(); // duration is set to 2000 ms
 
-    bool isUseless() const;
-
     bool isTimerSingleShot() const;
     void setTimerSingleShot(bool singleShot);
     int timerDuration() const; // may differ from duration() due to acceleration for instance
@@ -36,7 +38,7 @@ public:
 
     int acceleration() const;
     void setAcceleration(int acc);
-    int durationFromAcceleration() const;
+    int acceleratedDuration() const;
 
     void startTimer();
     void stopTimer();
