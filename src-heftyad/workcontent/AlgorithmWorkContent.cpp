@@ -16,45 +16,27 @@ AlgorithmWorkContent::AlgorithmWorkContent(QWidget *parent)
     connect(&m_viewer, &AlgorithmWorkViewer::viewItemPressed, this, &AlgorithmWorkContent::onViewItemPressed);
 }
 
-void AlgorithmWorkContent::retranslate()
-{
-    m_viewer.retranslate();
-}
-
 void AlgorithmWorkContent::fillViewer()
 {
-    // Add meta items
-
-    QStandardItem *item;
-
-    item = addMetaItem(trUtf8("infos"));
-    item->setEditable(false);
-    m_map[item]->setText("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<algorithm>\n</algorithm>");
-
-    item = addMetaItem(trUtf8("config"));
-    item->setEnabled(false);
-    m_map[item]->setReadOnly(true);
-
-    // Add source items
-
-    addSourceItem("preExecute")->setEditable(false);
-    addSourceItem("execute")->setEditable(false);
-    addSourceItem("postExecute")->setEditable(false);
+    addItem("metadata");
+    addItem("preExecute");
+    addItem("execute");
+    addItem("postExecute");
 }
 
-QStandardItem* AlgorithmWorkContent::addItem(const QString &name, int category)
+QStandardItem* AlgorithmWorkContent::addItem(const QString &name, const QString &editorText)
 {
     auto *item = new QStandardItem(name);
+    item->setEditable(false);
+    m_viewer.addItem(item);
 
-    m_viewer.addItem(item, category);
     auto *editor = new SciCodeEditor(this);
+    editor->setText(editorText);
     m_map[item] = editor;
     m_editors.addWidget(editor);
 
     return item;
 }
-QStandardItem* AlgorithmWorkContent::addMetaItem(const QString &name) {return addItem(name, AlgorithmWorkViewer::MetaData);}
-QStandardItem* AlgorithmWorkContent::addSourceItem(const QString &name) {return addItem(name, AlgorithmWorkViewer::Sources);}
 
 void AlgorithmWorkContent::onViewItemPressed(const QModelIndex &index)
 {

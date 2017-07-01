@@ -56,9 +56,9 @@ void SimplyControllable::stopIfStopWallEnabled()
         m_stopWall_enabled = false;
 
         /*
-         * No "stopped" signal is provided/emitted because if we had emitted a signal,
-         * this would have only informed us that this controllable is about to stop BUT NOT THAT it has stopped.
-         * So catching a thrown exception really comes in help here.
+         * No "stopped" signal is provided/emitted because emitting a signal
+         * would only mean that "stop" has been requested BUT NOT THAT this controllable has stopped.
+         * So throwing an exception (that should be caught) really comes in help here.
          */
         throw StopException();
     }

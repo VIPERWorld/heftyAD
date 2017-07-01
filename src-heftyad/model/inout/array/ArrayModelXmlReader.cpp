@@ -34,7 +34,7 @@ bool ArrayModelXmlReader::read(QIODevice &in)
 void ArrayModelXmlReader::readItems(ArrayModel *model, QXmlStreamReader &stream)
 {
     while(stream.readNextStartElement()) {
-        if(stream.name().compare("item") == 0) {
+        if(stream.name().compare(QString("item")) == 0) {
             ArrayModelItem &item(model->addNewItem());
             ModelReaderXmlHelper::readArrayModelItemFrom(stream, item);
 

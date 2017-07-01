@@ -3,15 +3,20 @@
 
 #include <QBrush>
 #include <QDebugStateSaver>
+#include <QJSValue>
 #include <QObject>
 #include <QRectF>
 
 class ModelReader;
 class ModelWriter;
 
+class QJSEngine;
+
 class Model : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(QBrush bgBrush READ backgroundBrush WRITE setBackgroundBrush NOTIFY backgroundBrushChanged)
 
 protected:
     ModelReader *m_reader; // default reader
@@ -20,6 +25,11 @@ protected:
     QBrush m_bgBrush;
 
     int m_animationAcceleration;
+
+private:
+    // Only required for JavaScript binding to work
+    QJSEngine *m_jsEngine;
+    QMap<QObject*, QJSValue> m_jsItems;
 
 public:
     explicit Model(QObject *parent = 0);
@@ -39,19 +49,28 @@ public:
     int animationAcceleration() const;
     void setAnimationAcceleration(int acc);
 
-    virtual void saveState(int version = 0);
-    virtual bool restoreState(int version = 0);
-    virtual void discardStates();
+    void setJSEngine(QJSEngine *engine);
 
-    virtual QString toString() const;
+    Q_INVOKABLE virtual void saveState(int version = 0);
+    Q_INVOKABLE virtual bool restoreState(int version = 0);
+    Q_INVOKABLE virtual void discardStates();
+
+    Q_INVOKABLE virtual QString toString() const;
     /**
      * Return the scene bounding rectangle that covers all items.
      */
     virtual QRectF coverage() const;
 
-    virtual void empty();
-    virtual void shuffle();
-    virtual void layout();
+    Q_INVOKABLE virtual void empty();
+    Q_INVOKABLE virtual void shuffle();
+    Q_INVOKABLE virtual void layout();
+
+protected:
+    /**
+     * Returns a proxy of the given item.
+     * The given item is most likely meant to be of type ModelItem.
+     */
+    QJSValue getJSProxyOf(QObject *object);
 
 public slots:
     bool saveTo(const QString &filePath, ModelWriter &writer);

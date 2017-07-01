@@ -20,10 +20,6 @@ SimulationConfigWidget::SimulationConfigWidget(QWidget *parent)
     m_model = nullptr;
     m_view = nullptr;
 
-    m_locker = nullptr;
-    m_clarifier = nullptr;
-    m_highlighter = nullptr;
-
     addWidget(&m_algorithmLineEdit, 0, 0);
     addWidget(&m_chooseAlgorithm,   0, 1);
     addWidget(&m_modelLineEdit,     1, 0);
@@ -50,10 +46,6 @@ SimulationConfigWidget::~SimulationConfigWidget()
     delete m_view;
 }
 
-void SimulationConfigWidget::setSimulationLocker(SimulationLocker *locker) {m_locker = locker;}
-void SimulationConfigWidget::setSimulationClarifier(SimulationClarifier *clarifier) {m_clarifier = clarifier;}
-void SimulationConfigWidget::setSimulationHighlighter(SimulationHighlighter *highlighter) {m_highlighter = highlighter;}
-
 Algorithm* SimulationConfigWidget::algorithm() const {return m_algorithm;}
 Model* SimulationConfigWidget::model() const {return m_model;}
 View* SimulationConfigWidget::modelView() const {return m_view;}
@@ -79,10 +71,12 @@ void SimulationConfigWidget::retranslate()
 void SimulationConfigWidget::deleteAlgorithm()
 {
     /*
-     * First make sure any highlighting data (which is an attribute of the current algorithm)
+     * First make sure any highlighting data (that is an attribute of the current algorithm)
      * is first stopped (removed from the current view).
+     * Otherwise view will try do draw stuffs on screen while the data is already deleted.
+     *
+     * Note: We could have just deleted the view prior to deleting algorithm
      */
-
     if(m_view) {
         m_view->stopHighlighting();
     }
@@ -118,9 +112,6 @@ void SimulationConfigWidget::onChooseAlgorithmButtonPressed()
     }
     else {
         m_algorithm->setModel(m_model);
-        m_algorithm->setLocker(m_locker);
-        m_algorithm->setClarifier(m_clarifier);
-        m_algorithm->setHighlighter(m_highlighter);
     }
     emit algorithmChanged();
 }
@@ -150,7 +141,7 @@ void SimulationConfigWidget::onChooseModelButtonPressed()
     m_view = WorkHelper::modelViewInstanceByFilePath(m_modelPath);
     if(m_view) {
         m_model = m_view->model();
-        m_view->setHighlighter(m_highlighter);
+        m_view->setHighlighter(m_algorithm->highlighter());
     }
     m_algorithm->setModel(m_model);
     emit modelChanged();

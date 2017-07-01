@@ -1,6 +1,7 @@
 #include "GraphicsViewHighlighter.h"
-#include "GraphicsViewHighlighting.h"
 #include "HighlightableGraphicsView.h"
+#include "HighlightingData.h"
+#include "HighlightingTextData.h"
 
 HighlightableGraphicsView::HighlightableGraphicsView(QWidget *parent)
     : GraphicsView(parent),
@@ -82,12 +83,13 @@ void HighlightableGraphicsView::addHighlightingNewedData(HighlightingData *data,
                         // since starting timer sets the visibility to false until timer finishes.
 }
 
-void HighlightableGraphicsView::addHighlightingText(int duration, bool inForeground, bool singleShotTimer,
-                                                    const QString &text, const QRectF &rect, int flags,
-                                                    const QPen &textPen, const QFont &textFont,
-                                                    const QPen &rectPen, const QBrush &rectBrush)
+HighlightingTextData* HighlightableGraphicsView::addHighlightingText(int duration, bool inForeground, bool singleShotTimer,
+                                                                     const QString &text, const QRectF &rect, int flags,
+                                                                     const QPen &textPen, const QFont &textFont,
+                                                                     const QPen &rectPen, const QBrush &rectBrush)
 {
-    auto *data = new HighlightingTexTData;
+    auto *data = new HighlightingTextData;
+
     data->configureTextData(text, rect, flags);
     data->configureTextData(textPen, textFont);
     data->configureTextData(rectPen, rectBrush);
@@ -95,6 +97,8 @@ void HighlightableGraphicsView::addHighlightingText(int duration, bool inForegro
     data->setDuration(duration);
     data->setTimerSingleShot(singleShotTimer);
     addHighlightingNewedData(data, inForeground);
+
+    return data;
 }
 
 void HighlightableGraphicsView::suspendHighlighting()
@@ -173,7 +177,7 @@ void HighlightableGraphicsView::drawAllHighlightingData(QPainter *painter, std::
 
 void HighlightableGraphicsView::drawHighlightingData(QPainter *painter, HighlightingData *data)
 {
-    auto *textData = dynamic_cast<HighlightingTexTData*>(data);
+    auto *textData = dynamic_cast<HighlightingTextData*>(data);
     if(textData) {
         // First draw rect border
         painter->setPen(textData->rectPen);

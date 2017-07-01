@@ -244,9 +244,8 @@ HEADERS += \
     src-niceqt/graphics/GraphicsPixmapItem.h \
     src-niceqt/graphics/GraphicsTextItem.h \
     src-niceqt/graphics/GraphicsView.h \
-    src-niceqt/graphics/GraphicsViewHighlighter.h \
-    src-niceqt/graphics/GraphicsViewHighlighting.h \
-    src-niceqt/graphics/HighlightableGraphicsView.h \
+    src-niceqt/graphics/highlighting/GraphicsViewHighlighter.h \
+    src-niceqt/graphics/highlighting/HighlightableGraphicsView.h \
     src-niceqt/others/ActionGroup.h \
     src-niceqt/others/BasicLanguagePicker.h \
     src-niceqt/others/PluginLoader.h \
@@ -293,7 +292,11 @@ HEADERS += \
     src-heftyad/workcontent/AlgorithmWorkViewer.h \
     src-heftyad/binding/js/JSPluginInterface.h \
     src-heftyad/binding/js/JSFileParser.h \
-    src-heftyad/binding/js/JSAlgorithm.h
+    src-heftyad/binding/js/JSAlgorithm.h \
+    src-niceqt/scripting/ScriptUltimateObject.h \
+    src-heftyad/simulation/console/SimulationConsoleTab.h \
+    src-niceqt/graphics/highlighting/HighlightingData.h \
+    src-niceqt/graphics/highlighting/HighlightingTextData.h
 
 SOURCES += \
     src-heftyad/algorithm/basis/Iterable.cpp \
@@ -389,9 +392,8 @@ SOURCES += \
     src-niceqt/graphics/GraphicsPixmapItem.cpp \
     src-niceqt/graphics/GraphicsTextItem.cpp \
     src-niceqt/graphics/GraphicsView.cpp \
-    src-niceqt/graphics/GraphicsViewHighlighter.cpp \
-    src-niceqt/graphics/GraphicsViewHighlighting.cpp \
-    src-niceqt/graphics/HighlightableGraphicsView.cpp \
+    src-niceqt/graphics/highlighting/GraphicsViewHighlighter.cpp \
+    src-niceqt/graphics/highlighting/HighlightableGraphicsView.cpp \
     src-niceqt/others/ActionGroup.cpp \
     src-niceqt/others/BasicLanguagePicker.cpp \
     src-niceqt/others/PluginLoader.cpp \
@@ -437,4 +439,8 @@ SOURCES += \
     src-heftyad/workcontent/AlgorithmWorkViewer.cpp \
     src-heftyad/binding/js/JSPluginInterface.cpp \
     src-heftyad/binding/js/JSFileParser.cpp \
-    src-heftyad/binding/js/JSAlgorithm.cpp
+    src-heftyad/binding/js/JSAlgorithm.cpp \
+    src-niceqt/scripting/ScriptUltimateObject.cpp \
+    src-heftyad/simulation/console/SimulationConsoleTab.cpp \
+    src-niceqt/graphics/highlighting/HighlightingData.cpp \
+    src-niceqt/graphics/highlighting/HighlightingTextData.cpp

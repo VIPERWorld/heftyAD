@@ -18,12 +18,12 @@ public:
 public:
     explicit SimulationClarifier(QObject *parent = 0);
 
-    void addText(const QString &text, int kind = NormalText);
-    void addInfo(const QString &text);
-    void addWarning(const QString &text);
-    void addError(const QString &text);
+    Q_INVOKABLE void addText(const QString &text, int kind = NormalText);
+    Q_INVOKABLE void addInfo(const QString &text);
+    Q_INVOKABLE void addWarning(const QString &text);
+    Q_INVOKABLE void addError(const QString &text);
 
-    void removeTexts();
+    Q_INVOKABLE void removeTexts();
 
 public:
     // older version

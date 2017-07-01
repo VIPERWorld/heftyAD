@@ -20,7 +20,8 @@ public:
 
     void setSimulationAcceleration(int acc);
     void setSimulationSuspended(bool suspended);
-    void lockFor(long msecs);
+
+    Q_INVOKABLE void lockFor(long msecs);
 
     /**
      * We can do without this function.

@@ -6,6 +6,8 @@
 #include "SimulationLocker.h"
 #include "View.h"
 
+#include "graphics/highlighting/HighlightingTextData.h"
+
 #include <QThread>
 
 SimulationController::SimulationController(QWidget *parent)
@@ -230,7 +232,9 @@ void SimulationController::onResumeButtonPressed()
     else {
         // First clear clarifier
 
-        m_clarifier->removeTexts();
+        if(m_clarifier) {
+            m_clarifier->removeTexts();
+        }
 
         // Since it is allowed to use indefinitely looping highlithting data,
         // any remaining timer should be stopped first
@@ -314,7 +318,7 @@ void SimulationController::onMoreMenuTriggered(QAction *action)
         return;
     }
 
-    if(action == m_blockClarifier) {
+    if(action == m_blockClarifier && m_clarifier) {
         m_clarifier->blockSignals(action->isChecked());
         return;
     }
@@ -386,28 +390,33 @@ void SimulationController::onAlgorithmRunnerFailsWith(int errorFlag, const QStri
 
 void SimulationController::handleAlgorithmException(const QString &message)
 {
-    const QString &str1(trUtf8("Evénement indésirable"));
-    const QString &str2(trUtf8("Arrêt inopiné suite à une exception"));
+    if(m_clarifier) {
+        const bool blocked = m_clarifier->blockSignals(false);
+        const QString &str(trUtf8("Arrêt inopiné suite à une exception"));
 
-    m_clarifier->prepareNewSection();
-    m_clarifier->addShadowMessageError(str1);
-    m_clarifier->addMessage(str2, 1);
-    m_clarifier->addMessage(message, 2);
+        m_clarifier->prepareNewSection();
+        m_clarifier->addShadowMessageError(str);
+        m_clarifier->addMessage(message, 1);
 
-    m_clarifier->addText(""); // add new line (since texts may have been added previously)
-    m_clarifier->addError(str1);
-    m_clarifier->addError("    "+str2);
-    m_clarifier->addError("        "+message);
+        m_clarifier->addText(""); // add new line (since texts may have been added previously)
+        m_clarifier->addError(str);
+        m_clarifier->addError("    "+message);
+
+        m_clarifier->blockSignals(blocked);
+    }
 
     if(m_view) {
         const QString &text = trUtf8("Evénement indésirable détecté.") + "\n" + trUtf8("Voir consoles de log.");
         QFont font;
-        font.setPointSize(15);
+        font.setPointSize(20);
 
-        m_view->addHighlightingText(5000, true, true,
-                                    text, m_view->sceneRect(), Qt::AlignLeft,
-                                    QPen(Qt::red), font,
-                                    Qt::NoPen, QBrush(Qt::green));
+        const int k = 1e4;
+        QRectF r = QRectF(-k, -k, 2*k, 2*k);
+        HighlightingTextData *data = m_view->addHighlightingText(4000, true, true,
+                                                                 text, r, Qt::AlignCenter,
+                                                                 QPen(Qt::white), font,
+                                                                 Qt::NoPen, QBrush(Qt::black));
+        data->rectOpacity = 0.90;
     }
 
     emit simulationFailedWithException();
@@ -428,13 +437,15 @@ void SimulationController::onAlgorithmRunnerSuspended()
 
 void SimulationController::onAlgorithmRunnerStopped()
 {
-    m_clarifier->prepareNewSection();
-    m_clarifier->addShadowMessageNormal(trUtf8("Requête particulière"));
-    m_clarifier->addMessage(trUtf8("Simulation interrompue"), 1);
+    if(m_clarifier) {
+        m_clarifier->prepareNewSection();
+        m_clarifier->addShadowMessageNormal(trUtf8("Requête particulière"));
+        m_clarifier->addMessage(trUtf8("Simulation interrompue"), 1);
 
-    m_clarifier->addText("");
-    m_clarifier->addText(trUtf8("Requête particulière"));
-    m_clarifier->addText("    "+trUtf8("Simulation interrompue"));
+        m_clarifier->addText("");
+        m_clarifier->addText(trUtf8("Requête particulière"));
+        m_clarifier->addText("    "+trUtf8("Simulation interrompue"));
+    }
 }
 
 void SimulationController::onAlgorithmRunnerFinished()

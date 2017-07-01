@@ -12,9 +12,6 @@
 class Algorithm;
 class Model;
 class SimulationAlgorithmPluginPicker;
-class SimulationClarifier;
-class SimulationHighlighter;
-class SimulationLocker;
 class View;
 
 class SimulationConfigWidget : public GridWidget
@@ -35,18 +32,9 @@ protected:
     QLineEdit m_modelLineEdit;     PushButton m_chooseModel;
     AlgorithmPluginForm m_form;
 
-private:
-    SimulationLocker *m_locker;
-    SimulationClarifier *m_clarifier;
-    SimulationHighlighter *m_highlighter;
-
 public:
     explicit SimulationConfigWidget(QWidget *parent = 0);
     ~SimulationConfigWidget();
-
-    void setSimulationLocker(SimulationLocker *locker);
-    void setSimulationClarifier(SimulationClarifier *clarifier);
-    void setSimulationHighlighter(SimulationHighlighter *highlighter);
 
     Algorithm* algorithm() const;
     Model* model() const;

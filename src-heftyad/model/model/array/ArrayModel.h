@@ -40,13 +40,13 @@ public:
     explicit ArrayModel(QObject *parent = 0);
     ~ArrayModel();
 
-    int layoutSpacing() const;
-    void setLayoutSpacing(int spacing);
+    Q_INVOKABLE int layoutSpacing() const;
+    Q_INVOKABLE void setLayoutSpacing(int spacing);
 
     bool isValidIndex(int index) const;
 
-    int size() const;
-    bool isEmpty() const;
+    Q_INVOKABLE int size() const;
+    Q_INVOKABLE bool isEmpty() const;
     QVector<ArrayModelItem*> items() const;
 
     bool contains(const QString &value) const;
@@ -58,16 +58,18 @@ public:
     ArrayModelItem& first() const;
     ArrayModelItem& last() const;
     ArrayModelItem& operator[](int index) const;
+    Q_INVOKABLE QJSValue itemAt(int index);
 
     // The 3rd parameter means: Center Items Vertically When Layouting
     void swap(int i, int j, bool civwl = false, bool useAnimation = true);
+    Q_INVOKABLE void swapItems(int i, int j, bool civwl = false, bool useAnimation = true);
 
     /*
      * Dev Notes
      * =========
-     * We could have merged thes two functions.
-     * But a default value isn't given to index since we want the user to be notified
-     * with an exception when the given index is invalid.
+     * We could have merged these two functions.
+     * But a default value isn't given to index since we want the user to be notified with an exception when the given index is invalid.
+     * In addition, those functions call two different internal functions.
      */
     bool addItem(ArrayModelItem *item);
     bool addItem(ArrayModelItem *item, int index); // /!\ See comments in dev notes above
@@ -78,29 +80,29 @@ public:
     bool removeItem(const ArrayModelItem &item, bool deleteView = true);
     bool removeItemAt(int index, bool deleteView = true);
 
-    void clear(bool deleteViews = true);
+    Q_INVOKABLE void clear(bool deleteViews = true);
 
     void sort(std::function<int (const ArrayModelItem&, const ArrayModelItem&)> comparator);
     void sortBySceneRectX();
     void sortByValue();
 
-    void centerHorizontally();
-    void centerVertically();
+    Q_INVOKABLE void centerHorizontally();
+    Q_INVOKABLE void centerVertically();
 
     void saveState(int version = 0) override;
     bool restoreState(int version = 0) override;
     void discardStates() override;
 
-    QString toString() const override;
-    QString toString(const QString &delStart, const QString &delEnd,
+    Q_INVOKABLE QString toString() const override;
+    Q_INVOKABLE QString toString(const QString &delStart, const QString &delEnd,
                      const QString &sep = ", ") const;
 
     QRectF coverage() const override;
 
     void empty() override;
     void shuffle() override;
-    void layout() override;
-    void layout(bool centerItemsVertically);
+    Q_INVOKABLE void layout() override;
+    Q_INVOKABLE void layout(bool centerItemsVertically);
     /**
      * Layouts this array.
      *
@@ -119,7 +121,7 @@ protected:
 
 private:
     /**
-     * Add item directly,
+     * Adds item directly,
      * regardless whether the array already contains the item or not.
      */
     void addItemDirectly(ArrayModelItem *item);

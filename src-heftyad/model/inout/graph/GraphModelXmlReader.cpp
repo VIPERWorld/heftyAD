@@ -41,7 +41,7 @@ bool GraphModelXmlReader::read(QIODevice &in)
 void GraphModelXmlReader::readVertices(GraphModel *model, QXmlStreamReader &stream)
 {
     while(stream.readNextStartElement()) {
-        if(stream.name().compare("vertex") == 0) {
+        if(stream.name().compare(QString("vertex")) == 0) {
             GraphModelVertex &vertex(model->addNewVertex());
             ModelReaderXmlHelper::readGraphModelVertexFrom(stream, vertex);
 
@@ -53,7 +53,7 @@ void GraphModelXmlReader::readVertices(GraphModel *model, QXmlStreamReader &stre
 void GraphModelXmlReader::readEdges(GraphModel *model, QXmlStreamReader &stream)
 {
     while(stream.readNextStartElement()) {
-        if(stream.name().compare("edge") == 0) {
+        if(stream.name().compare(QString("edge")) == 0) {
             // First read main attributes (required to create an edge)
 
             const QXmlStreamAttributes &attrs(stream.attributes());

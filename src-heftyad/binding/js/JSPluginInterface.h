@@ -29,6 +29,7 @@ public:
     Algorithm* algorithmInstance() const override;
 
     bool load(const QString &filePath);
+    void reset();
 
 signals:
 

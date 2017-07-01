@@ -2,12 +2,15 @@
 #include "ModelReader.h"
 #include "ModelWriter.h"
 
+#include <QJSEngine>
+
 Model::Model(QObject *parent)
     : QObject(parent),
       m_reader(nullptr),
       m_writer(nullptr),
       m_bgBrush(Qt::NoBrush),
-      m_animationAcceleration(0)
+      m_animationAcceleration(0),
+      m_jsEngine(nullptr)
 {
 }
 
@@ -37,6 +40,20 @@ void Model::setAnimationAcceleration(int acc)
     m_animationAcceleration = acc;
 }
 
+void Model::setJSEngine(QJSEngine *engine)
+{
+    /*
+     * We didn't provide any "engineChanged" signal since
+     *     it would have been exposed to the the JS script environment
+     *     and we really do not need such a signal.
+     */
+
+    if(m_jsEngine != engine) {
+        m_jsEngine = engine;
+        m_jsItems.clear();
+    }
+}
+
 void Model::saveState(int version)    { Q_UNUSED(version)               }
 bool Model::restoreState(int version) { Q_UNUSED(version) return false; }
 void Model::discardStates() {}
@@ -47,6 +64,19 @@ QRectF Model::coverage() const {return QRectF();}
 void Model::empty() {}
 void Model::shuffle() {}
 void Model::layout() {}
+
+QJSValue Model::getJSProxyOf(QObject *object)
+{
+    if(!m_jsEngine) {
+        return QJSValue();
+    }
+
+    if(!m_jsItems.contains(object)) {
+        m_jsItems[object] = m_jsEngine->newQObject(object);
+    }
+
+    return m_jsItems[object];
+}
 
 bool Model::saveTo(const QString &filePath, ModelWriter &writer)
 {

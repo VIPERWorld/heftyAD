@@ -63,9 +63,7 @@ bool AlgorithmWork::loadFrom(const QString &filePath)
     return false;
 }
 
-void AlgorithmWork::retranslate()
-{
-}
+void AlgorithmWork::retranslate() {}
 
 void AlgorithmWork::setEditorInitialText()
 {
@@ -89,15 +87,15 @@ void AlgorithmWork::execExtraFeature(int feature)
         m_console.append(trUtf8("Votre algorithme est <B>syntaxiquement</B> correct. Vous pouvez l'exécuter."));
 
         m_console.append("");
-        m_console.append("<B><U>"+trUtf8("nom")+"</B></U><br />");
+        m_console.append("<B><U>"+trUtf8("nom")+"</U></B><br />");
         m_console.append(parser.algorithmName());
 
         m_console.append("");
-        m_console.append("<B><U>"+trUtf8("description")+"</B></U><br />");
+        m_console.append("<B><U>"+trUtf8("description")+"</U></B><br />");
         m_console.append(parser.algorithmDescription());
 
         m_console.append("");
-        m_console.append("<B><U>"+trUtf8("auteurs")+"</B></U>");
+        m_console.append("<B><U>"+trUtf8("auteurs")+"</U></B>");
         for(const JSFileParser::Author &author : parser.algorithmAuthors()) {
             m_console.append("");
             m_console.append(author.name);

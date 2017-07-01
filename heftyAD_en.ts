@@ -17,50 +17,24 @@
 <context>
     <name>AlgorithmWork</name>
     <message>
-        <location filename="src-heftyad/work/AlgorithmWork.cpp" line="89"/>
+        <location filename="src-heftyad/work/AlgorithmWork.cpp" line="87"/>
         <source>Votre algorithme est &lt;B&gt;syntaxiquement&lt;/B&gt; correct. Vous pouvez l&apos;exécuter.</source>
         <translation>Your algorithm is &lt;B&gt;syntactically&lt;/B&gt; correct. You can run it.</translation>
     </message>
     <message>
-        <location filename="src-heftyad/work/AlgorithmWork.cpp" line="92"/>
+        <location filename="src-heftyad/work/AlgorithmWork.cpp" line="90"/>
         <source>nom</source>
         <translation>name</translation>
     </message>
     <message>
-        <location filename="src-heftyad/work/AlgorithmWork.cpp" line="96"/>
+        <location filename="src-heftyad/work/AlgorithmWork.cpp" line="94"/>
         <source>description</source>
         <translation>description</translation>
     </message>
     <message>
-        <location filename="src-heftyad/work/AlgorithmWork.cpp" line="100"/>
+        <location filename="src-heftyad/work/AlgorithmWork.cpp" line="98"/>
         <source>auteurs</source>
         <translation>authors</translation>
-    </message>
-</context>
-<context>
-    <name>AlgorithmWorkContent</name>
-    <message>
-        <location filename="src-heftyad/workcontent/AlgorithmWorkContent.cpp" line="30"/>
-        <source>infos</source>
-        <translation>infos</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/workcontent/AlgorithmWorkContent.cpp" line="34"/>
-        <source>config</source>
-        <translation>config</translation>
-    </message>
-</context>
-<context>
-    <name>AlgorithmWorkViewer</name>
-    <message>
-        <location filename="src-heftyad/workcontent/AlgorithmWorkViewer.cpp" line="35"/>
-        <source>métadonnées</source>
-        <translation>metadata</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/workcontent/AlgorithmWorkViewer.cpp" line="36"/>
-        <source>sources</source>
-        <translation>sources</translation>
     </message>
 </context>
 <context>
@@ -260,17 +234,17 @@
 <context>
     <name>JSFileParser</name>
     <message>
-        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="26"/>
+        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="63"/>
         <source>Le fichier &apos;%1&apos; est inaccessible.</source>
         <translation>File &apos;%1&apos; can&apos;t be opened.</translation>
     </message>
     <message>
-        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="29"/>
-        <source>Le chargement de l&apos;algorithme est un échec.</source>
-        <translation>Algorithm can&apos;t be loaded.</translation>
+        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="66"/>
+        <source>L&apos;algorithme est syntaxiquement incorrect.</source>
+        <translation>Algorithm contains syntactic errors.</translation>
     </message>
     <message>
-        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="34"/>
+        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="71"/>
         <source>Ligne %1</source>
         <translation>Line %1</translation>
     </message>
@@ -365,147 +339,155 @@
 <context>
     <name>SimulationConfigWidget</name>
     <message>
-        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="68"/>
+        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="60"/>
         <source>Fichier décrivant l&apos;algorithme</source>
         <translation>File describing the algorithm</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="71"/>
+        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="63"/>
         <source>Modèle associé à l&apos;algorithme</source>
         <translation>Model used by the algorithm</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="74"/>
-        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="75"/>
+        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="66"/>
+        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="67"/>
         <source>Choisir</source>
         <translation>Choose</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="140"/>
+        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="131"/>
         <source>Choisir un modèle</source>
         <translation>Choose a model</translation>
     </message>
 </context>
 <context>
+    <name>SimulationConsoleTab</name>
+    <message>
+        <location filename="src-heftyad/simulation/console/SimulationConsoleTab.cpp" line="28"/>
+        <source>Console Basique</source>
+        <translation>Basic console</translation>
+    </message>
+    <message>
+        <location filename="src-heftyad/simulation/console/SimulationConsoleTab.cpp" line="29"/>
+        <source>Console Shadow</source>
+        <translation>Shadow console</translation>
+    </message>
+</context>
+<context>
     <name>SimulationController</name>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="69"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="71"/>
         <source>Retourner vers l&apos;étape précédente</source>
         <translation>Moving backward</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="70"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="72"/>
         <source>Suspendre</source>
         <oldsource>Suspendre la simulation</oldsource>
         <translation>Suspend</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="71"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="73"/>
         <source>Débuter/Continuer</source>
         <oldsource>Débuter/Continuer la simulation</oldsource>
         <translation>Start / Continue</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="72"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="74"/>
         <source>Avancer vers l&apos;étape suivante</source>
         <translation>Moving forward</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="73"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="75"/>
         <source>Arrêter</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="74"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="76"/>
         <source>Plus de fonctionnalités</source>
         <oldsource>Accéder à plus de fonctionnalités</oldsource>
         <translation>More</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="75"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="77"/>
         <source>Cacher la barre de progression</source>
         <translation>Hide progress bar</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="76"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="78"/>
         <source>Bloquer le Clarificateur</source>
         <translation>Block Clarifier</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="77"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="79"/>
         <source>Recommencer</source>
         <oldsource>Recommencer la simulation</oldsource>
         <translation>Restart</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="78"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="80"/>
         <source>Plein écran</source>
         <oldsource>Passer en mode plein écran</oldsource>
         <translation>Full screen</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="80"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="82"/>
         <source>Accélération des timers (en %age)</source>
         <translation>Timer acceleration (in %age)</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="357"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="361"/>
         <source>La simulation ne peut démarrer</source>
         <translation>Simulation can not start</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="358"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="362"/>
         <source>Une simulation implique forcément un algorithme.%1Merci de configurer votre simulation puis de recommencer.</source>
         <oldsource>Une simulation implique forcément un algorithme.
 Merci de configurer votre simulation puis de recommencer.</oldsource>
         <translation>A simulation should involve an algorithm.%1Please configure your simulation and try again.</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="368"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="372"/>
         <source>La simulation a terminé immédiatement</source>
         <translation>Simulation ended immediately</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="369"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="373"/>
         <source>L&apos;algorithme sollicité ne peut s&apos;appliquer au modèle choisi.%1Merci de choisir un modèle adéquat puis de recommencer.</source>
         <oldsource>L&apos;algorithme sollicité ne peut s&apos;appliquer au modèle choisi.
 Merci de choisir un modèle adéquat puis de recommencer.</oldsource>
         <translation>Current model doesn&apos;t match the one expected by the algorithm.%1Please choose a suitable model and try again.</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="380"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="384"/>
         <source>Source de l&apos;exception inconnue</source>
         <translation>Source of exception is unknown</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="389"/>
-        <source>Evénement indésirable</source>
-        <translation>Unwanted event</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="390"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="395"/>
         <source>Arrêt inopiné suite à une exception</source>
-        <translation>Unexpected stop due to an exception</translation>
+        <translation>Something goes wrong</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="403"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="409"/>
         <source>Evénement indésirable détecté.</source>
         <translation>Something wrong occurred.</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="403"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="409"/>
         <source>Voir consoles de log.</source>
         <translation>See log consoles.</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="432"/>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="436"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="442"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="446"/>
         <source>Requête particulière</source>
         <translation>Special request</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="433"/>
-        <location filename="src-heftyad/simulation/SimulationController.cpp" line="437"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="443"/>
+        <location filename="src-heftyad/simulation/SimulationController.cpp" line="447"/>
         <source>Simulation interrompue</source>
         <translation>Simulation interrupted</translation>
     </message>
@@ -513,24 +495,14 @@ Merci de choisir un modèle adéquat puis de recommencer.</oldsource>
 <context>
     <name>SimulationSideWidget</name>
     <message>
-        <location filename="src-heftyad/simulation/SimulationSideWidget.cpp" line="67"/>
+        <location filename="src-heftyad/simulation/SimulationSideWidget.cpp" line="58"/>
         <source>Votre simulation</source>
         <translation>Your simulation</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationSideWidget.cpp" line="68"/>
+        <location filename="src-heftyad/simulation/SimulationSideWidget.cpp" line="59"/>
         <source>Consoles de log</source>
         <translation>Log consoles</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/simulation/SimulationSideWidget.cpp" line="70"/>
-        <source>Console Basique</source>
-        <translation>Basic console</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/simulation/SimulationSideWidget.cpp" line="71"/>
-        <source>Console Shadow</source>
-        <translation>Shadow console</translation>
     </message>
 </context>
 <context>

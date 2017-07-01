@@ -1,7 +1,7 @@
 #ifndef BASICGRAPHICSVIEW_H
 #define BASICGRAPHICSVIEW_H
 
-#include "HighlightableGraphicsView.h"
+#include "graphics/highlighting/HighlightableGraphicsView.h"
 
 #include "command/UndoStack.h"
 

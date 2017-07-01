@@ -25,16 +25,13 @@ private:
 public:
     explicit AlgorithmWorkContent(QWidget *parent = 0);
 
-    void retranslate();
-
 private:
     /**
      * Should be called once.
      */
     void fillViewer();
-    QStandardItem* addItem(const QString &name, int category);
-    QStandardItem* addMetaItem(const QString &name);
-    QStandardItem* addSourceItem(const QString &name);
+
+    QStandardItem* addItem(const QString &name, const QString &editorText = "");
 
 signals:
 

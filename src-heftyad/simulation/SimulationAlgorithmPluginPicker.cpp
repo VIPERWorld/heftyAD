@@ -66,6 +66,7 @@ AlgorithmPluginInterface* SimulationAlgorithmPluginPicker::selectedPlugin()
             }
 
             auto *plugin = m_jsPlugins[filePath];
+            plugin->reset();
             if(plugin->load(filePath)) { // reload the plugin
                 interface = plugin;
             }

@@ -1,5 +1,5 @@
 #include "GraphicsViewHighlighter.h"
-#include "GraphicsViewHighlighting.h"
+#include "HighlightingData.h"
 
 #include <QMutex>
 #include <QWaitCondition>
@@ -40,4 +40,31 @@ void GraphicsViewHighlighter::suspend(HighlightingData *data)
 void GraphicsViewHighlighter::stop(HighlightingData *data)
 {
     emit stopRequested(data);
+}
+
+void GraphicsViewHighlighter::start(const QJSValue &dataProxy, int duration, bool synchrone)
+{
+    QObject *obj = dataProxy.toQObject();
+    auto *data = qobject_cast<HighlightingData*>(obj);
+    if(data) {
+        start(data, duration, synchrone);
+    }
+}
+
+void GraphicsViewHighlighter::suspend(const QJSValue &dataProxy)
+{
+    QObject *obj = dataProxy.toQObject();
+    auto *data = qobject_cast<HighlightingData*>(obj);
+    if(data) {
+        suspend(data);
+    }
+}
+
+void GraphicsViewHighlighter::stop(const QJSValue &dataProxy)
+{
+    QObject *obj = dataProxy.toQObject();
+    auto *data = qobject_cast<HighlightingData*>(obj);
+    if(data) {
+        stop(data);
+    }
 }

@@ -1,7 +1,7 @@
 #ifndef SIMULATIONHIGHLIGHTER_H
 #define SIMULATIONHIGHLIGHTER_H
 
-#include "graphics/GraphicsViewHighlighter.h"
+#include "graphics/highlighting/GraphicsViewHighlighter.h"
 
 class SimulationHighlighter : public GraphicsViewHighlighter
 {

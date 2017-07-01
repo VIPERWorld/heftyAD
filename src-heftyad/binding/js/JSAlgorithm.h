@@ -12,10 +12,10 @@ class JSAlgorithm : public Algorithm
     Q_OBJECT
 
 private:
-    const JSFileParser &m_parser;
+    JSFileParser &m_parser;
 
 public:
-    explicit JSAlgorithm(const JSFileParser &parser);
+    explicit JSAlgorithm(JSFileParser &parser);
 
     bool requiresAModel() const override;
     bool hasAValidModel() const override;
@@ -25,7 +25,8 @@ public:
     void postExecute() override;
 
 private:
-    void throwExceptionIfAny(const QJSValue &jsValue) const;
+    void callJSFunction(QJSValue &jsFunction) const;
+
     void onModelChanged();
 
 signals:

@@ -5,10 +5,11 @@ SimulationSimpleConsole::SimulationSimpleConsole(QWidget *parent)
     : QTextEdit(parent),
       m_clarifier(nullptr)
 {
-    setColorScheme(GrayScheme);
+    setColorScheme(DarkScheme);
 
     setReadOnly(true);
     setStyleSheet("SimulationSimpleConsole {font-size: 16px;}");
+//    setLineWrapMode(QTextEdit::NoWrap); // unless set, horizontal scrollbar won't show up
 }
 
 void SimulationSimpleConsole::setColorScheme(const SimulationSimpleConsole::ColorScheme &scheme)

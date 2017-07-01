@@ -3,7 +3,7 @@
 
 #include "Algorithm.h"
 
-#include "graphics/GraphicsViewHighlighting.h"
+#include "graphics/highlighting/HighlightingTextData.h"
 
 /**
  * The FakeAlgorithm class shouldn't normally exist.
@@ -12,7 +12,7 @@
 class FakeAlgorithm : public Algorithm
 {
 private:
-    HighlightingTexTData data;
+    HighlightingTextData data;
 
 public:
     explicit FakeAlgorithm();

@@ -1,3 +1,8 @@
+/*
+ * You can put several definitions here and use them in alorithm code.
+ * This is a right place to declare symbols(variables, functions, ...) for later use.
+ */
+
 {
     "metadata": {
         "name": "Algorithm Name"
@@ -21,7 +26,7 @@
     }
     ,
     "code": {
-        "requires": "none" // possible values are "none" "array" "graph"
+        "requires": "none" // possible values are "none" "any" "array" "graph"
         ,
         "preExecute": function() {
             // TODO
@@ -36,3 +41,9 @@
         }
     }
 }
+
+/*
+ * We recommend to either leave this area clear, or only fill it with function declarations (not function calls).
+ * Those functions could later be used in algorithm code.
+ * For visibility matters, either put definitions in this area or in the one above: don't use them both.
+ */

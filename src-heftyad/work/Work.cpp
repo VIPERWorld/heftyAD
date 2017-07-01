@@ -5,14 +5,6 @@ Work::Work(QWidget *parent)
 {
 }
 
-bool Work::allowsExtraFeature(int feature) {Q_UNUSED(feature) return false;}
-void Work::startExtraFeature(int feature)
-{
-    if(allowsExtraFeature(feature)) {
-        execExtraFeature(feature);
-    }
-}
-
 QString Work::filePath() const {return m_filePath;}
 void Work::setFilePath(const QString &filePath)
 {
@@ -39,6 +31,14 @@ bool Work::isEditionEnabled() const {return false;}
 
 QList<QAction*> Work::toolBarActions() const {return QList<QAction*>();}
 void Work::retranslate() {}
+
+bool Work::allowsExtraFeature(int feature) {Q_UNUSED(feature) return false;}
+void Work::startExtraFeature(int feature)
+{
+    if(allowsExtraFeature(feature)) {
+        execExtraFeature(feature);
+    }
+}
 
 void Work::postSave() {}
 void Work::execExtraFeature(int feature) {Q_UNUSED(feature)}

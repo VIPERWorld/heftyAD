@@ -38,9 +38,9 @@ public:
     virtual void postExecute() = 0;
     void run();
 
-    void setLocker(SimulationLocker *locker);
-    void setClarifier(SimulationClarifier *clarifier);
-    void setHighlighter(SimulationHighlighter *highlighter);
+    SimulationLocker* locker() const;
+    SimulationClarifier* clarifier() const;
+    SimulationHighlighter* highlighter() const;
 
 protected:
     /**
@@ -59,9 +59,9 @@ protected:
 
 signals:
     /*
-     * This signal shouldn't normally exist.
-     * It was introduced so that JavaScript algorithms may be notified when their inner model (if any) changes.
-     * Algorithms may therefore update what's being exposed to script environment.
+     * These signals weren't supposed to exist.
+     * They were finally introduced so that JavaScript algorithms may be notified when their inner model changes for instance.
+     * Algorithms may therefore update what's being exposed to the JS environment.
      */
     void modelChanged();
 };

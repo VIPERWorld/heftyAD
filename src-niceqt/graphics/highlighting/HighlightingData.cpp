@@ -1,4 +1,4 @@
-#include "GraphicsViewHighlighting.h"
+#include "HighlightingData.h"
 
 #include <QTimer>
 
@@ -106,38 +106,4 @@ void HighlightingData::registerTimerStop()
 {
     m_remainingTimeWhenSuspended = -1;
     emit timerStopped();
-}
-
-HighlightingTexTData::HighlightingTexTData()
-{
-    textFlags = Qt::AlignCenter;
-    textOpaticy = 1.;
-    rectOpacity = 1.;
-    rectPen = Qt::NoPen;
-    rectBrush = Qt::NoBrush;
-}
-
-void HighlightingTexTData::configureTextData(const QString &text, const QRectF &rect, int textFlags)
-{
-    this->text = text;
-    this->rect = rect;
-    this->textFlags = textFlags;
-}
-
-void HighlightingTexTData::configureTextData(const QPen &textPen, const QFont &textFont, qreal textOpaticy)
-{
-    this->textPen = textPen;
-    this->textFont = textFont;
-    if(textOpaticy >= 0) {
-        this->textOpaticy = textOpaticy;
-    }
-}
-
-void HighlightingTexTData::configureTextData(const QPen &rectPen, const QBrush &rectBrush, qreal rectOpacity)
-{
-    this->rectPen = rectPen;
-    this->rectBrush = rectBrush;
-    if(rectOpacity >= 0) {
-        this->rectOpacity = rectOpacity;
-    }
 }

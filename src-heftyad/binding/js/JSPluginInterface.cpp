@@ -24,9 +24,17 @@ QList<PluginInterface::Author> JSPluginInterface::authors() const
     return retVal;
 }
 
-Algorithm* JSPluginInterface::algorithmInstance() const {return new JSAlgorithm(m_parser);}
+Algorithm* JSPluginInterface::algorithmInstance() const
+{
+    return new JSAlgorithm(const_cast<JSFileParser&>(m_parser));
+}
 
 bool JSPluginInterface::load(const QString &filePath)
 {
     return m_parser.loadFile(filePath);
+}
+
+void JSPluginInterface::reset()
+{
+    m_parser.reset();
 }

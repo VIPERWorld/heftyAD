@@ -23,9 +23,6 @@ private:
 public:
     explicit Work(QWidget *parent = 0);
 
-    virtual bool allowsExtraFeature(int feature);
-    void startExtraFeature(int feature);
-
     QString filePath() const;
     /**
      * Sets the file path.
@@ -63,6 +60,9 @@ public:
 
     virtual QList<QAction*> toolBarActions() const;
     virtual void retranslate();
+
+    virtual bool allowsExtraFeature(int feature);
+    void startExtraFeature(int feature);
 
 protected:
     virtual void postSave();

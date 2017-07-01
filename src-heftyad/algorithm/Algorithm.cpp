@@ -1,5 +1,7 @@
 #include "Algorithm.h"
+#include "SimulationClarifier.h"
 #include "SimulationLocker.h"
+#include "SimulationHighlighter.h"
 
 Algorithm::Algorithm()
     : SimplyControllable(),
@@ -8,6 +10,13 @@ Algorithm::Algorithm()
       m_clarifier(nullptr),
       m_highlighter(nullptr)
 {
+    /*
+     * The following objects may be exposed to script environment (see JavaScript algorithms).
+     * Then they are set up with a parent so that they won't get deleted by script engine.
+     */
+    m_locker = new SimulationLocker(this);
+    m_clarifier = new SimulationClarifier(this);
+    m_highlighter = new SimulationHighlighter(this);
 }
 
 bool Algorithm::requiresAModel() const {return false;}
@@ -29,17 +38,17 @@ void Algorithm::run()
     postExecute();
 
     /*
-     * We do this since for instance:
+     * We reset base class attributes since for instance:
      *     when stop() is called from the simulation controller,
-     *     stopIfStopWallEnabled() may have not be called (by a person writing an algorithm).
+     *     stopIfStopWallEnabled() may have not been called (by a person subclassing this class to create a custom algorithm).
      *     So we need to reset the values so that further executions of the same algorithm use new values.
      */
     resetAttrs();
 }
 
-void Algorithm::setLocker(SimulationLocker *locker) {m_locker = locker;}
-void Algorithm::setClarifier(SimulationClarifier *clarifier) {m_clarifier = clarifier;}
-void Algorithm::setHighlighter(SimulationHighlighter *highlighter) {m_highlighter = highlighter;}
+SimulationLocker* Algorithm::locker() const {return m_locker;}
+SimulationClarifier* Algorithm::clarifier() const {return m_clarifier;}
+SimulationHighlighter* Algorithm::highlighter() const {return m_highlighter;}
 
 int Algorithm::_sim(int duration) const
 {

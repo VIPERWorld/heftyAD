@@ -33,6 +33,8 @@ class ModelItem : public QObject
     Q_PROPERTY(qreal   fontPointSize READ fontPointSize WRITE setFontPointSize NOTIFY fontChanged)
 
     Q_PROPERTY(QPointF pos READ pos WRITE setPos NOTIFY posChanged)
+    Q_PROPERTY(qreal   x   READ x   WRITE setX   NOTIFY posChanged)
+    Q_PROPERTY(qreal   y   READ y   WRITE setY   NOTIFY posChanged)
 
 protected:
     QString m_value;
@@ -95,7 +97,7 @@ public:
     QPointF pos() const;
     void setPos(const QPointF &pos, bool notify = true);
     void setPos(qreal x, qreal y, bool notify = true);
-    void moveBy(qreal dx, qreal dy, bool notify = true);
+    Q_INVOKABLE void moveBy(qreal dx, qreal dy, bool notify = true);
 
     qreal x() const;
     void setX(qreal x, bool notify = true);

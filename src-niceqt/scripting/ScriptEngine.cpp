@@ -9,6 +9,7 @@ ScriptEngine::ScriptEngine(QObject *parent)
 
 ScriptEngine::~ScriptEngine()
 {
+    collectGarbage(); // see QJSEngine destructor
 }
 
 QJSValue ScriptEngine::evaluateFromFile(const QString &filePath, int lineNumber)
@@ -19,6 +20,12 @@ QJSValue ScriptEngine::evaluateFromFile(const QString &filePath, int lineNumber)
     }
 
     return evaluate(file.readAll(), filePath, lineNumber);
+}
+
+void ScriptEngine::setGlobalVariable(const QString &name, QObject *object)
+{
+    QJSValue value = newQObject(object);
+    globalObject().setProperty(name, value);
 }
 
 QString ScriptEngine::getStringProperty(const QString &propertyName, const QJSValue &from)

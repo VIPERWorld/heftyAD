@@ -1,12 +1,13 @@
 #ifndef HIGHLIGHTABLEGRAPHICSVIEW_H
 #define HIGHLIGHTABLEGRAPHICSVIEW_H
 
-#include "GraphicsView.h"
+#include "graphics/GraphicsView.h"
 
 #include <functional>
 
 class GraphicsViewHighlighter;
 class HighlightingData;
+class HighlightingTextData;
 
 /**
  * The name of this class may be changed later.
@@ -42,10 +43,10 @@ public:
     void addHighlighting(HighlightingData *data, bool inForeground);
     void addHighlightingNewedData(HighlightingData *data, bool inForeground);
 
-    void addHighlightingText(int duration, bool inForeground, bool singleShotTimer,
-                             const QString &text, const QRectF &rect, int flags,
-                             const QPen &textPen = QPen(), const QFont &textFont = QFont(),
-                             const QPen &rectPen = Qt::NoPen, const QBrush &rectBrush = Qt::NoBrush);
+    HighlightingTextData *addHighlightingText(int duration, bool inForeground, bool singleShotTimer,
+                                              const QString &text, const QRectF &rect, int flags,
+                                              const QPen &textPen = QPen(), const QFont &textFont = QFont(),
+                                              const QPen &rectPen = Qt::NoPen, const QBrush &rectBrush = Qt::NoBrush);
 
     void suspendHighlighting();
     void resumeHighlighting();

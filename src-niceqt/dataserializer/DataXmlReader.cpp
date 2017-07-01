@@ -267,7 +267,7 @@ void DataXmlReader::readQGradientBase(QXmlStreamReader &stream, QGradient &gradi
         stream.readNextStartElement(); // reads "stopPts"
         {
             while(stream.readNextStartElement()) {
-                if(stream.name().compare("stopPt") == 0) {
+                if(stream.name().compare(QString("stopPt")) == 0) {
                     const QXmlStreamAttributes &attrs(stream.attributes());
                     bool ok = false;
 

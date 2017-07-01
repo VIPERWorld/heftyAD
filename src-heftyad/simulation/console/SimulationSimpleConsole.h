@@ -20,7 +20,7 @@ public:
 
         void lighter(bool excludeBackground = true, int factor = 150);
         void darker(bool excludeBackground = true, int factor = 200);
-    } ColorScheme ;
+    } ColorScheme;
 
     /**
      * In this enum:

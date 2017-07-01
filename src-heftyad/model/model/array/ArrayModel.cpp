@@ -67,6 +67,16 @@ ArrayModelItem& ArrayModel::at(int index) const {return *(m_array.at(index));}
 ArrayModelItem& ArrayModel::first() const {return at(0);}
 ArrayModelItem& ArrayModel::last() const {return at(size()-1);}
 ArrayModelItem& ArrayModel::operator[](int index) const {return at(index);}
+QJSValue ArrayModel::itemAt(int index)
+{
+    ArrayModelItem *item = nullptr;
+    try {
+        item = &at(index);
+    }
+    catch(...) {}
+
+    return item ? getJSProxyOf(item) : QJSValue();
+}
 
 void ArrayModel::swap(int i, int j, bool civwl, bool useAnimation)
 {
@@ -117,6 +127,14 @@ void ArrayModel::swap(int i, int j, bool civwl, bool useAnimation)
         ModelPropertyAnimation::configure((QPropertyAnimation*)animation->animationAt(1), &at(j), "pos", pos_j, pos_j_new, duration);
         ModelPropertyAnimation().trigger(animation);
     }
+}
+
+void ArrayModel::swapItems(int i, int j, bool civwl, bool useAnimation)
+{
+    try {
+        swap(i, j, civwl, useAnimation);
+    }
+    catch(...) {}
 }
 
 bool ArrayModel::addItem(ArrayModelItem *item)

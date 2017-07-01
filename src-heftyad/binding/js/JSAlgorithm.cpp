@@ -2,11 +2,18 @@
 #include "GraphModel.h"
 #include "JSAlgorithm.h"
 #include "JSFileParser.h"
+#include "SimulationClarifier.h"
+#include "SimulationHighlighter.h"
+#include "SimulationLocker.h"
 
-JSAlgorithm::JSAlgorithm(const JSFileParser &parser)
+JSAlgorithm::JSAlgorithm(JSFileParser &parser)
     : Algorithm(),
       m_parser(parser)
 {
+    m_parser.setGlobalVariable("locker",      m_locker);
+    m_parser.setGlobalVariable("clarifier",   m_clarifier);
+    m_parser.setGlobalVariable("highlighter", m_highlighter);
+
     connect(this, &JSAlgorithm::modelChanged, this, &JSAlgorithm::onModelChanged);
 }
 
@@ -19,18 +26,20 @@ bool JSAlgorithm::requiresAModel() const
 bool JSAlgorithm::hasAValidModel() const
 {
     const QString &requiredModel = m_parser.algorithmRequiredModel();
+    if(requiredModel == "any"  ) return dynamic_cast<Model*>(m_model);
     if(requiredModel == "array") return dynamic_cast<ArrayModel*>(m_model);
     if(requiredModel == "graph") return dynamic_cast<GraphModel*>(m_model);
 
     return false;
 }
 
-void JSAlgorithm::preExecute()  {throwExceptionIfAny(m_parser.algorithmPreExecFunc ().call());}
-void JSAlgorithm::execute()     {throwExceptionIfAny(m_parser.algorithmExecFunc    ().call());}
-void JSAlgorithm::postExecute() {throwExceptionIfAny(m_parser.algorithmPostExecFunc().call());}
+void JSAlgorithm::preExecute()  {QJSValue func = m_parser.algorithmPreExecFunc();  callJSFunction(func);}
+void JSAlgorithm::execute()     {QJSValue func = m_parser.algorithmExecFunc();     callJSFunction(func);}
+void JSAlgorithm::postExecute() {QJSValue func = m_parser.algorithmPostExecFunc(); callJSFunction(func);}
 
-void JSAlgorithm::throwExceptionIfAny(const QJSValue &jsValue) const
+void JSAlgorithm::callJSFunction(QJSValue &jsFunction) const
 {
+    const QJSValue &jsValue = jsFunction.call();
     if(jsValue.isError()) {
         const QJSValue &line = jsValue.property("lineNumber");
 
@@ -40,8 +49,8 @@ void JSAlgorithm::throwExceptionIfAny(const QJSValue &jsValue) const
     }
 }
 
-#include <QDebug>
 void JSAlgorithm::onModelChanged()
 {
-    qDebug() << "js algo model changed";
+    m_parser.exposeCppModel(m_model);
 }
+

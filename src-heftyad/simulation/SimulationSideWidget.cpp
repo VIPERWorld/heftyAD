@@ -1,40 +1,24 @@
+#include "Algorithm.h"
 #include "Resource.h"
 #include "SimulationSideWidget.h"
 
 SimulationSideWidget::SimulationSideWidget(QWidget *parent)
     : GridWidget(parent)
 {
-    m_controller.setLocker(&m_locker);
-    m_controller.setClarifier(&m_clarifier);
-    m_simpleConsole.setClarifier(&m_clarifier);
-    m_shadowConsole.setClarifier(&m_clarifier);
-
-    m_configWidget.setSimulationLocker(&m_locker);
-    m_configWidget.setSimulationClarifier(&m_clarifier);
-    m_configWidget.setSimulationHighlighter(&m_highlighter);
-
     // Add widgets
-
-    m_others.addTab(&m_configWidget, "");
-    m_others.addTab(&m_consoles, "");
-
-    m_consoles.addTab(&m_simpleConsole, "");
-    m_consoles.addTab(&m_shadowConsole, "");
-    m_consoles.setTabPosition(QTabWidget::South);
-    m_consoles.setCurrentIndex(1);
 
     gridLayout()->setSpacing(5);
     addWidget(&m_controller, 0, 0);
     addWidget(&m_others, 1, 0);
+
+    m_others.addTab(&m_configWidget, "");
+    m_others.addTab(&m_consoles, "");
 
     // Set attributes
 
     //m_others.setTabPosition(QTabWidget::West);
     m_others.setTabIcon(0, Resource::windowIcon());
     m_others.setTabIcon(1, Resource::windowIcon());
-
-    m_consoles.setTabIcon(0, Resource::windowIcon());
-    m_consoles.setTabIcon(1, Resource::shadowIcon("shadow.png"));
 
     connectSignalsToSlots();
 }
@@ -46,7 +30,15 @@ QSize SimulationSideWidget::sizeHint() const {return QSize(150, GridWidget::size
 void SimulationSideWidget::connectSignalsToSlots()
 {
     connect(&m_configWidget, &SimulationConfigWidget::algorithmChanged, [this]() {
-        m_controller.setAlgorithm(m_configWidget.algorithm());
+        Algorithm *algo = m_configWidget.algorithm();
+        SimulationLocker *locker           = algo ? algo->locker()      : nullptr;
+        SimulationClarifier *clarifier     = algo ? algo->clarifier()   : nullptr;
+
+        m_controller.setAlgorithm(algo);
+        m_controller.setLocker(locker);
+        m_controller.setClarifier(clarifier);
+
+        m_consoles.setClarifier(clarifier);
     });
     connect(&m_configWidget, &SimulationConfigWidget::modelChanged, [this]() {
         m_controller.setSimulationView(m_configWidget.modelView());
@@ -62,11 +54,9 @@ void SimulationSideWidget::connectSignalsToSlots()
 void SimulationSideWidget::retranslate()
 {
     m_controller.retranslate();
-    m_configWidget.retranslate();
 
     m_others.setTabText(0, trUtf8("Votre simulation"));
     m_others.setTabText(1, trUtf8("Consoles de log"));
-
-    m_consoles.setTabText(0, trUtf8("Console Basique"));
-    m_consoles.setTabText(1, trUtf8("Console Shadow"));
+        m_configWidget.retranslate();
+        m_consoles.retranslate();
 }
