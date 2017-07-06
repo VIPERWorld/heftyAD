@@ -62,6 +62,7 @@ private:
     void exposeCppModel();
 
 signals:
+    void reseted();
 
 public slots:
 };

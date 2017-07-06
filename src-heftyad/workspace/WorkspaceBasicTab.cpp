@@ -51,7 +51,7 @@ void WorkspaceBasicTab::openExistingWorks(const QString &workFamily)
     const QString &filter = "*"+m_workContainer.workFilePathExtension();
     const QStringList &filePaths = QFileDialog::getOpenFileNames(this, trUtf8("Sélectionner les travaux à ouvrir"), "", filter);
     if(filePaths.isEmpty()) {
-        return;
+        return; // not mandatory
     }
 
     QStringList worksAlreadyLoaded;

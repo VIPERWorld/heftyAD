@@ -25,9 +25,11 @@ public:
     void postExecute() override;
 
 private:
+    void exposeAttributes();
     void callJSFunction(QJSValue &jsFunction) const;
 
     void onModelChanged();
+    void onParserReseted();
 
 signals:
 

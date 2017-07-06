@@ -112,6 +112,9 @@ void SimulationConfigWidget::onChooseAlgorithmButtonPressed()
     }
     else {
         m_algorithm->setModel(m_model);
+        if(m_view) {
+            m_view->setHighlighter(m_algorithm->highlighter());
+        }
     }
     emit algorithmChanged();
 }

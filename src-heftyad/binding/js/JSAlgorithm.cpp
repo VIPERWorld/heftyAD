@@ -10,11 +10,10 @@ JSAlgorithm::JSAlgorithm(JSFileParser &parser)
     : Algorithm(),
       m_parser(parser)
 {
-    m_parser.setGlobalVariable("locker",      m_locker);
-    m_parser.setGlobalVariable("clarifier",   m_clarifier);
-    m_parser.setGlobalVariable("highlighter", m_highlighter);
+    exposeAttributes();
 
-    connect(this, &JSAlgorithm::modelChanged, this, &JSAlgorithm::onModelChanged);
+    connect(&parser, &JSFileParser::reseted,     this, &JSAlgorithm::onParserReseted);
+    connect(this,    &JSAlgorithm::modelChanged, this, &JSAlgorithm::onModelChanged);
 }
 
 bool JSAlgorithm::requiresAModel() const
@@ -37,14 +36,19 @@ void JSAlgorithm::preExecute()  {QJSValue func = m_parser.algorithmPreExecFunc()
 void JSAlgorithm::execute()     {QJSValue func = m_parser.algorithmExecFunc();     callJSFunction(func);}
 void JSAlgorithm::postExecute() {QJSValue func = m_parser.algorithmPostExecFunc(); callJSFunction(func);}
 
+void JSAlgorithm::exposeAttributes()
+{
+    m_parser.setGlobalVariable("locker",      m_locker);
+    m_parser.setGlobalVariable("clarifier",   m_clarifier);
+    m_parser.setGlobalVariable("highlighter", m_highlighter);
+}
+
 void JSAlgorithm::callJSFunction(QJSValue &jsFunction) const
 {
     const QJSValue &jsValue = jsFunction.call();
     if(jsValue.isError()) {
         const QJSValue &line = jsValue.property("lineNumber");
-
-        QString error;
-        error += QString("Line %1").arg(line.toInt()) + ", " + jsValue.toString();
+        const QString &error = QString("Line %1").arg(line.toInt()) + ", " + jsValue.toString();
         throw std::runtime_error(error.toStdString());
     }
 }
@@ -54,3 +58,10 @@ void JSAlgorithm::onModelChanged()
     m_parser.exposeCppModel(m_model);
 }
 
+void JSAlgorithm::onParserReseted()
+{
+    exposeAttributes();
+    if(requiresAModel()) { // expose model only if it's required
+        onModelChanged();
+    }
+}

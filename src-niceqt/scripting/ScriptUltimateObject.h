@@ -28,15 +28,23 @@ public:
 
     Q_INVOKABLE QBrush getBrush(const QColor &color, int style = Qt::SolidPattern) const;
     Q_INVOKABLE QBrush getBrush(const QJSValue &value) const;
+    Q_INVOKABLE QString getBrushStr(const QBrush &brush) const;
 
-    Q_INVOKABLE QFont getFont(const QString &family, int pointSize = -1, int weight = -1, bool italic = false) const;
+    Q_INVOKABLE QFont getFont(const QString &family, int pointSize = -1) const;
     Q_INVOKABLE QFont getFont(const QJSValue &value) const;
+    Q_INVOKABLE QString getFontStr(const QFont &font) const;
 
     Q_INVOKABLE QPen getPen(const QBrush &brush, qreal width = 1., int style = Qt::SolidLine) const;
     Q_INVOKABLE QPen getPen(const QJSValue &value) const;
+    Q_INVOKABLE QString getPenStr(const QPen &pen) const;
+
+    Q_INVOKABLE QPointF getPointF(qreal x, qreal y) const;
+    Q_INVOKABLE QPointF getPointF(const QJSValue &value) const;
+    Q_INVOKABLE QString getPointFStr(const QPointF &point) const;
 
     Q_INVOKABLE QRectF getRectF(qreal x, qreal y, qreal width, qreal height) const;
     Q_INVOKABLE QRectF getRectF(const QJSValue &value) const;
+    Q_INVOKABLE QString getRectFStr(const QRectF &rect) const;
 
 signals:
 

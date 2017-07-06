@@ -76,6 +76,8 @@ void JSFileParser::reset()
     exposeCommonElements();
     exposeCppModel();
     loadProgram("");
+
+    emit reseted();
 }
 
 QString JSFileParser::algorithmName() const {return ScriptEngine::getStringProperty("name", m_metadata);}
