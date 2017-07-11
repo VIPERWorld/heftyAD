@@ -61,5 +61,5 @@ void WorkspaceModelTab::connectSignalsToSlots()
 
     connect(m_newGraph, &QAction::triggered, [this](){openNewWork("graph");});
 
-    connect(m_loadModels, &QAction::triggered, this, [this](){openExistingWorks("model");});
+    connect(m_loadModels, &QAction::triggered, this, [this](){openExistingWorks("model", getExistingWorkFilePaths());});
 }

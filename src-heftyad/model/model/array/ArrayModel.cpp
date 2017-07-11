@@ -343,7 +343,7 @@ bool ArrayModel::restoreState(int version)
      */
     clear(true);
 
-    State &state(m_states[version]);
+    const State &state(m_states[version]);
 
     /*// Make sure each backed up item (even those removed after calling saveState) has its associated view deleted
 
@@ -372,10 +372,9 @@ void ArrayModel::discardStates()
     m_states.clear();
 }
 
-QString ArrayModel::toString() const {return toString("[", "]");}
+QString ArrayModel::toStr() const {return toStr("[", "]");}
 
-QString ArrayModel::toString(const QString &delStart, const QString &delEnd,
-                             const QString &sep) const
+QString ArrayModel::toStr(const QString &delStart, const QString &delEnd, const QString &sep) const
 {
     const std::string &delStart2(delStart.toStdString());
     const std::string &delEnd2(delEnd.toStdString());

@@ -234,17 +234,17 @@
 <context>
     <name>JSFileParser</name>
     <message>
-        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="63"/>
+        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="58"/>
         <source>Le fichier &apos;%1&apos; est inaccessible.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="66"/>
+        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="61"/>
         <source>L&apos;algorithme est syntaxiquement incorrect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="71"/>
+        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="66"/>
         <source>Ligne %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -326,12 +326,12 @@
 <context>
     <name>SimulationAlgorithmPluginPicker</name>
     <message>
-        <location filename="src-heftyad/simulation/SimulationAlgorithmPluginPicker.cpp" line="83"/>
+        <location filename="src-heftyad/simulation/SimulationAlgorithmPluginPicker.cpp" line="84"/>
         <source>Choisir un algorithme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationAlgorithmPluginPicker.cpp" line="86"/>
+        <location filename="src-heftyad/simulation/SimulationAlgorithmPluginPicker.cpp" line="87"/>
         <source>Choisir</source>
         <translation type="unfinished"></translation>
     </message>
@@ -355,7 +355,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="131"/>
+        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="134"/>
         <source>Choisir un modèle</source>
         <translation type="unfinished"></translation>
     </message>
@@ -782,37 +782,32 @@ Bonne découverte !</source>
 <context>
     <name>WorkspaceBasicTab</name>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="112"/>
-        <source>Travaux récents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="114"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="120"/>
         <source>Barre d&apos;outils</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="115"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="121"/>
         <source>Travaux en cours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="52"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="114"/>
         <source>Sélectionner les travaux à ouvrir</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="82"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="83"/>
         <source>Travaux déjà ouverts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="92"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="93"/>
         <source>Travaux dont l&apos;ouverture a échoué</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="101"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="102"/>
         <source>A votre attention je vous prie</source>
         <translation type="unfinished"></translation>
     </message>
@@ -820,27 +815,27 @@ Bonne découverte !</source>
 <context>
     <name>WorkspaceContextMenu</name>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="28"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="29"/>
         <source>Position des onglets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="29"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="30"/>
         <source>Nord</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="30"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="31"/>
         <source>Sud</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="31"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="32"/>
         <source>Ouest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="32"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="33"/>
         <source>Est</source>
         <translation type="unfinished"></translation>
     </message>
@@ -886,37 +881,37 @@ Bonne découverte !</source>
 <context>
     <name>WorkspaceSimulationTab</name>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="49"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="51"/>
         <source>Nouvelle simulation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="51"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="53"/>
         <source>Fenêtres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="52"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="54"/>
         <source>Aligner horizontalement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="53"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="55"/>
         <source>Aligner verticalement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="54"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="56"/>
         <source>Fermer Tout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="56"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="58"/>
         <source>Arrière-plan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="87"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="97"/>
         <source>Nouvelle Simulation</source>
         <translation type="unfinished"></translation>
     </message>

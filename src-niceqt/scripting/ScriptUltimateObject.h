@@ -42,6 +42,10 @@ public:
     Q_INVOKABLE QPointF getPointF(const QJSValue &value) const;
     Q_INVOKABLE QString getPointFStr(const QPointF &point) const;
 
+    Q_INVOKABLE QSizeF getSizeF(qreal width, qreal height) const;
+    Q_INVOKABLE QSizeF getSizeF(const QJSValue &value) const;
+    Q_INVOKABLE QString getSizeFStr(const QSizeF &size) const;
+
     Q_INVOKABLE QRectF getRectF(qreal x, qreal y, qreal width, qreal height) const;
     Q_INVOKABLE QRectF getRectF(const QJSValue &value) const;
     Q_INVOKABLE QString getRectFStr(const QRectF &rect) const;

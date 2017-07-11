@@ -1,5 +1,7 @@
 #include "ModelItem.h"
 
+#include <QJSValue>
+
 ModelItem::ModelItem(QObject *parent)
     : QObject(parent)
 {
@@ -13,6 +15,10 @@ ModelItem::ModelItem(QObject *parent)
     m_brush = QBrush(Qt::white);
     m_pen   = QPen(Qt::black, 1.1);
     m_font  = QFont("Times New Roman", 15);
+}
+
+ModelItem::~ModelItem()
+{
 }
 
 QString ModelItem::value() const {return m_value;}
@@ -311,3 +317,9 @@ QRectF ModelItem::sceneRect() const {return rectToScene(rect());}
 QRectF ModelItem::sceneBoundingRect() const {return rectToScene(boundingRect());}
 
 bool ModelItem::intersects(const ModelItem &item) {return sceneBoundingRect().intersects(item.sceneBoundingRect());}
+bool ModelItem::intersects(const QJSValue &itemProxy)
+{
+    QObject *obj = itemProxy.toQObject();
+    auto *item = qobject_cast<ModelItem*>(obj);
+    return item ? intersects(*item) : false;
+}

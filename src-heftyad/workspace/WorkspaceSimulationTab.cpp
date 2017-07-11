@@ -13,6 +13,7 @@ WorkspaceSimulationTab::WorkspaceSimulationTab(QWidget *parent)
     m_tiledHor = m_windows.addAction(QIcon(""), "");
     m_tiledVer = m_windows.addAction(QIcon(""), "");
     m_closeAll = m_windows.addAction(QIcon(""), "");
+    m_closeAll->setShortcuts(QList<QKeySequence>() << QKeySequence("Ctrl+Shift+W") << QKeySequence("Ctrl+Shift+F4")); addAction(m_closeAll);
 
     m_background = new QAction(QIcon(""), "", this);
 
@@ -21,6 +22,7 @@ WorkspaceSimulationTab::WorkspaceSimulationTab(QWidget *parent)
     m_splitter.addWidget(&m_container);
     m_container.setBackground(QBrush(Qt::lightGray, Qt::DiagCrossPattern));
     //m_container.setBackground(QBrush(QPixmap("linux.jpg")));
+    updateWindowsRelatedActions();
 
     // connect signals to slots
 
@@ -75,6 +77,14 @@ bool WorkspaceSimulationTab::hasARunningSimulation() const
     return false;
 }
 
+void WorkspaceSimulationTab::updateWindowsRelatedActions()
+{
+    const bool enable = !m_container.subWindowList().isEmpty();
+    m_tiledHor->setEnabled(enable);
+    m_tiledVer->setEnabled(enable);
+    m_closeAll->setEnabled(enable);
+}
+
 void WorkspaceSimulationTab::onNewSimulationActionTriggered()
 {
     auto *window = new SimulationWindow;
@@ -85,11 +95,16 @@ void WorkspaceSimulationTab::onNewSimulationActionTriggered()
 
     window->retranslate(); // To make sure inner widgets are translated
     window->setWindowTitle(trUtf8("Nouvelle Simulation"));
+
+    connect(window, &SimulationWindow::destroyed, this, &WorkspaceSimulationTab::updateWindowsRelatedActions);
+    updateWindowsRelatedActions();
 }
 
 void WorkspaceSimulationTab::tileSubWindowsHorizontally()
 {
     QMdiArea *mdiArea = &m_container; // just so that this function can be easily exported to another project
+
+    // code inspired by http://qt-digia.developpez.com/tutoriels/qt/mdi-organisation/#LIII
 
     QPoint position(0, 0);
     const int count = mdiArea->subWindowList().count();
@@ -104,6 +119,8 @@ void WorkspaceSimulationTab::tileSubWindowsHorizontally()
 void WorkspaceSimulationTab::tileSubWindowsVertically()
 {
     QMdiArea *mdiArea = &m_container; // just so that this function can be easily exported to another project
+
+    // code inspired by http://qt-digia.developpez.com/tutoriels/qt/mdi-organisation/#LIII
 
     QPoint position(0, 0);
     const int count = mdiArea->subWindowList().count();

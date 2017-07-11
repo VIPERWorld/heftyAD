@@ -55,11 +55,17 @@ public:
     Q_INVOKABLE virtual bool restoreState(int version = 0);
     Q_INVOKABLE virtual void discardStates();
 
-    Q_INVOKABLE virtual QString toString() const;
+    /**
+     * This function is not named toString() since it may be exposed to JS environment and
+     * calling toString() from JS code always default to Object.prototype.toString().
+     * In addition we don't want to override Object.prototype.toString since
+     * it's used by JS environment to generate errors.
+     */
+    Q_INVOKABLE virtual QString toStr() const;
     /**
      * Return the scene bounding rectangle that covers all items.
      */
-    virtual QRectF coverage() const;
+    Q_INVOKABLE virtual QRectF coverage() const;
 
     Q_INVOKABLE virtual void empty();
     Q_INVOKABLE virtual void shuffle();
@@ -84,14 +90,14 @@ signals:
 };
 
 inline std::ostream& operator<<(std::ostream &out, const Model &model) {
-    out << model.toString().toStdString();
+    out << model.toStr().toStdString();
     return out;
 }
 inline QDebug operator<<(QDebug debug, const Model &model) {
     QDebugStateSaver saver(debug);
     Q_UNUSED(saver)
 
-    debug.nospace() << model.toString();
+    debug.nospace() << model.toStr();
     return debug;
 }
 

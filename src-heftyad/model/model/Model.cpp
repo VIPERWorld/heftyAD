@@ -3,6 +3,7 @@
 #include "ModelWriter.h"
 
 #include <QJSEngine>
+#include <QQmlEngine>
 
 Model::Model(QObject *parent)
     : QObject(parent),
@@ -58,7 +59,7 @@ void Model::saveState(int version)    { Q_UNUSED(version)               }
 bool Model::restoreState(int version) { Q_UNUSED(version) return false; }
 void Model::discardStates() {}
 
-QString Model::toString() const {return QString();}
+QString Model::toStr() const {return QString();}
 QRectF Model::coverage() const {return QRectF();}
 
 void Model::empty() {}
@@ -73,6 +74,7 @@ QJSValue Model::getJSProxyOf(QObject *object)
 
     if(!m_jsItems.contains(object)) {
         m_jsItems[object] = m_jsEngine->newQObject(object);
+        QQmlEngine::setObjectOwnership(object, QQmlEngine::CppOwnership);
     }
 
     return m_jsItems[object];

@@ -29,6 +29,9 @@ public:
 
     bool hasARunningSimulation() const;
 
+private:
+    void updateWindowsRelatedActions();
+
 signals:
 
 protected slots:

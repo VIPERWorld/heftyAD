@@ -234,17 +234,17 @@
 <context>
     <name>JSFileParser</name>
     <message>
-        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="63"/>
+        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="58"/>
         <source>Le fichier &apos;%1&apos; est inaccessible.</source>
         <translation>File &apos;%1&apos; can&apos;t be opened.</translation>
     </message>
     <message>
-        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="66"/>
+        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="61"/>
         <source>L&apos;algorithme est syntaxiquement incorrect.</source>
         <translation>Algorithm contains syntactic errors.</translation>
     </message>
     <message>
-        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="71"/>
+        <location filename="src-heftyad/binding/js/JSFileParser.cpp" line="66"/>
         <source>Ligne %1</source>
         <translation>Line %1</translation>
     </message>
@@ -326,12 +326,12 @@
 <context>
     <name>SimulationAlgorithmPluginPicker</name>
     <message>
-        <location filename="src-heftyad/simulation/SimulationAlgorithmPluginPicker.cpp" line="83"/>
+        <location filename="src-heftyad/simulation/SimulationAlgorithmPluginPicker.cpp" line="84"/>
         <source>Choisir un algorithme</source>
         <translation>Choose an algorithm</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationAlgorithmPluginPicker.cpp" line="86"/>
+        <location filename="src-heftyad/simulation/SimulationAlgorithmPluginPicker.cpp" line="87"/>
         <source>Choisir</source>
         <translation>Choose</translation>
     </message>
@@ -355,7 +355,7 @@
         <translation>Choose</translation>
     </message>
     <message>
-        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="131"/>
+        <location filename="src-heftyad/simulation/SimulationConfigWidget.cpp" line="134"/>
         <source>Choisir un modèle</source>
         <translation>Choose a model</translation>
     </message>
@@ -707,13 +707,13 @@ Bonne découverte !</source>
         <location filename="src-heftyad/workcontent/model/WorkGraphView.cpp" line="88"/>
         <source>Ajouter des arcs continuellement</source>
         <oldsource>Ajouter des arêtes</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Add edges continually</translation>
     </message>
     <message>
         <location filename="src-heftyad/workcontent/model/WorkGraphView.cpp" line="89"/>
         <source>Ajouter des arcs à partir d&apos;une source</source>
         <oldsource>Ajouter des arêtes continuellement</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Add edges from source</translation>
     </message>
     <message>
         <location filename="src-heftyad/workcontent/model/WorkGraphView.cpp" line="90"/>
@@ -729,18 +729,18 @@ Bonne découverte !</source>
     <message>
         <location filename="src-heftyad/workcontent/model/WorkGraphView.cpp" line="110"/>
         <source>Sélectionner les sommets</source>
-        <translation type="unfinished"></translation>
+        <translation>Select vertices</translation>
     </message>
     <message>
         <location filename="src-heftyad/workcontent/model/WorkGraphView.cpp" line="111"/>
         <source>Sélectionner les arcs</source>
-        <translation type="unfinished"></translation>
+        <translation>Select edges</translation>
     </message>
     <message>
         <location filename="src-heftyad/workcontent/model/WorkGraphView.cpp" line="93"/>
         <source>Afficher/Cacher les noeuds sur les arcs</source>
         <oldsource>Afficher/Cacher les noeuds sur les arêtes</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Show/Hide nodes on edges</translation>
     </message>
 </context>
 <context>
@@ -782,37 +782,32 @@ Bonne découverte !</source>
 <context>
     <name>WorkspaceBasicTab</name>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="112"/>
-        <source>Travaux récents</source>
-        <translation>Recent works</translation>
-    </message>
-    <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="114"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="120"/>
         <source>Barre d&apos;outils</source>
         <translation>Toolbar</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="115"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="121"/>
         <source>Travaux en cours</source>
         <translation>Work in progress</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="52"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="114"/>
         <source>Sélectionner les travaux à ouvrir</source>
         <translation>Select works to open</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="82"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="83"/>
         <source>Travaux déjà ouverts</source>
         <translation>Works already open</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="92"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="93"/>
         <source>Travaux dont l&apos;ouverture a échoué</source>
         <translation>Works that failed to open</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="101"/>
+        <location filename="src-heftyad/workspace/WorkspaceBasicTab.cpp" line="102"/>
         <source>A votre attention je vous prie</source>
         <translation>To your attention please</translation>
     </message>
@@ -820,27 +815,27 @@ Bonne découverte !</source>
 <context>
     <name>WorkspaceContextMenu</name>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="28"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="29"/>
         <source>Position des onglets</source>
         <translation>Tab position</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="29"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="30"/>
         <source>Nord</source>
         <translation>North</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="30"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="31"/>
         <source>Sud</source>
         <translation>South</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="31"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="32"/>
         <source>Ouest</source>
         <translation>West</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="32"/>
+        <location filename="src-heftyad/workspace/WorkspaceContextMenu.cpp" line="33"/>
         <source>Est</source>
         <translation>East</translation>
     </message>
@@ -886,37 +881,37 @@ Bonne découverte !</source>
 <context>
     <name>WorkspaceSimulationTab</name>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="49"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="51"/>
         <source>Nouvelle simulation</source>
         <translation>New simulation</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="51"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="53"/>
         <source>Fenêtres</source>
         <translation>Windows</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="52"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="54"/>
         <source>Aligner horizontalement</source>
         <translation>Align horizontally</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="53"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="55"/>
         <source>Aligner verticalement</source>
         <translation>Align vertically</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="54"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="56"/>
         <source>Fermer Tout</source>
         <translation>Close All</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="56"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="58"/>
         <source>Arrière-plan</source>
         <translation>Background</translation>
     </message>
     <message>
-        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="87"/>
+        <location filename="src-heftyad/workspace/WorkspaceSimulationTab.cpp" line="97"/>
         <source>Nouvelle Simulation</source>
         <translation>New Simulation</translation>
     </message>

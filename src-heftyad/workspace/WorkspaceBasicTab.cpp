@@ -14,14 +14,17 @@ WorkspaceBasicTab::WorkspaceBasicTab(QWidget *parent)
     m_workToolBar = new ExtraToolBar(Qt::Vertical);
     m_workEditor  = new WorkspaceWorkEditor;
 
-    m_splitter.addWidget(&m_recentStudies);
     m_splitter.addWidget(m_workToolBar);
     m_splitter.addWidget(&m_workContainer_groupBox);
     m_splitter.addWidget(m_workEditor);
 
-    m_splitter.setCollapsible(1, false); // The m_workToolBar widget can't be collapsed
+    m_splitter.setCollapsible(0, false); // The m_workToolBar widget can't be collapsed
+    m_splitter.setCollapsible(1, false);
     m_splitter.setCollapsible(2, false);
-    m_splitter.setCollapsible(3, false);
+
+    m_splitter.setStretchFactor(0, 1);
+    m_splitter.setStretchFactor(1, 100);
+    m_splitter.setStretchFactor(2, 1);
 
     m_workContainer_groupBox.gridWidget()->addWidget(&m_workContainer, 0, 0);
 
@@ -46,10 +49,8 @@ void WorkspaceBasicTab::openNewWork(const QString &workType)
     }
 }
 
-void WorkspaceBasicTab::openExistingWorks(const QString &workFamily)
+void WorkspaceBasicTab::openExistingWorks(const QString &workFamily, const QStringList &filePaths)
 {
-    const QString &filter = "*"+m_workContainer.workFilePathExtension();
-    const QStringList &filePaths = QFileDialog::getOpenFileNames(this, trUtf8("Sélectionner les travaux à ouvrir"), "", filter);
     if(filePaths.isEmpty()) {
         return; // not mandatory
     }
@@ -104,13 +105,18 @@ void WorkspaceBasicTab::openExistingWorks(const QString &workFamily)
     //.withInformativeText("<I>"+trUtf8("Vérifiez par exemple que la balise xml principale porte le bon nom.")+"</I>")
     .withStandardButtons(QMessageBox::Ok)
     .withDefaultButton(QMessageBox::Ok)
-    .exec();
+            .exec();
+}
+
+QStringList WorkspaceBasicTab::getExistingWorkFilePaths()
+{
+    const QString &filter = "*"+m_workContainer.workFilePathExtension();
+    const QStringList &filePaths = QFileDialog::getOpenFileNames(this, trUtf8("Sélectionner les travaux à ouvrir"), "", filter);
+    return filePaths;
 }
 
 void WorkspaceBasicTab::retranslate()
 {
-    m_recentStudies.setTitle(trUtf8("Travaux récents"));
-
     m_workToolBar->setToolTip(trUtf8("Barre d'outils"));
     m_workContainer_groupBox.setTitle(trUtf8("Travaux en cours"));
     m_workContainer.retranslate();

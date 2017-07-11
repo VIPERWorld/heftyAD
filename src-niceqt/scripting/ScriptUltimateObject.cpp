@@ -83,6 +83,18 @@ QString ScriptUltimateObject::getPointFStr(const QPointF &point) const
     return QString("x=%1 y=%2").arg(point.x()).arg(point.y());
 }
 
+QSizeF ScriptUltimateObject::getSizeF(qreal width, qreal height) const {return QSizeF(width, height);}
+QSizeF ScriptUltimateObject::getSizeF(const QJSValue &value) const
+{
+    const qreal w = value.property("w").toNumber();
+    const qreal h = value.property("h").toNumber();
+    return getSizeF(w, h);
+}
+QString ScriptUltimateObject::getSizeFStr(const QSizeF &size) const
+{
+    return QString("w=%1 h=%2").arg(size.width()).arg(size.height());
+}
+
 QRectF ScriptUltimateObject::getRectF(qreal x, qreal y, qreal width, qreal height) const {return QRectF(x, y, width, height);}
 QRectF ScriptUltimateObject::getRectF(const QJSValue &value) const
 {

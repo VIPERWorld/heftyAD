@@ -15,8 +15,8 @@ class ModelMultiShapeItem : public ModelItem
 {
     Q_OBJECT
 
-    Q_PROPERTY(ShapeKind shapeKind READ shapeKind WRITE switchToShapeKind NOTIFY shapeKindChanged)
-    Q_PROPERTY(bool      rounded   READ isRounded WRITE setRounded        NOTIFY roundedChanged)
+    Q_PROPERTY(int  shapeKind READ shapeKind WRITE switchToShapeKind NOTIFY shapeKindChanged)
+    Q_PROPERTY(bool rounded   READ isRounded WRITE setRounded        NOTIFY roundedChanged)
 
     Q_PROPERTY(QVariant dimension READ dimension WRITE setDimension NOTIFY dimensionChanged)
 
@@ -49,8 +49,8 @@ public:
 
     /*
      * These functions are provided solely for the convenience of the user.
-     * There are not used in heftyAD source code.
-     * Indeed, they provide the same information as shapeKind() which is more generic.
+     * They indeed provide the same information as shapeKind() which is more generic.
+     * They are not used in heftyAD source code.
      */
     bool isCircular() const;
     bool isRectangular() const;

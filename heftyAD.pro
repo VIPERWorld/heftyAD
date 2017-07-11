@@ -296,7 +296,8 @@ HEADERS += \
     src-niceqt/scripting/ScriptUltimateObject.h \
     src-heftyad/simulation/console/SimulationConsoleTab.h \
     src-niceqt/graphics/highlighting/HighlightingData.h \
-    src-niceqt/graphics/highlighting/HighlightingTextData.h
+    src-niceqt/graphics/highlighting/HighlightingTextData.h \
+    src-niceqt/widget/RecentWorkWidget.h
 
 SOURCES += \
     src-heftyad/algorithm/basis/Iterable.cpp \
@@ -443,4 +444,5 @@ SOURCES += \
     src-niceqt/scripting/ScriptUltimateObject.cpp \
     src-heftyad/simulation/console/SimulationConsoleTab.cpp \
     src-niceqt/graphics/highlighting/HighlightingData.cpp \
-    src-niceqt/graphics/highlighting/HighlightingTextData.cpp
+    src-niceqt/graphics/highlighting/HighlightingTextData.cpp \
+    src-niceqt/widget/RecentWorkWidget.cpp

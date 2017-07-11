@@ -19,6 +19,7 @@ protected:
 
 public:
     explicit SimulationWidget(QWidget *parent = 0);
+    ~SimulationWidget();
 
     SimulationSideWidget* sideWidget() const;
 

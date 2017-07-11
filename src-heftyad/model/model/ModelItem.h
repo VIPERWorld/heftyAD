@@ -8,6 +8,8 @@
 #include <QPen>
 #include <QPointF>
 
+class QJSValue;
+
 class ModelItem : public QObject
 {
     Q_OBJECT
@@ -54,6 +56,7 @@ protected:
 
 public:
     explicit ModelItem(QObject *parent = 0);
+    ~ModelItem();
 
     QString value() const;
     void setValue(const QString &value, bool notify = true);
@@ -113,7 +116,7 @@ public:
      * Notifies any listener (a view for instance) about attribute changes.
      *
      * Since listeners are notified as attributes change,
-     * this function is only useful when you want the listeners to be notified of changes they are not aware of.
+     * this function is only useful when you want listeners to be notified of changes they couldn't possibly be aware of.
      * For instance when an item is created listeners may not exist (and vice versa).
      */
     virtual void sendAttributeChanges();
@@ -124,20 +127,18 @@ public:
     virtual void saveState(QVariantList &state) const;
     /**
      * Restores the state of this item.
-     * The given state parameter may not be the result of a previous call to saveState().
-     * But it SHOULD contain enough fields so that this item's attributes are well initialized.
+     * The given state parameter should contain enough fields so that this item's attributes are well initialized.
      * Plus, if the view watching this item doesn't get updated (because you're not interacting with it
      * and so it won't get painted), you may consider calling sendAttributeChanges().
      *
      * Note: The returned value doesn't bring any useful info you should know about.
-     *       Anyway it tells subclasses the index at which they should start reading (from the given state).
+     *       Anyway it tells subclasses the index at which they should start reading from the given state parameter.
      */
     virtual int restoreState(const QVariantList &state);
 
     /**
      * Returns an adjusted version of this item' pen width.
-     * The returned value is such that the view watching this item
-     * will have its edge slightly increased when selected.
+     * The returned value is such that the view watching this item will have its edge slightly increased when selected.
      *
      * By default, the value returned by this function is
      *     pen().widthF() + C, where C = isSelected() ? 1.5 : 0.
@@ -151,9 +152,9 @@ public:
      * So this function is made pure virtual.
      *
      * Note: To compute this item' rectangle in subclasses, no stroke should be taken into account.
-     *       Use boundingRect() if stroke is supposed to be taken into account.
+     *       Indeed boundingRect() is the one meant to take stroke into account.
      */
-    virtual QRectF rect() const = 0;
+    Q_INVOKABLE virtual QRectF rect() const = 0;
     /**
      * Returns this item bounding rectangle in LOCAL coordinates,
      * which is an adjusted version of its rectangle (returned by rect()).
@@ -166,7 +167,7 @@ public:
      * since it provides the algorithm to compute the bounding rectangle of an item,
      * knowing its rectangle and the value returned by extra().
      */
-    QRectF boundingRect() const;
+    Q_INVOKABLE QRectF boundingRect() const;
     /**
      * Returns scenePenWidth() by default.
      * See boundingRect() to know how the value returned by this function is used.
@@ -191,31 +192,32 @@ public:
      * Since we know nothing about this item' geometry,
      * the default implementation merely returns the given rect parameter.
      */
-    virtual QRectF rectToScene(const QRectF &rect) const;
+    Q_INVOKABLE virtual QRectF rectToScene(const QRectF &rect) const;
     /**
      * Returns the scene rectangle of this item.
      * Put simply, it returns this item' rectangle in view' scene coordinnates.
      * That is, it merely returns rectToScene(rect()).
      */
-    QRectF sceneRect() const;
+    Q_INVOKABLE QRectF sceneRect() const;
     /**
      * Returns the scene bounding rectangle of this item.
      * This function merely returns rectToScene(boundingRect()).
      *
      * When the scene bounding rectangles of two items intersect, that means they collide.
      */
-    QRectF sceneBoundingRect() const;
+    Q_INVOKABLE QRectF sceneBoundingRect() const;
 
     /**
      * Tells whether this item collides with the given one.
      * This function is a shortcut for:
      *     this->sceneBoundingRect().intersects(item.sceneBoundingRect())
      *
-     * The value returned by this function may not the the one expected,
-     * since only the scene  bounding rectangle is taken into account.
+     * For certain items the value returned by this function may not the the one expected,
+     * since it only takes scene bounding rectangle into account.
      * For instance two edges will be said to collide as soon as their scene bounding rectangle collide.
      */
     bool intersects(const ModelItem &item);
+    Q_INVOKABLE bool intersects(const QJSValue &itemProxy);
 
 signals:
     void valueChanged();

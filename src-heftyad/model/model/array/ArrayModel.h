@@ -93,9 +93,8 @@ public:
     bool restoreState(int version = 0) override;
     void discardStates() override;
 
-    Q_INVOKABLE QString toString() const override;
-    Q_INVOKABLE QString toString(const QString &delStart, const QString &delEnd,
-                     const QString &sep = ", ") const;
+    Q_INVOKABLE QString toStr() const override;
+    Q_INVOKABLE QString toStr(const QString &delStart, const QString &delEnd, const QString &sep = ", ") const;
 
     QRectF coverage() const override;
 

@@ -36,6 +36,7 @@ private:
 
 public:
     explicit BasicGraphicsView(QWidget *parent = 0);
+    ~BasicGraphicsView();
 
     ncpp::UndoStack* undoStack() const;
 

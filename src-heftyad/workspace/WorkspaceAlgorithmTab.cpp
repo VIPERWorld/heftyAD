@@ -35,5 +35,5 @@ void WorkspaceAlgorithmTab::retranslate()
 void WorkspaceAlgorithmTab::connectSignalsToSlots()
 {
     connect(m_newAlgorithm,   &QAction::triggered, [this](){openNewWork("algorithm");});
-    connect(m_loadAlgorithms, &QAction::triggered, [this](){openExistingWorks("algorithm");});
+    connect(m_loadAlgorithms, &QAction::triggered, [this](){openExistingWorks("algorithm", getExistingWorkFilePaths());});
 }

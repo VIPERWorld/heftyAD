@@ -7,6 +7,7 @@ WorkspaceContextMenu::WorkspaceContextMenu(QWidget *parent)
     addDefaultActions();
 
     connectSignalsToSlots();
+    m_tabPosNorth->trigger(); // just to make sure the right action is checked
 }
 
 WorkspaceContextMenu::~WorkspaceContextMenu()

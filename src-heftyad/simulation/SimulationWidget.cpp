@@ -19,6 +19,11 @@ SimulationWidget::SimulationWidget(QWidget *parent)
     });
 }
 
+SimulationWidget::~SimulationWidget()
+{
+    setView(nullptr);
+}
+
 SimulationSideWidget* SimulationWidget::sideWidget() const {return const_cast<SimulationSideWidget*>(&m_sideWidget);}
 
 void SimulationWidget::setView(View *view)

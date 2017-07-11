@@ -209,7 +209,7 @@ void WorkspaceWorkContainer::setUpTabBarContextMenuActions()
     m_exportAs->setShortcut(QKeySequence("Ctrl+E")); addAction(m_exportAs);
 
     m_close->setShortcuts(QList<QKeySequence>() << QKeySequence("Ctrl+W") << QKeySequence("Ctrl+F4")); addAction(m_close);
-    m_closeAll->setShortcuts(QList<QKeySequence>() << QKeySequence("Ctrl+Shift+W") << QKeySequence("Ctrl+ShiftF4")); addAction(m_closeAll);
+    m_closeAll->setShortcuts(QList<QKeySequence>() << QKeySequence("Ctrl+Shift+W") << QKeySequence("Ctrl+Shift+F4")); addAction(m_closeAll);
 
     // connect signals to slots
 

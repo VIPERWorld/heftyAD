@@ -46,6 +46,18 @@ BasicGraphicsView::BasicGraphicsView(QWidget *parent)
     setRubberBandSelectionMode(Qt::ContainsItemShape);
 }
 
+BasicGraphicsView::~BasicGraphicsView()
+{
+    /*
+     * Clearing scene isn't normally required but it currently solves the issue.
+     * Indeed if selection was not cleared, the app crashes when a view is deleted from a simulation
+     * (for instance when a simulation window is closed).
+     * That said, nothing goes wrong when a model is created and then closed (even if there are seleceted items in the scene).
+     * Should investigate later.
+     */
+    scene()->clearSelection();
+}
+
 ncpp::UndoStack* BasicGraphicsView::undoStack() const {return const_cast<ncpp::UndoStack*>(&m_undoStack);}
 
 void BasicGraphicsView::resetUndoRedoCountSinceLastSave() {m_undoRedoCountSinceLastSave = 0;}

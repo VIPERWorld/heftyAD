@@ -14,7 +14,6 @@ class WorkspaceBasicTab : public WorkspaceEmptyTab
     Q_OBJECT
 
 protected:
-    GridGroupBox m_recentStudies;
     ExtraToolBar *m_workToolBar;
     GridGroupBox m_workContainer_groupBox;
         WorkspaceWorkContainer m_workContainer;
@@ -38,8 +37,9 @@ public:
 
     Work* currentWork();
     void openNewWork(const QString &workType);
-    void openExistingWorks(const QString &workFamily);
+    void openExistingWorks(const QString &workFamily, const QStringList &filePaths);
 
+    QStringList getExistingWorkFilePaths();
     void retranslate() override;
 
 signals:
