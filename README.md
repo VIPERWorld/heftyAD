@@ -1,5 +1,3 @@
-*At first please note that this git repository is under constant updates, i.e. its content is subject to progressive changes*.
-
 [heftyAD nowadays](https://github.com/misterFad/heftyAD#heftyad-nowadays)
 - [What to know](https://github.com/misterFad/heftyAD#what-to-know)
 - [Screenshots](https://github.com/misterFad/heftyAD#screenshots)
@@ -26,27 +24,39 @@ Here are a few screenshots highlighting the above-mentioned features.
 
 ### Common
 
-![common 1](https://user.oc-static.com/upload/2017/01/26/14854569626946_img46.png)
+![common-picture-01](https://user.oc-static.com/upload/2017/07/12/14998123288797_img76.png)
+
+![common-picture-02](https://user.oc-static.com/upload/2017/07/12/14998123538811_img77.png)
+
+![common-pitcure-01](https://user.oc-static.com/upload/2017/07/12/14998129900513_img78.png)
 
 ### Array
 
-![array 1](https://user.oc-static.com/upload/2017/02/20/14876220358649_img50.png)
+![array-pitcure-01](https://user.oc-static.com/upload/2017/02/20/14876220358649_img50.png)
 
-![array 2](https://user.oc-static.com/upload/2017/02/20/14876220615198_img51.png)
+![array-pitcure-02](https://user.oc-static.com/upload/2017/02/20/14876220615198_img51.png)
 
 ### Graph
 
-![graph 1](https://user.oc-static.com/upload/2017/01/26/14854569839358_img47.png)
+![graph-picture-01](https://user.oc-static.com/upload/2017/01/26/14854569839358_img47.png)
 
-![graph 2](https://user.oc-static.com/upload/2017/01/24/14852759528234_graph.PNG)
+![graph-picture-02](https://user.oc-static.com/upload/2017/01/24/14852759528234_graph.PNG)
 
-![graph 3](https://user.oc-static.com/upload/2017/02/20/14876230345491_img56.png)
+![graph-picture-03](https://user.oc-static.com/upload/2017/02/20/14876230345491_img56.png)
+
+### Model Form Editor
+
+![model-form-editor-picture-01](https://user.oc-static.com/upload/2017/05/24/14955774801049_img62.png)
+
+![model-form-editor-picture-02](https://user.oc-static.com/upload/2017/05/24/14955776839493_img63.png)
 
 ### Simulations
 
-![simulation 1](https://user.oc-static.com/upload/2017/01/26/14854570066012_img48.png)
+![simulation-picture-01](https://user.oc-static.com/upload/2017/01/26/14854570066012_img48.png)
 
-The previous screenshot shows a **self-explanatory algorithm**. Such algorithms can be created using the API provided by/for heftyAD and then be executed from within simulations. A simulation involves an algorithm (and possibly a model). The previous example denotes a simple sorting algorithm being applied to a certain model (an array in our case). Simulations are based on animations and are intented to help people easily explain and/or understand how algorithms work.
+The previous screenshot shows a **self-explanatory algorithm**. Such algorithms can be created in C++ or JavaScript, using the API provided by/for heftyAD. They can thereafter be executed from within simulations. A simulation involves an algorithm (and possibly a model). The previous example denotes a simple sorting algorithm being applied to a certain model (an array in our case). Simulations are based on animations and are intented to help people easily explain and/or understand how algorithms work. heftyAD also allows users to control simulations: pause, restart and stop.
+
+![simulation-picture-02](https://user.oc-static.com/upload/2017/06/03/14965045376599_img70.png)
 
 ## Contribute
 
